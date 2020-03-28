@@ -12,6 +12,7 @@ import org.redrune.core.network.codec.packet.decode.SimplePacketDecoder
 import org.redrune.core.network.connection.ConnectionPipeline
 import org.redrune.core.network.connection.ConnectionSettings
 import org.redrune.core.network.connection.server.NetworkServer
+import org.redrune.engine.script.ScriptLoader
 import org.redrune.network.rs.codec.NetworkEventHandler
 import org.redrune.network.rs.codec.game.GameCodec
 import org.redrune.network.rs.codec.login.LoginCodec
@@ -67,6 +68,7 @@ class GameServer(
             modules(cacheModule)
             fileProperties("/redrune.properties")
         }
+        ScriptLoader()
 
         val stopwatch = Stopwatch.createStarted()
         ServiceCodec.register()
