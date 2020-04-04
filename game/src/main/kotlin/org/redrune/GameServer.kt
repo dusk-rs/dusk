@@ -76,6 +76,8 @@ class GameServer(
     private fun preload() {
         startKoin {
             slf4jLogger()
+            modules(eventBusModule, cacheModule, fileLoaderModule, ymlPlayerModule/*, sqlPlayerModule*/)
+            slf4jLogger()
             modules(eventBusModule, cacheModule, fileLoaderModule, ymlPlayerModule/*, sqlPlayerModule*/, entityFactoryModule)
             fileProperties("/game.properties")
             fileProperties("/private.properties")
