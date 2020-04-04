@@ -12,8 +12,10 @@ import org.redrune.core.network.codec.packet.decode.SimplePacketDecoder
 import org.redrune.core.network.connection.ConnectionPipeline
 import org.redrune.core.network.connection.ConnectionSettings
 import org.redrune.core.network.connection.server.NetworkServer
-import org.redrune.core.tools.function.NetworkUtils
 import org.redrune.core.tools.function.NetworkUtils.Companion.loadCodecs
+import org.redrune.engine.data.file.fileLoaderModule
+import org.redrune.engine.data.file.ymlPlayerModule
+import org.redrune.engine.event.eventBusModule
 import org.redrune.engine.script.ScriptLoader
 import org.redrune.network.rs.codec.NetworkEventHandler
 import org.redrune.network.rs.codec.game.GameCodec
@@ -67,7 +69,7 @@ class GameServer(
     private fun preload() {
         startKoin {
             slf4jLogger()
-            modules(cacheModule)
+            modules(eventBusModule, cacheModule, fileLoaderModule, ymlPlayerModule/*, sqlPlayerModule*/)
             fileProperties("/game.properties")
             fileProperties("/rsa.properties")
         }
