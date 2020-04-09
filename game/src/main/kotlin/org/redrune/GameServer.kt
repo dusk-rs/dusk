@@ -12,13 +12,17 @@ import org.redrune.core.network.connection.ConnectionPipeline
 import org.redrune.core.network.connection.ConnectionSettings
 import org.redrune.core.network.connection.server.NetworkServer
 import org.redrune.core.tools.function.NetworkUtils.Companion.loadCodecs
+import org.redrune.engine.Startup
 import org.redrune.engine.data.file.fileLoaderModule
 import org.redrune.engine.data.file.ymlPlayerModule
+import org.redrune.engine.entity.factory.entityFactoryModule
+import org.redrune.engine.event.EventBus
 import org.redrune.engine.event.eventBusModule
 import org.redrune.engine.script.ScriptLoader
 import org.redrune.network.ServerNetworkEventHandler
 import org.redrune.network.rs.codec.service.ServiceCodec
 import org.redrune.network.rs.session.ServiceSession
+import org.redrune.utility.get
 import org.redrune.utility.getProperty
 import org.redrune.world.World
 import java.util.concurrent.TimeUnit.MILLISECONDS
@@ -68,7 +72,7 @@ class GameServer(
     private fun preload() {
         startKoin {
             slf4jLogger()
-            modules(eventBusModule, cacheModule, fileLoaderModule, ymlPlayerModule/*, sqlPlayerModule*/)
+            modules(eventBusModule, cacheModule, fileLoaderModule, ymlPlayerModule/*, sqlPlayerModule*/, entityFactoryModule)
             fileProperties("/game.properties")
             fileProperties("/private.properties")
         }
@@ -82,6 +86,9 @@ class GameServer(
     fun start() {
         preload()
         bind()
+
+        val bus: EventBus = get()
+        bus.emit(Startup())
 
         logger.info {
             val name = getProperty<String>("name")
