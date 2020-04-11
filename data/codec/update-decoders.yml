@@ -1,0 +1,33 @@
+decoders:
+  - id: 0
+    message: org.redrune.network.rs.codec.update.decode.UpdateRequestMessage
+    size: 3
+    args:
+      - type: Medium
+        signed: false
+  - id: 1
+    message: org.redrune.network.rs.codec.update.decode.UpdatePriorityRequestMessage
+    size: 3
+    args:
+      - type: Medium
+        signed: false
+  - id: 2
+    size: 3
+    message: org.redrune.network.rs.codec.update.decode.UpdateStatusLoginMessage
+    args:
+      - type: Medium
+  - id: 3
+    size: 3
+    message: org.redrune.network.rs.codec.update.decode.UpdateStatusLogoutMessage
+    args:
+      - type: Medium
+  - id: 6
+    size: 3
+    message: org.redrune.network.rs.codec.update.decode.UpdateConnectionMessage
+    args:
+      - type: Medium
+  - id: 7
+    size: 3
+    message: org.redrune.network.rs.codec.update.decode.UpdateDisconnectionMessage
+    args:
+      - type: Medium

@@ -1,4 +1,4 @@
-package org.redrune.network.rs.codec.login.decode.message
+package org.redrune.network.rs.codec.login.decode
 
 import org.redrune.core.network.model.message.Message
 

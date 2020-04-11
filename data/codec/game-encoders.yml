@@ -1,0 +1,8 @@
+encoders:
+  - message: org.redrune.network.rs.codec.game.encode.WorldListResponseMessage
+    size: -2
+    args:
+      - type: Opcode
+        value: 88
+      - name: "data"
+        type: Array

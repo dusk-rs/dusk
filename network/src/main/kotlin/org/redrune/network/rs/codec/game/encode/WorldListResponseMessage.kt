@@ -1,4 +1,4 @@
-package org.redrune.network.rs.codec.game.encode.message
+package org.redrune.network.rs.codec.game.encode
 
 import org.redrune.core.network.model.message.Message
 
@@ -6,4 +6,4 @@ import org.redrune.core.network.model.message.Message
  * @author Tyluur <contact@kiaira.tech>
  * @since February 22, 2020
  */
-data class WorldListResponseMessage(val full: Boolean) : Message
+data class WorldListResponseMessage(val data: ByteArray) : Message

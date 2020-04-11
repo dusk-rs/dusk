@@ -1,4 +1,4 @@
-package org.redrune.network.rs.codec.service.decode.message
+package org.redrune.network.rs.codec.login.encode
 
 import org.redrune.core.network.model.message.Message
 
@@ -6,4 +6,4 @@ import org.redrune.core.network.model.message.Message
  * @author Tyluur <contact@kiaira.tech>
  * @since February 18, 2020
  */
-data class UpdateHandshakeMessage(val major: Int) : Message
+data class LoginConnectionResponseMessage(val opcode: Int) : Message

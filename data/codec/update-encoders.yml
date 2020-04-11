@@ -1,0 +1,20 @@
+encoders:
+  - message: org.redrune.network.rs.codec.update.encode.UpdateRegistryResponse
+    args:
+      - name: "opcode"
+        type: Opcode
+      - type: Array
+  - message: org.redrune.network.rs.codec.update.encode.UpdateVersionMessage
+    args:
+      - name: "opcode"
+        type: Byte
+  - message: org.redrune.network.rs.codec.update.encode.UpdateVersionSuccessMessage
+    args:
+      - type: Byte
+        value: 0
+      - type: Array
+        value: [0, 0, 5, 82, 0, 1, 46, -120, 0, 0, -81, 80, 0, 0, -101, 91, 0, 0, 95, -13, 0, 5, -116, -104, 0, 0, -83, 87, 0, 0, 0, 0, 0, 0, 6, 78, 0, 0, 0, 0, 0, 0, 20, -36, 0, 2, 46, -128, 0, 11, 78, -40, 0, 2, -33, 44, 0, 5, 119, -106, 0, 6, 91, -36, 0, 12, -93, -89, 0, 0, 76, 61, 0, 0, 89, -77, 0, 0, 65, -127, 0, 0, 4, -36, 0, 0, 46, -56, 0, 0, 0, 10, 0, 0, 0, 15, 0, 0, 0, 119, 0, 12, 122, 13, 0, 24, -56, -77]
+  - message: org.redrune.network.rs.codec.update.encode.UpdateResponseMessage
+    args:
+      - name: "data"
+        type: Array

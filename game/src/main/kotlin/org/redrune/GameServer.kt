@@ -3,15 +3,18 @@ package org.redrune
 import com.github.michaelbull.logging.InlineLogger
 import com.google.common.base.Stopwatch
 import org.koin.core.context.startKoin
+import org.koin.core.qualifier.named
+import org.koin.logger.slf4jLogger
 import org.redrune.cache.cacheModule
-import org.redrune.core.network.codec.message.decode.OpcodeMessageDecoder
-import org.redrune.core.network.codec.message.encode.RawMessageEncoder
+import org.redrune.core.network.codec.Codec
+import org.redrune.core.network.codec.message.MessageDecoder
+import org.redrune.core.network.codec.message.MessageEncoder
 import org.redrune.core.network.codec.message.handle.NetworkMessageHandler
+import org.redrune.core.network.codec.packet.access.PacketBuilder
 import org.redrune.core.network.codec.packet.decode.SimplePacketDecoder
 import org.redrune.core.network.connection.ConnectionPipeline
 import org.redrune.core.network.connection.ConnectionSettings
 import org.redrune.core.network.connection.server.NetworkServer
-import org.redrune.core.tools.function.NetworkUtils.Companion.loadCodecs
 import org.redrune.engine.Startup
 import org.redrune.engine.data.file.fileLoaderModule
 import org.redrune.engine.data.file.ymlPlayerModule
@@ -20,7 +23,10 @@ import org.redrune.engine.event.EventBus
 import org.redrune.engine.event.eventBusModule
 import org.redrune.engine.script.ScriptLoader
 import org.redrune.network.ServerNetworkEventHandler
-import org.redrune.network.rs.codec.service.ServiceCodec
+import org.redrune.network.rs.codec.game.gameCodecModule
+import org.redrune.network.rs.codec.login.loginCodecModule
+import org.redrune.network.rs.codec.service.serviceCodecModule
+import org.redrune.network.rs.codec.update.updateCodecModule
 import org.redrune.network.rs.session.ServiceSession
 import org.redrune.utility.get
 import org.redrune.utility.getProperty
@@ -50,17 +56,20 @@ class GameServer(
      */
     var running = false
 
-    private fun bind() {
+    private fun bind(serviceCodec: Codec) {
         val port = getProperty<Int>("port")!!
         val settings = ConnectionSettings("localhost", port + world.id)
         val server = NetworkServer(settings)
         val pipeline = ConnectionPipeline {
-            it.addLast("packet.decoder", SimplePacketDecoder(ServiceCodec))
-            it.addLast("message.decoder", OpcodeMessageDecoder(ServiceCodec))
-            it.addLast("message.handler", NetworkMessageHandler(ServiceCodec,
-                ServerNetworkEventHandler(ServiceSession(it.channel()))
-            ))
-            it.addLast("message.encoder", RawMessageEncoder(ServiceCodec))
+            it.addLast("packet.decoder", SimplePacketDecoder(serviceCodec))
+            it.addLast("message.decoder", MessageDecoder(serviceCodec))
+            it.addLast(
+                "message.handler", NetworkMessageHandler(
+                    serviceCodec,
+                    ServerNetworkEventHandler(ServiceSession(it.channel()))
+                )
+            )
+            it.addLast("message.encoder", MessageEncoder(serviceCodec, PacketBuilder()))
         }
         server.configure(pipeline)
         server.start()
@@ -72,12 +81,21 @@ class GameServer(
     private fun preload() {
         startKoin {
             slf4jLogger()
-            modules(eventBusModule, cacheModule, fileLoaderModule, ymlPlayerModule/*, sqlPlayerModule*/, entityFactoryModule)
+            modules(
+                eventBusModule,
+                cacheModule,
+                fileLoaderModule,
+                ymlPlayerModule/*, sqlPlayerModule*/,
+                entityFactoryModule,
+                gameCodecModule,
+                loginCodecModule,
+                serviceCodecModule,
+                updateCodecModule
+            )
             fileProperties("/game.properties")
             fileProperties("/private.properties")
         }
         ScriptLoader()
-
     }
 
     /**
@@ -85,7 +103,7 @@ class GameServer(
      */
     fun start() {
         preload()
-        bind()
+        bind(get(named("serviceCodec")))
 
         val bus: EventBus = get()
         bus.emit(Startup())

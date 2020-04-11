@@ -1,0 +1,9 @@
+decoders:
+  - id: 14
+    message: org.redrune.network.rs.codec.service.decode.GameConnectionHandshakeMessage
+    size: 0
+  - id: 15
+    message: org.redrune.network.rs.codec.service.decode.UpdateHandshakeMessage
+    size: 0
+    args:
+      - type: Int

@@ -1,0 +1,6 @@
+decoders:
+  - id: 34
+    message: org.redrune.network.rs.codec.game.decode.WorldListRefreshMessage
+    size: 4
+    args:
+      - type: Int

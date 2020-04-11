@@ -1,0 +1,6 @@
+decoders:
+  - id: 19
+    message: org.redrune.network.rs.codec.login.decode.LobbyLoginMessageWrapper
+    size: -2
+    args:
+      - type: All

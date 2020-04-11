@@ -1,46 +1,28 @@
 package org.redrune.network.rs.codec.update
 
-import com.github.michaelbull.logging.InlineLogger
-import org.redrune.core.network.codec.Codec
-import org.redrune.core.network.codec.message.MessageDecoder
-import org.redrune.core.network.codec.message.MessageEncoder
-import org.redrune.core.network.codec.message.MessageHandler
-import org.redrune.core.network.model.message.Message
-import org.redrune.network.rs.codec.update.UpdateMessageDecoder
-import org.redrune.network.rs.codec.update.UpdateMessageEncoder
-import org.redrune.network.rs.codec.update.UpdateMessageHandler
+import org.koin.core.qualifier.named
+import org.koin.dsl.module
+import org.redrune.core.network.codec.buildCodec
+import org.redrune.core.network.codec.config.DecoderConfig
+import org.redrune.core.network.codec.config.EncoderConfig
+import org.redrune.network.rs.codec.update.handle.UpdateConnectionMessageHandler
+import org.redrune.network.rs.codec.update.handle.UpdateDisconnectionMessageHandler
+import org.redrune.network.rs.codec.update.handle.UpdateLoginStatusHandler
+import org.redrune.network.rs.codec.update.handle.UpdateRequestMessageHandler
 
 /**
  * @author Tyluur <contact@kiaira.tech>
  * @since February 18, 2020
  */
-object UpdateCodec : Codec() {
-
-    private val logger = InlineLogger()
-
-    override fun register() {
-        bindDecoders<UpdateMessageDecoder<*>>()
-        bindHandlers<UpdateMessageHandler<*>>()
-        bindEncoders<UpdateMessageEncoder<*>>()
-//        report(logger)
+val updateCodecModule = module {
+    single(named("updateCodec"), createdAtStart = true) {
+        buildCodec {
+            setDecoders(DecoderConfig.load("./data/codec/update-decoders.yml"))
+            setEncoders(EncoderConfig.load("./data/codec/update-encoders.yml"))
+            bind(UpdateConnectionMessageHandler())
+            bind(UpdateDisconnectionMessageHandler())
+            bind(UpdateLoginStatusHandler())
+            bind(UpdateRequestMessageHandler())
+        }
     }
-
 }
-
-/**
- * @author Tyluur <contact@kiaira.tech>
- * @since February 18, 2020
- */
-abstract class UpdateMessageDecoder<M : Message> : MessageDecoder<M>()
-
-/**
- * @author Tyluur <contact@kiaira.tech>
- * @since February 18, 2020
-*/
-abstract class UpdateMessageEncoder<M: Message> : MessageEncoder<M>()
-
-/**
- * @author Tyluur <contact@kiaira.tech>
- * @since February 18, 2020
- */
-abstract class UpdateMessageHandler<M: Message> : MessageHandler<M>()

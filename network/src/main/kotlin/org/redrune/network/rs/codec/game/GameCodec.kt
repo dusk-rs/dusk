@@ -1,39 +1,23 @@
 package org.redrune.network.rs.codec.game
 
-import com.github.michaelbull.logging.InlineLogger
-import org.redrune.core.network.codec.Codec
-import org.redrune.core.network.codec.message.MessageDecoder
-import org.redrune.core.network.codec.message.MessageEncoder
-import org.redrune.core.network.codec.message.MessageHandler
-import org.redrune.core.network.model.message.Message
+import org.koin.core.qualifier.named
+import org.koin.dsl.module
+import org.redrune.core.network.codec.buildCodec
+import org.redrune.core.network.codec.config.DecoderConfig
+import org.redrune.core.network.codec.config.EncoderConfig
+import org.redrune.network.rs.codec.game.handle.WorldListRefreshMessageHandler
 
 /**
+ * @author Greg Hibberd <greg@greghibberd.com>
  * @author Tyluur <contact@kiaira.tech>
  * @since February 18, 2020
  */
-object GameCodec : Codec() {
-
-    override fun register() {
-        bindDecoders<GameMessageDecoder<*>>()
-        bindHandlers<GameMessageHandler<*>>()
-        bindEncoders<GameMessageEncoder<*>>()
+val gameCodecModule = module {
+    single(named("gameCodec"), createdAtStart = true) {
+        buildCodec {
+            setDecoders(DecoderConfig.load("./data/codec/game-decoders.yml"))
+            setEncoders(EncoderConfig.load("./data/codec/game-encoders.yml"))
+            bind(WorldListRefreshMessageHandler())
+        }
     }
 }
-
-/**
- * @author Tyluur <contact@kiaira.tech>
- * @since February 18, 2020
- */
-abstract class GameMessageEncoder<M : Message> : MessageEncoder<M>()
-
-/**
- * @author Tyluur <contact@kiaira.tech>
- * @since February 18, 2020
- */
-abstract class GameMessageDecoder<M : Message> : MessageDecoder<M>()
-
-/**
- * @author Tyluur <contact@kiaira.tech>
- * @since February 18, 2020
- */
-abstract class GameMessageHandler<M : Message> : MessageHandler<M>()

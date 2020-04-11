@@ -1,0 +1,69 @@
+encoders:
+  - message: org.redrune.network.rs.codec.login.encode.LoginConnectionResponseMessage
+    size: 1
+    args:
+      - name: "opcode"
+        type: Byte
+  - message: org.redrune.network.rs.codec.login.encode.LobbyConfigurationMessage
+    size: -1
+    args:
+      - type: Opcode
+        value: 2
+      - name: "marks"
+        type: Byte
+        value: 0
+      - name: "muted"
+        type: Boolean
+        value: false
+      - type: Byte
+        value: 0
+      - type: Byte
+        value: 0
+      - type: Byte
+        value: 0
+      - name: "lastLogin"
+        type: Long
+      - type: Byte
+        value: 0
+      - type: Int
+        value: 0
+      - type: Byte
+        value: 2
+      - type: Int
+        value: 0
+      - type: Short
+        value: 1
+      - type: Short
+        value: 0
+      - type: Short
+        value: 0
+      - type: Int
+        value: 0
+      - type: Byte
+        value: 3
+      - type: Short
+        value: 0
+      - type: Short
+        value: 0
+      - type: Byte
+        value: 1
+      - type: Byte
+        value: 0
+      - name: "username"
+        type: String
+      - type: Byte
+        value: 0
+      - type: Byte
+        value: 0
+      - type: Int
+        value: 1
+      - type: Byte
+        value: 1
+      - type: Short
+        value: 0
+      - type: Byte
+        value: 0
+      - type: String
+        value: "127.0.0.1"
+      - type: Byte
+        value: 0

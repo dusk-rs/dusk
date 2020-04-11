@@ -2,17 +2,17 @@ package org.redrune.network.rs.codec.update.handle
 
 import com.github.michaelbull.logging.InlineLogger
 import io.netty.channel.ChannelHandlerContext
+import org.redrune.core.network.codec.message.MessageHandler
 import org.redrune.core.network.model.session.getSession
-import org.redrune.network.rs.codec.update.decode.message.UpdateConnectionMessage
-import org.redrune.network.rs.codec.update.encode.message.UpdateRegistryResponse
-import org.redrune.network.rs.codec.update.UpdateMessageHandler
+import org.redrune.network.rs.codec.update.decode.UpdateConnectionMessage
+import org.redrune.network.rs.codec.update.encode.UpdateRegistryResponse
 import org.redrune.utility.constants.network.LoginResponseCodes
 
 /**
  * @author Tyluur <contact@kiaira.tech>
  * @since February 18, 2020
  */
-class UpdateConnectionMessageHandler : UpdateMessageHandler<UpdateConnectionMessage>() {
+class UpdateConnectionMessageHandler : MessageHandler<UpdateConnectionMessage>() {
 
     private val logger = InlineLogger()
 

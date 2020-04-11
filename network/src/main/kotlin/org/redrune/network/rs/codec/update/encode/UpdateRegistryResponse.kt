@@ -1,4 +1,4 @@
-package org.redrune.network.rs.codec.update.encode.message
+package org.redrune.network.rs.codec.update.encode
 
 import org.redrune.core.network.model.message.Message
 import org.redrune.utility.constants.network.LoginResponseCodes
