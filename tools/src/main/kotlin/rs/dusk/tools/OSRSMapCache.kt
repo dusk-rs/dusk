@@ -7,32 +7,38 @@ import rs.dusk.core.network.codec.packet.access.PacketReader
  * @author Greg Hibberd <greg@greghibberd.com>
  * @since April 04, 2020
  */
-object OSRSCache {
+object OSRSMapCache {
     @JvmStatic
     fun main(args: Array<String>) {
         val rs2 = CacheLibrary("C:\\Users\\Greg\\Documents\\hestia-bundle\\data\\cache\\")
         val osrs = CacheLibrary("C:\\Users\\Greg\\Downloads\\osrs-189\\cache\\")
 
-        val rs2Models = rs2.index(7)
-        println(rs2Models.archive(0)?.files?.size)
-
         println(osrs.index(5).archives().size)
-        val regionId = 9008
+        val regionId = 7228
         val regionX = regionId shr 8
         val regionY = regionId and 0xff
         println("$regionX $regionY")
         val xteas = intArrayOf(
-            -1890777568,
-            -82183688,
-            -453894709,
-            1631727865
+            1381400510,
+            78063482,
+            -1605339953,
+            1935428509
         )
-        val str = "m${regionX}_${regionY}"
-        val archive = rs2.index(5).archiveId(str)
-        println(archive)
-        val data = osrs.data(5, str)!!
+        val rs2Xteas = intArrayOf(
+            0,
+            0,
+            0,
+            0
+        )
         println("Start")
-        rs2.put(5, str, data)
+        val map = "m${regionX}_${regionY}"
+        val mapData = osrs.data(5, map)!!
+        rs2.put(5, map, mapData)
+        val loc = "l${regionX}_${regionY}"
+//        println(rs2.index(5).archiveId(map))
+//        println(rs2.index(5).archiveId(loc))
+        val locData = osrs.data(5, loc, xtea = xteas)!!
+        rs2.put(5, loc, locData, xtea = rs2Xteas)
         rs2.update()
         println("Complete")
 //        osrs.index(7).archives().forEach { archive ->

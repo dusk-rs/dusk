@@ -21,11 +21,10 @@ class OSRSObjectDecoder(val lowDetail: Boolean) : ConfigDecoder<ObjectDefinition
                     if (modelIds != null && !lowDetail) {
                         buffer.buffer.position(buffer.buffer.position() + length * 3)
                     } else {
-                        val modelIds = arrayOfNulls<IntArray>(1)
-                        modelIds[0] = IntArray(length)
+                        val modelIds = arrayOfNulls<IntArray>(length)
                         modelTypes = ByteArray(length)
                         repeat(length) { index ->
-                            modelIds[0]!![index] = buffer.readUnsignedShort()
+                            modelIds[index] = intArrayOf(buffer.readUnsignedShort())
                             modelTypes!![index] = buffer.readUnsignedByte().toByte()
                         }
                         this.modelIds = modelIds.filterNotNull().toTypedArray()
@@ -39,14 +38,12 @@ class OSRSObjectDecoder(val lowDetail: Boolean) : ConfigDecoder<ObjectDefinition
                     if (modelIds != null && !lowDetail) {
                         buffer.buffer.position(buffer.buffer.position() + length * 2)
                     } else {
-                        val modelIds = arrayOfNulls<IntArray>(1)
-                        modelIds[0] = IntArray(length)
+                        val modelIds = arrayOfNulls<IntArray>(length)
                         modelTypes = ByteArray(length)
                         repeat(length) { index ->
-                            modelIds[0]!![index] = buffer.readUnsignedShort()
+                            modelIds[index] = intArrayOf(buffer.readUnsignedShort())
                         }
                         this.modelIds = modelIds.filterNotNull().toTypedArray()
-
                     }
                 }
             }

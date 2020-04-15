@@ -18,9 +18,13 @@ val cacheModule = module {
  */
 class CacheDelegate(directory: String, exponent: BigInteger, modulus: BigInteger) : Cache {
 
-    private val delegate = CacheLibrary(directory)
+    val delegate = CacheLibrary(directory)
 
-    constructor(directory: String, exponent: String, modulus: String) : this(directory, BigInteger(exponent, 16), BigInteger(modulus, 16))
+    constructor(directory: String, exponent: String = "0", modulus: String = "1") : this(
+        directory,
+        BigInteger(exponent, 16),
+        BigInteger(modulus, 16)
+    )
 
     private val logger = InlineLogger()
 

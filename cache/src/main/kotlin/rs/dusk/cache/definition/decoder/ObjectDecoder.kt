@@ -9,7 +9,8 @@ import rs.dusk.core.io.read.Reader
  * @author Greg Hibberd <greg@greghibberd.com>
  * @since April 08, 2020
  */
-class ObjectDecoder(val member: Boolean, val lowDetail: Boolean) : DefinitionDecoder<ObjectDefinition>(OBJECTS) {
+class ObjectDecoder(val member: Boolean = true, val lowDetail: Boolean = false) :
+    DefinitionDecoder<ObjectDefinition>(OBJECTS) {
 
     override fun create() = ObjectDefinition()
 
@@ -31,7 +32,7 @@ class ObjectDecoder(val member: Boolean, val lowDetail: Boolean) : DefinitionDec
                     val size = buffer.readUnsignedByte()
                     modelIds[count] = IntArray(size)
                     repeat(size) { index ->
-                        modelIds[count]!![index] = buffer.readShort()
+                        modelIds[count]!![index] = buffer.readUnsignedShort()
                     }
                 }
                 this.modelIds = modelIds.filterNotNull().toTypedArray()
@@ -120,7 +121,7 @@ class ObjectDecoder(val member: Boolean, val lowDetail: Boolean) : DefinitionDec
                 }
             }
             81 -> {
-                contouredGround = 2.toByte()
+                contouredGround = 2
                 anInt3023 = buffer.readUnsignedByte() * 256
             }
             82 -> aBoolean2990 = true
