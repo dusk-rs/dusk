@@ -5,6 +5,10 @@ import org.koin.core.context.startKoin
 import org.koin.dsl.module
 import rs.dusk.cache.Cache
 import rs.dusk.cache.CacheDelegate
+import rs.dusk.cache.Indices.ITEMS
+import rs.dusk.cache.definition.decoder.ItemDecoder
+import rs.dusk.cache.definition.encoder.ItemEncoder
+import rs.dusk.core.io.write.BufferWriter
 
 /**
  * @author Greg Hibberd <greg@greghibberd.com>
@@ -33,8 +37,8 @@ object OSRSItemCache {
 
 //        koin.unloadModules(listOf(osrsModule))
 //        koin.loadModules(listOf(rs2Module))
-//        val encoder = ObjectEncoder()
-//        val rs2Decoder = ObjectDecoder(true, false)
+        val encoder = ItemEncoder()
+        val rs2Decoder = ItemDecoder()
         repeat(osrsDecoder.size) { id ->
 //            val obj = rs2Decoder.get(id) ?: return@repeat
             val osrs = osrsDefs[id] ?: return@repeat
@@ -44,16 +48,16 @@ object OSRSItemCache {
 //            println("${Arrays.deepToString(obj.modelIds)} ${Arrays.deepToString(osrs.modelIds)}")
 //            println("${Arrays.toString(obj.modelTypes)} ${Arrays.toString(osrs.modelTypes)}")
 
-//            println(id)
-//            val writer = BufferWriter()
-//            with(encoder) {
-//                writer.encode(osrs)
-//            }
+            println(id)
+            val writer = BufferWriter()
+            with(encoder) {
+                writer.encode(osrs)
+            }
 
-//            val array = writer.buffer.toByteArray()
-//            rs2.delegate.put(Indices.OBJECTS, rs2Decoder.getArchive(id), rs2Decoder.getFile(id), array)
+            val array = writer.buffer.toByteArray()
+            rs2.delegate.put(ITEMS, rs2Decoder.getArchive(id), rs2Decoder.getFile(id), array)
         }
-//        rs2.delegate.update()
+        rs2.delegate.update()
     }
 
     fun ByteBuf.toByteArray(): ByteArray {

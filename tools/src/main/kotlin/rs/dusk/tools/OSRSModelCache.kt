@@ -13,9 +13,6 @@ object OSRSModelCache {
         val osrs = CacheLibrary("C:\\Users\\Greg\\Downloads\\osrs-189\\cache\\")
 
         osrs.index(7).archiveIds().forEach { archive ->
-            if (archive != 1362) {
-                return@forEach
-            }
             val data = osrs.data(7, archive, 0) ?: return@forEach
             rs2.put(7, archive, 0, data)
             println(archive)
