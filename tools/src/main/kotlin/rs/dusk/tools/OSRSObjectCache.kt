@@ -3,6 +3,7 @@ package rs.dusk.tools
 import io.netty.buffer.ByteBuf
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
+import rs.dusk.cache.Cache
 import rs.dusk.cache.CacheDelegate
 import rs.dusk.cache.definition.decoder.ObjectDecoder
 import rs.dusk.cache.definition.encoder.ObjectEncoder
@@ -11,16 +12,17 @@ import rs.dusk.cache.definition.encoder.ObjectEncoder
  * @author Greg Hibberd <greg@greghibberd.com>
  * @since April 04, 2020
  */
+@Suppress("USELESS_CAST")
 object OSRSObjectCache {
     @JvmStatic
     fun main(args: Array<String>) {
         val koin = startKoin { }.koin
         val rs2 = CacheDelegate("C:\\Users\\Greg\\Documents\\hestia-bundle\\data\\cache\\")
         val rs2Module = module {
-            single { rs2 }
+            single { rs2 as Cache }
         }
         val osrsModule = module {
-            single { CacheDelegate("C:\\Users\\Greg\\Downloads\\osrs-189\\cache\\") }
+            single { CacheDelegate("C:\\Users\\Greg\\Downloads\\osrs-189\\cache\\") as Cache }
         }
 
         koin.loadModules(listOf(osrsModule))
