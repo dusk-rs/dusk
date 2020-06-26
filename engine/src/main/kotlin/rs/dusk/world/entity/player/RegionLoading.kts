@@ -1,6 +1,7 @@
 import rs.dusk.engine.client.session.send
 import rs.dusk.engine.client.verify.verify
 import rs.dusk.engine.event.EventBus
+import rs.dusk.engine.event.entity.character.player.PlayerLoadedEvent
 import rs.dusk.engine.event.then
 import rs.dusk.engine.event.where
 import rs.dusk.engine.model.entity.Deregistered

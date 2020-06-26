@@ -20,10 +20,10 @@ class GameLoginMessageDecoder : LoginMessageDecoder<GameLoginMessage>() {
         val isaacKeys = triple.third!!
         val username = packet.readString()
         packet.readUnsignedByte()// social login
-        val displayMode = packet.readUnsignedByte()
+        val mode = packet.readUnsignedByte()
         val screenWidth = packet.readUnsignedShort()
         val screenHeight = packet.readUnsignedShort()
-        val antialiasLevel = packet.readUnsignedByte()
+        val displayMode = packet.readUnsignedByte()
         packet.skip(24)// graphics preferences
         val settings = packet.readString()
         val affiliateId = packet.readInt()
@@ -68,10 +68,10 @@ class GameLoginMessageDecoder : LoginMessageDecoder<GameLoginMessage>() {
             username,
             password,
             isaacKeys,
-            displayMode,
+            mode,
             screenWidth,
             screenHeight,
-            antialiasLevel,
+            displayMode,
             settings,
             affiliateId,
             sessionId,

@@ -14,7 +14,7 @@ data class GameLoginMessage(
     val mode: Int,
     val width: Int,
     val height: Int,
-    val antialias: Int,
+    val displayMode: Int,
     val settings: String,
     val affiliate: Int,
     val session: Int,

@@ -6,6 +6,8 @@ import rs.dusk.engine.model.entity.index.Character
 import rs.dusk.engine.model.entity.index.LocalChange
 import rs.dusk.engine.model.entity.index.Movement
 import rs.dusk.engine.model.entity.index.contain.Container
+import rs.dusk.engine.model.entity.index.player.data.ClientSettings
+import rs.dusk.engine.model.entity.index.player.data.interfaces.InterfaceRepository
 import rs.dusk.engine.model.entity.index.update.Visuals
 import rs.dusk.engine.model.entity.index.update.visual.player.getAppearance
 import rs.dusk.engine.model.world.Tile
@@ -32,6 +34,10 @@ data class Player(
 
     @Transient
     var changeValue: Int = -1
+
+    val interfaces = InterfaceRepository()
+
+    lateinit var clientSettings: ClientSettings
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

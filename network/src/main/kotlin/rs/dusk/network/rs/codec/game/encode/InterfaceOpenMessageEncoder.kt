@@ -18,7 +18,7 @@ class InterfaceOpenMessageEncoder : GameMessageEncoder<InterfaceOpenMessage>() {
         builder.apply {
             writeOpcode(INTERFACE_OPEN, FIXED)
             writeShort(interfaceId, type = ADD, order = LITTLE)
-            writeInt((windowId shl 16 or windowComponentId), order = LITTLE)
+            writeInt((parentId shl 16 or index), order = LITTLE)
             writeByte(if (walkable) 1 else 0)
         }
 

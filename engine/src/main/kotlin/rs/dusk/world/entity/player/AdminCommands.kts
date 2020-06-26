@@ -1,4 +1,6 @@
 import kotlinx.coroutines.runBlocking
+import rs.dusk.engine.client.session.ClientSessions
+import rs.dusk.engine.client.session.Sessions
 import rs.dusk.engine.event.EventBus
 import rs.dusk.engine.event.then
 import rs.dusk.engine.event.where
@@ -8,7 +10,10 @@ import rs.dusk.engine.model.entity.factory.NPCFactory
 import rs.dusk.engine.model.entity.factory.PlayerFactory
 import rs.dusk.engine.model.entity.index.player.PlayerRegistered
 import rs.dusk.engine.model.entity.index.player.command.Command
+import rs.dusk.engine.model.entity.index.player.logic.interfaces.InterfaceSystem
 import rs.dusk.engine.model.entity.index.update.visual.player.tele
+import rs.dusk.network.rs.codec.game.encode.message.InterfaceOpenMessage
+import rs.dusk.network.rs.session.GameSession
 import rs.dusk.utility.inject
 import java.util.concurrent.atomic.AtomicInteger
 
@@ -31,12 +36,14 @@ Command where { prefix == "tele" || prefix == "tp" } then {
 
 Command where { prefix == "npc" } then {
     val id = content.toIntOrNull() ?: 1
-    println("""
+    println(
+        """
         - id: $id
           x: ${player.tile.x}
           y: ${player.tile.y}
           plane: ${player.tile.plane}
-    """.trimIndent())
+    """.trimIndent()
+    )
     val npc = npcFactory.spawn(id, player.tile.x, player.tile.y, player.tile.plane, Direction.NORTH)
 //    npc?.movement?.frozen = true
 }
@@ -49,4 +56,16 @@ Command where { prefix == "bot" } then {
         bus.emit(PlayerRegistered(bot))
         bus.emit(Registered(bot))
     }
+}
+
+Command where { prefix == "kick" } then {
+    val sessions: Sessions by inject()
+    val session = sessions.get(player) ?: throw IllegalStateException("No session existed")
+    session.disconnect()
+}
+
+Command where { prefix == "kick" } then {
+    val sessions: Sessions by inject()
+    val session = sessions.get(player) ?: throw IllegalStateException("No session existed")
+    session.disconnect()
 }
