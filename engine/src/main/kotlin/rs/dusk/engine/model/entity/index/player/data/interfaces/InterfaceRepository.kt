@@ -1,6 +1,6 @@
 package rs.dusk.engine.model.entity.index.player.data.interfaces
 
-import com.google.common.graph.GraphBuilder
+import com.scalified.tree.multinode.ArrayMultiTreeNode
 
 /**
  * @author Tyluur <contact@kiaira.tech>
@@ -9,80 +9,46 @@ import com.google.common.graph.GraphBuilder
 @Suppress("UnstableApiUsage")
 class InterfaceRepository {
 
-    private val interfaces = GraphBuilder.directed().build<InterfaceDisplayed>()
+    /**
+     * The topmost node
+     */
+    private var parentNode: ArrayMultiTreeNode<Int>? = null
 
     /**
      * Adds an interface to the head of the tree
      */
-    fun addTopInterface(interfaceId: Int, index: Int): Boolean = with(interfaces) {
-        // remove entire collection if exists
-        if (interfaces.nodes().isNotEmpty()) {
-            clear()
-        }
-        return addNode(InterfaceDisplayed(interfaceId, index))
-    }
-
-    fun addInterface(parentId: Int? = null, interfaceId: Int, index: Int): Boolean = with(interfaces) {
-        // no parent, top-most node
-        val parent = getParentInterface(parentId ?: interfaceId)
-        return if (parent == null || parentId == null) {
-            addNode(InterfaceDisplayed(interfaceId, index))
+    fun storeWindow(interfaceId: Int) {
+        // the collection is either empty and a topmost node can simply be added, or the current topmost node's value must be swapped with the new node
+        if (parentNode == null) {
+            parentNode = ArrayMultiTreeNode(interfaceId)
         } else {
-            putEdge(parent, InterfaceDisplayed(interfaceId, index))
+            parentNode!!.setData(interfaceId)
         }
     }
 
     /**
-     * Finds the parent [interface][InterfaceDisplayed]
-     * @param interfaceId The id of the interface we wish to find a parent of
+     * Add an interface to the [collection of interfaces][interfaces]
+     * @param parentId The parent interface id, if this is null then it must be a root node. If an attempt
      */
-    fun getParentInterface(interfaceId: Int): InterfaceDisplayed? = with(interfaces) {
-        val interfaceNode = getInterfaceNode(interfaceId)
-            ?: throw IllegalStateException("Unable to find the node to which the interface belongs [interfaceId=$interfaceId]")
-
-        val parents = predecessors(interfaceNode)
-        if (parents == null || parents.isEmpty()) {
-            return null
+    fun storeInterface(parentId: Int? = null, interfaceId: Int) {
+        if (parentNode == null) {
+            throw IllegalStateException("Unable to store an interface in the collection - there is no parent node yet [fix: the window must be drawn before interfaces are sent]")
         }
-        return parents.first()
-    }
-
-    fun getChildInterfaces(interfaceId: Int): MutableSet<InterfaceDisplayed>? = with(interfaces) {
-        val interfaceNode = getInterfaceNode(interfaceId)
-            ?: throw IllegalStateException("Unable to find the node to which the interface belongs [interfaceId=$interfaceId]")
-        val children = successors(interfaceNode)
-        if (children == null || children.isEmpty()) {
-            return mutableSetOf()
+        // store the interface as a child of the parent
+        if (parentId == null) {
+            parentNode!!.add(ArrayMultiTreeNode(interfaceId))
+        } else {
+            val parentNode = parentNode!!.find(parentId)
+                ?: throw IllegalStateException("Unable to find the parent node of an interface")
+            parentNode.add(ArrayMultiTreeNode(interfaceId))
         }
-        return children
-    }
-
-    fun getInterfaceNode(interfaceId: Int): InterfaceDisplayed? = with(interfaces) {
-        var interfaceNode: InterfaceDisplayed? = null
-        for (node in nodes()) {
-            if (node.interfaceId == interfaceId) {
-                interfaceNode = node
-                break
-            }
-        }
-        return interfaceNode
     }
 
     /**
-     * Gets the window, which is the topmost interface
+     * Get the interface id of the topmost window
      */
-    fun getWindow(): InterfaceDisplayed? = with(interfaces) {
-        return if (nodes().isEmpty()) {
-            null
-        } else {
-            nodes().first()
-        }
-    }
-
-    fun clear() = with(interfaces) {
-        nodes().forEach { node ->
-            removeNode(node)
-        }
+    fun getWindowInterfaceId(): Int {
+        return if (parentNode != null) parentNode!!.data() else throw IllegalStateException("Unable to get topmost node data - it did not exist")
     }
 
 }

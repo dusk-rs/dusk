@@ -61,6 +61,8 @@ allprojects {
         implementation("ch.qos.logback:logback-classic:1.2.3")
 
         //Utilities
+        // compile 'com.scalified:tree:0.2.5'
+        implementation("com.scalified:tree:0.2.5")
         implementation("com.google.guava:guava:29.0-jre")
         implementation("org.apache.commons:commons-lang3:3.10")
         implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")

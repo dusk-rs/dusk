@@ -79,24 +79,6 @@ enum class GameFrameComponent(
     QUEST_JOURNALS(207, 93, QuestJournals),
     STATS(206, 92, Stats),
     TASK_SYSTEM(205, 91, TaskSystem),
-    WORN_EQUIPMENT(209, 95, WornEquipment),
+    WORN_EQUIPMENT(209, 95, WornEquipment)
 
-    // Overlays
-    AREA(15, 15, AreaStatusIcon),
-    OVERLAY(9, 12),
-    SKILL_CREATION(4, 4);
-
-    companion object {
-
-        fun getComponentId(interfaceId: Int, resizable: Boolean) : Int? {
-            for (component in values()) {
-                for (componentInterfaceId in component.interfaceIds) {
-                    if (componentInterfaceId == interfaceId) {
-                        return (if (resizable) component.resizableIndex else component.fixedIndex)
-                    }
-                }
-            }
-            return null
-        }
-    }
 }

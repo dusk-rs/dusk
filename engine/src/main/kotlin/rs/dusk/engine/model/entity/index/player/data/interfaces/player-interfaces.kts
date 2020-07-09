@@ -6,8 +6,11 @@ import rs.dusk.utility.inject
 
 val interfaceSystem: InterfaceSystem by inject()
 
+/**
+ * Send the default interfaces to the player
+ */
 on<PlayerLoadedEvent> {
     then {
-        interfaceSystem.login(player)
+        interfaceSystem.sendGameFrame(player)
     }
 }
