@@ -1,5 +1,4 @@
 import kotlinx.coroutines.runBlocking
-import rs.dusk.engine.client.session.ClientSessions
 import rs.dusk.engine.client.session.Sessions
 import rs.dusk.engine.event.EventBus
 import rs.dusk.engine.event.then
@@ -10,10 +9,7 @@ import rs.dusk.engine.model.entity.factory.NPCFactory
 import rs.dusk.engine.model.entity.factory.PlayerFactory
 import rs.dusk.engine.model.entity.index.player.PlayerRegistered
 import rs.dusk.engine.model.entity.index.player.command.Command
-import rs.dusk.engine.model.entity.index.player.logic.interfaces.InterfaceSystem
 import rs.dusk.engine.model.entity.index.update.visual.player.tele
-import rs.dusk.network.rs.codec.game.encode.message.InterfaceOpenMessage
-import rs.dusk.network.rs.session.GameSession
 import rs.dusk.utility.inject
 import java.util.concurrent.atomic.AtomicInteger
 

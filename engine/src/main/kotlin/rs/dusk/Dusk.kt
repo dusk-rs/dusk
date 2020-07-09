@@ -14,7 +14,7 @@ import rs.dusk.engine.data.file.ymlPlayerModule
 import rs.dusk.engine.data.playerLoaderModule
 import rs.dusk.engine.event.eventBusModule
 import rs.dusk.engine.model.entity.factory.entityFactoryModule
-import rs.dusk.engine.model.entity.index.player.logic.interfaces.interfaceSystemModule
+import rs.dusk.engine.model.entity.index.player.logic.interfaceSystemModule
 import rs.dusk.engine.model.entity.index.update.visualUpdatingModule
 import rs.dusk.engine.model.entity.list.entityListModule
 import rs.dusk.engine.model.world.map.collision.collisionModule

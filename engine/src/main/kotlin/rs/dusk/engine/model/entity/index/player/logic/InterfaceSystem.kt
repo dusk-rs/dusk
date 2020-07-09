@@ -1,4 +1,4 @@
-package rs.dusk.engine.model.entity.index.player.logic.interfaces
+package rs.dusk.engine.model.entity.index.player.logic
 
 import org.koin.dsl.module
 import rs.dusk.engine.client.session.send
