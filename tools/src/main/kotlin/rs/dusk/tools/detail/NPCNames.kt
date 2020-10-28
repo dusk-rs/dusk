@@ -10,7 +10,7 @@ import rs.dusk.engine.data.file.fileLoaderModule
 /**
  * Dumps unique string identifiers for NPCs using formatted npc definition name plus index for duplicates
  */
-private class NPCNames(val decoder: NPCDecoder) : NameDumper() {
+internal class NPCNames(val decoder: NPCDecoder) : NameDumper() {
 
     companion object {
         @JvmStatic
