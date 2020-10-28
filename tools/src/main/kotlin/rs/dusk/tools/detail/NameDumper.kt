@@ -23,7 +23,7 @@ abstract class NameDumper {
         println("${unique.size} $name identifiers dumped to $path.")
     }
 
-    private fun getNamedEntities(count: Int): MutableMap<String, MutableList<Int>> {
+    internal fun getNamedEntities(count: Int): MutableMap<String, MutableList<Int>> {
         val map = mutableMapOf<String, MutableList<Int>>()
         repeat(count) { id ->
             val name = createName(id) ?: return@repeat
@@ -35,7 +35,7 @@ abstract class NameDumper {
         return map
     }
 
-    private fun getUniqueList(map: MutableMap<String, MutableList<Int>>): MutableMap<String, Map<String, Any>> {
+    internal fun getUniqueList(map: MutableMap<String, MutableList<Int>>): MutableMap<String, Map<String, Any>> {
         val unique = mutableMapOf<String, Map<String, Any>>()
         map.forEach { (name, list) ->
             if (list.size > 1) {
