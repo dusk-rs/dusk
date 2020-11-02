@@ -1,6 +1,9 @@
 import rs.dusk.engine.client.send
 import rs.dusk.engine.client.ui.detail.InterfaceDetails
 import rs.dusk.engine.client.ui.menu.InterfaceOptionSettings.getHash
+import rs.dusk.engine.client.variable.IntVariable
+import rs.dusk.engine.client.variable.Variable
+import rs.dusk.engine.client.variable.setVar
 import rs.dusk.engine.entity.character.player.Player
 import rs.dusk.engine.entity.character.player.chat.ChatType
 import rs.dusk.engine.entity.character.player.chat.message
@@ -69,3 +72,10 @@ Command where { prefix == "sendItems" } then {
         player.send(ContainerItemsMessage(it, IntArray(1) { 995 }, IntArray(1) { 100 }, false))
     }
 }
+
+Command where { prefix == "varbit" } then {
+    val parts = content.split(" ")
+    IntVariable(parts[0].toInt(), Variable.Type.VARBIT).register("test")
+    player.setVar("test", parts[1])
+}
+
