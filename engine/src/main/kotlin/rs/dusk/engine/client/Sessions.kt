@@ -6,6 +6,7 @@ import org.koin.dsl.module
 import rs.dusk.core.network.model.message.Message
 import rs.dusk.core.network.model.session.Session
 import rs.dusk.engine.entity.character.player.Player
+import rs.dusk.engine.entity.character.player.social.Name
 import rs.dusk.utility.get
 
 /**
@@ -49,6 +50,13 @@ class Sessions {
      */
     fun get(player: Player): Session? {
         return players.inverse()[player]
+    }
+
+    /**
+     * Returns player for [Name]
+     */
+    fun get(name: Name): Player? {
+        return players.values.firstOrNull { it.names == name }
     }
 
     /**
