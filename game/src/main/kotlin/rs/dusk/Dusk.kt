@@ -14,6 +14,8 @@ import rs.dusk.engine.client.variable.variablesModule
 import rs.dusk.engine.data.file.fileLoaderModule
 import rs.dusk.engine.data.file.ymlPlayerModule
 import rs.dusk.engine.data.playerLoaderModule
+import rs.dusk.engine.entity.character.player.social.FriendsChatChannels
+import rs.dusk.engine.entity.character.player.social.socialModule
 import rs.dusk.engine.entity.character.update.visualUpdatingModule
 import rs.dusk.engine.entity.detailsModule
 import rs.dusk.engine.entity.list.entityListModule
@@ -69,11 +71,18 @@ object Dusk {
 		server.run()
 		engine.setup(start)
 		engine.start()
+
+		val friendsChatChannels: FriendsChatChannels = get()
+
+		friendsChatChannels.init()
+
 	}
 	
 	fun preload() {
 		startKoin {
+
 			slf4jLogger()
+
 			modules(
 				codecRepositoryModule,
 				eventModule,
@@ -106,7 +115,8 @@ object Dusk {
 				detailsModule,
 				databaseModule,
 				logoutModule,
-				objectFactoryModule
+				objectFactoryModule,
+				socialModule
 			)
 			fileProperties("/game.properties")
 			fileProperties("/private.properties")
