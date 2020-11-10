@@ -1,6 +1,5 @@
 package rs.dusk.world.interact.entity.npc.spawn
 
-import rs.dusk.cache.definition.decoder.NPCDecoder
 import rs.dusk.engine.entity.Registered
 import rs.dusk.engine.entity.Size
 import rs.dusk.engine.entity.character.IndexAllocator
@@ -8,6 +7,7 @@ import rs.dusk.engine.entity.character.npc.NPC
 import rs.dusk.engine.entity.character.npc.NPCRegistered
 import rs.dusk.engine.entity.character.npc.NPCs
 import rs.dusk.engine.entity.character.update.visual.npc.turn
+import rs.dusk.engine.entity.definition.NPCDefinitions
 import rs.dusk.engine.entity.list.MAX_NPCS
 import rs.dusk.engine.event.EventBus
 import rs.dusk.engine.event.then
@@ -22,10 +22,10 @@ import rs.dusk.utility.inject
 val npcs: NPCs by inject()
 val bus: EventBus by inject()
 val indexer = IndexAllocator(MAX_NPCS)
-val decoder: NPCDecoder by inject()
+val definitions: NPCDefinitions by inject()
 
 NPCSpawn then {
-    val definition = decoder.get(id)
+    val definition = definitions.get(id)
     val size = Size(definition.size, definition.size)
     val npc = NPC(id, tile, size)
     val collisions: Collisions = rs.dusk.utility.get()

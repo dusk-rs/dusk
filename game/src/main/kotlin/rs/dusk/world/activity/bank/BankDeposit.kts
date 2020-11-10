@@ -1,14 +1,13 @@
 package rs.dusk.world.activity.bank
 
 import com.github.michaelbull.logging.InlineLogger
-import rs.dusk.cache.definition.decoder.ItemDecoder
 import rs.dusk.engine.action.ActionType
 import rs.dusk.engine.client.ui.dialogue.dialogue
 import rs.dusk.engine.client.variable.*
 import rs.dusk.engine.entity.character.contain.*
 import rs.dusk.engine.entity.character.player.Player
 import rs.dusk.engine.entity.character.player.chat.message
-import rs.dusk.engine.entity.item.detail.ItemDetails
+import rs.dusk.engine.entity.definition.ItemDefinitions
 import rs.dusk.engine.event.then
 import rs.dusk.engine.event.where
 import rs.dusk.utility.inject
@@ -20,8 +19,7 @@ IntVariable(1249, Variable.Type.VARP, persistent = true, defaultValue = 0).regis
 
 val logger = InlineLogger()
 
-val details: ItemDetails by inject()
-val decoder: ItemDecoder by inject()
+val decoder: ItemDefinitions by inject()
 
 InterfaceOption where { name == "bank_side" && component == "container" && option.startsWith("Deposit") } then {
     val amount = when (option) {
@@ -48,8 +46,8 @@ fun deposit(player: Player, container: Container, item: Int, slot: Int, amount: 
         return true
     }
 
-    val details = details.get(item)
-    if (!details.bankable) {
+    val details = decoder.get(item)
+    if (!details["bankable", true]) {
         player.message("This item cannot be banked.")
         return true
     }

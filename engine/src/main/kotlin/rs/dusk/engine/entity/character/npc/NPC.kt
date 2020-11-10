@@ -1,7 +1,6 @@
 package rs.dusk.engine.entity.character.npc
 
 import rs.dusk.cache.definition.data.NPCDefinition
-import rs.dusk.cache.definition.decoder.NPCDecoder
 import rs.dusk.engine.action.Action
 import rs.dusk.engine.entity.Size
 import rs.dusk.engine.entity.character.Character
@@ -10,6 +9,7 @@ import rs.dusk.engine.entity.character.CharacterValues
 import rs.dusk.engine.entity.character.move.Movement
 import rs.dusk.engine.entity.character.update.LocalChange
 import rs.dusk.engine.entity.character.update.Visuals
+import rs.dusk.engine.entity.definition.NPCDefinitions
 import rs.dusk.engine.map.Tile
 import rs.dusk.engine.path.TargetStrategy
 import rs.dusk.utility.get
@@ -41,7 +41,7 @@ data class NPC(
     override lateinit var interactTarget: TargetStrategy
 
     val def: NPCDefinition
-        get() = get<NPCDecoder>().get(id)
+        get() = get<NPCDefinitions>().get(id)
 
     constructor(id: Int = 0, tile: Tile = Tile.EMPTY, index: Int) : this(id, tile) {
         this.index = index

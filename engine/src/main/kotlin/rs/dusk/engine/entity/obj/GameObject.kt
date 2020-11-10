@@ -1,11 +1,11 @@
 package rs.dusk.engine.entity.obj
 
 import rs.dusk.cache.definition.data.ObjectDefinition
-import rs.dusk.cache.definition.decoder.ObjectDecoder
 import rs.dusk.engine.entity.Entity
 import rs.dusk.engine.entity.Size
 import rs.dusk.engine.entity.character.player.Player
 import rs.dusk.engine.entity.character.update.visual.player.name
+import rs.dusk.engine.entity.definition.ObjectDefinitions
 import rs.dusk.engine.entity.item.offset
 import rs.dusk.engine.map.Tile
 import rs.dusk.engine.map.chunk.ChunkBatcher
@@ -26,7 +26,7 @@ data class GameObject(
     val owner: String? = null
 ) : Entity {
     val def: ObjectDefinition
-        get() = get<ObjectDecoder>().get(id)
+        get() = get<ObjectDefinitions>().get(id)
 
     val size: Size by lazy { Size(def.sizeX, def.sizeY) }
 

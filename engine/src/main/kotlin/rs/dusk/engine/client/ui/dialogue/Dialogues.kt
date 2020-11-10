@@ -3,8 +3,8 @@ package rs.dusk.engine.client.ui.dialogue
 import kotlinx.coroutines.CancellableContinuation
 import kotlinx.coroutines.CancellationException
 import rs.dusk.engine.entity.character.npc.NPC
-import rs.dusk.engine.entity.character.npc.detail.NPCDetails
 import rs.dusk.engine.entity.character.player.Player
+import rs.dusk.engine.entity.definition.NPCDefinitions
 import rs.dusk.utility.get
 import java.util.*
 import kotlin.coroutines.createCoroutine
@@ -57,9 +57,9 @@ class Dialogues {
 }
 
 fun Player.dialogue(id: String, function: suspend DialogueContext.() -> Unit) {
-    val details: NPCDetails = get()
-    val npcId = details.getId(id)
-    dialogues.start(this, npcId, details.getName(npcId), function)
+    val definitions: NPCDefinitions = get()
+    val npcId = definitions.getId(id)
+    dialogues.start(this, npcId, definitions.getName(npcId), function)
 }
 
 fun Player.dialogue(id: Int, name: String, function: suspend DialogueContext.() -> Unit) {

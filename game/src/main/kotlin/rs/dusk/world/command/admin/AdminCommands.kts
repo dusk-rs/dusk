@@ -1,4 +1,3 @@
-import rs.dusk.cache.definition.decoder.ItemDecoder
 import rs.dusk.engine.action.Scheduler
 import rs.dusk.engine.action.delay
 import rs.dusk.engine.entity.Direction
@@ -10,7 +9,7 @@ import rs.dusk.engine.entity.character.player.chat.message
 import rs.dusk.engine.entity.character.player.effect.Hidden
 import rs.dusk.engine.entity.character.player.skill.Skill
 import rs.dusk.engine.entity.character.update.visual.player.tele
-import rs.dusk.engine.entity.item.detail.ItemDetails
+import rs.dusk.engine.entity.definition.ItemDefinitions
 import rs.dusk.engine.event.EventBus
 import rs.dusk.engine.event.then
 import rs.dusk.engine.event.where
@@ -78,11 +77,11 @@ Command where { prefix == "bot" } then {
     }
 }
 
-val details: ItemDetails by inject()
+val definitions: ItemDefinitions by inject()
 
 Command where { prefix == "item" } then {
     val parts = content.split(" ")
-    val id = parts[0].toIntOrNull() ?: details.getId(parts[0].toLowerCase())
+    val id = parts[0].toIntOrNull() ?: definitions.getId(parts[0].toLowerCase())
     var amount = parts.getOrNull(1) ?: "1"
     if(amount == "max") {
         amount = Int.MAX_VALUE.toString()
@@ -91,7 +90,7 @@ Command where { prefix == "item" } then {
 }
 
 Command where { prefix == "find" } then {
-    val items: ItemDecoder = get()
+    val items: ItemDefinitions = get()
     val search = content.toLowerCase()
     var found = false
     repeat(items.size) { id ->

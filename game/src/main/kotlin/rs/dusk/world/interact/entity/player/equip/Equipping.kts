@@ -1,6 +1,6 @@
 package rs.dusk.world.interact.entity.player.equip
 
-import rs.dusk.cache.definition.decoder.ItemDecoder
+import rs.dusk.cache.definition.data.ItemDefinition
 import rs.dusk.engine.entity.character.contain.ContainerResult
 import rs.dusk.engine.entity.character.contain.equipment
 import rs.dusk.engine.entity.character.contain.inventory
@@ -9,26 +9,24 @@ import rs.dusk.engine.entity.character.player.PlayerRegistered
 import rs.dusk.engine.entity.character.player.chat.message
 import rs.dusk.engine.entity.character.update.visual.player.emote
 import rs.dusk.engine.entity.character.update.visual.player.flagAppearance
+import rs.dusk.engine.entity.definition.ItemDefinitions
 import rs.dusk.engine.entity.item.EquipSlot
 import rs.dusk.engine.entity.item.EquipType
-import rs.dusk.engine.entity.item.detail.ItemDetail
-import rs.dusk.engine.entity.item.detail.ItemDetails
 import rs.dusk.engine.event.then
 import rs.dusk.engine.event.where
 import rs.dusk.utility.inject
 
-val itemDetails: ItemDetails by inject()
-val itemDecoder: ItemDecoder by inject()
+val itemDecoder: ItemDefinitions by inject()
 
 ContainerAction where { container == "inventory" && (option == "Wield" || option == "Wear") } then {
-    val details = itemDetails.get(item)
+    val details = itemDecoder.get(item)
 
     if (failedToRemoveOtherHand(player, details)) {
         player.message("Your inventory is full.")
         return@then
     }
 
-    player.inventory.swap(slot, player.equipment, details.slot.index)
+    player.inventory.swap(slot, player.equipment, details["slot", EquipSlot.None].index)
     player.flagAppearance()
 }
 
@@ -51,12 +49,12 @@ PlayerRegistered then {
     }
 }
 
-fun failedToRemoveOtherHand(player: Player, details: ItemDetail): Boolean {
-    return isHandSlot(details.slot) && hasTwoHandedWeapon(player, details) && failedToMoveToInventory(player, details)
+fun failedToRemoveOtherHand(player: Player, item: ItemDefinition): Boolean {
+    return isHandSlot(item["slot", EquipSlot.None]) && hasTwoHandedWeapon(player, item) && failedToMoveToInventory(player, item)
 }
 
-fun failedToMoveToInventory(player: Player, details: ItemDetail): Boolean {
-    val otherSlot = getOtherHandSlot(details.slot)
+fun failedToMoveToInventory(player: Player, item: ItemDefinition): Boolean {
+    val otherSlot = getOtherHandSlot(item["slot", EquipSlot.None])
     if (player.equipment.isIndexFree(otherSlot.index)) {
         return false
     }
@@ -71,12 +69,12 @@ fun movedEquipmentToInventory(player: Player, oppositeSlot: EquipSlot): Boolean 
 
 fun isHandSlot(slot: EquipSlot) = slot == EquipSlot.Weapon || slot == EquipSlot.Shield
 
-fun hasTwoHandedWeapon(player: Player, details: ItemDetail) =
-    isTwoHandedWeapon(details) || holdingTwoHandedWeapon(player)
+fun hasTwoHandedWeapon(player: Player, item: ItemDefinition) =
+    isTwoHandedWeapon(item) || holdingTwoHandedWeapon(player)
 
-fun isTwoHandedWeapon(details: ItemDetail) = details.slot == EquipSlot.Weapon && details.type == EquipType.TwoHanded
+fun isTwoHandedWeapon(item: ItemDefinition) = item["slot", EquipSlot.None] == EquipSlot.Weapon && item["type", EquipType.None] == EquipType.TwoHanded
 
 fun holdingTwoHandedWeapon(player: Player): Boolean {
     val weapon = player.equipment.getItem(EquipSlot.Weapon.index)
-    return itemDetails.get(weapon).type == EquipType.TwoHanded
+    return itemDecoder.get(weapon)["type", EquipType.None] == EquipType.TwoHanded
 }

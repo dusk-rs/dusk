@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.koin.test.get
 import org.koin.test.mock.declareMock
-import rs.dusk.cache.definition.decoder.ObjectDecoder
 import rs.dusk.engine.client.cacheDefinitionModule
+import rs.dusk.engine.entity.definition.ObjectDefinitions
 import rs.dusk.engine.entity.obj.GameObject
 import rs.dusk.engine.entity.obj.GameObjectFactory
 import rs.dusk.engine.entity.obj.Objects
@@ -46,7 +46,7 @@ internal class GameObjectMapReaderTest : KoinMock() {
             GameObject(id, tile, type, rotation)
         }
 
-        declareMock<ObjectDecoder> {
+        declareMock<ObjectDefinitions> {
             every { get(any<Int>()) } returns mockk(relaxed = true)
         }
     }

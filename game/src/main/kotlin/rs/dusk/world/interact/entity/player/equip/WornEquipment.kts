@@ -1,9 +1,9 @@
 package rs.dusk.world.interact.entity.player.equip
 
 import com.github.michaelbull.logging.InlineLogger
-import rs.dusk.cache.definition.decoder.ItemDecoder
 import rs.dusk.engine.client.ui.open
 import rs.dusk.engine.client.variable.setVar
+import rs.dusk.engine.entity.definition.ItemDefinitions
 import rs.dusk.engine.entity.item.EquipSlot
 import rs.dusk.engine.event.EventBus
 import rs.dusk.engine.event.on
@@ -35,7 +35,7 @@ on(InterfaceOption) {
     }
 }
 
-val decoder: ItemDecoder by inject()
+val decoder: ItemDefinitions by inject()
 val bus: EventBus by inject()
 val logger = InlineLogger()
 
