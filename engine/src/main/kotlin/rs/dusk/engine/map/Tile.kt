@@ -1,16 +1,17 @@
 package rs.dusk.engine.map
 
 import rs.dusk.engine.map.area.Coordinate3D
+import rs.dusk.engine.map.area.LineOfSight
 import rs.dusk.engine.map.chunk.Chunk
 import rs.dusk.engine.map.region.Region
 import rs.dusk.engine.map.region.RegionPlane
+import rs.dusk.utility.get
 
 /**
  * @author Greg Hibberd <greg@greghibberd.com>
  * @since March 28, 2020
  */
-data class Tile(override val x: Int, override val y: Int, override val plane: Int = 0) :
-    Coordinate3D {
+data class Tile(override val x: Int, override val y: Int, override val plane: Int = 0) : Coordinate3D {
 
     constructor(id: Int) : this(id shr 14 and 0x3fff, id and 0x3fff, id shr 28)
 
@@ -29,6 +30,10 @@ data class Tile(override val x: Int, override val y: Int, override val plane: In
     fun delta(point: Tile) = delta(point.x, point.y, point.plane)
 
     override fun add(x: Int, y: Int) = add(x, y, 0)
+
+    fun withinSight(other: Tile): Boolean {
+        return get<LineOfSight>().withinSight(this, other)
+    }
 
     companion object {
         fun createSafe(x: Int, y: Int, plane: Int = 0) =
