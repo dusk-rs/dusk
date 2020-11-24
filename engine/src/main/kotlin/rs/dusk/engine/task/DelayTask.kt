@@ -16,3 +16,6 @@ data class DelayTask(val executionTick: Long, private val task: (Long) -> Unit) 
 
 fun TaskExecutor.delay(ticks: Int = 0, task: (Long) -> Unit)
         = DelayTask(tick + ticks, task).apply { execute(this) }
+
+fun TaskExecutor.delay(ticks: Long = 0L, task: (Long) -> Unit)
+        = DelayTask(tick + ticks, task).apply { execute(this) }
