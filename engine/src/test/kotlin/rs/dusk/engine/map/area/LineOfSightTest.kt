@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import rs.dusk.engine.map.Tile
-import rs.dusk.engine.map.collision.CollisionFlag
 import rs.dusk.engine.map.collision.Collisions
 
 internal class LineOfSightTest {
@@ -66,7 +65,6 @@ internal class LineOfSightTest {
             }
         }
         data[Tile.getId(3, 3)] = 1074790656
-        println(1074790656 and CollisionFlag.SKY)
         val tile = Tile(0, 0)
         val other = Tile(5, 5)
         // Then
