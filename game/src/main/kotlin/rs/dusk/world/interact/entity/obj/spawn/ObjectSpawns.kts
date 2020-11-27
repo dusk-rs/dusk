@@ -18,6 +18,7 @@ import rs.dusk.network.rs.codec.game.encode.message.ObjectAddMessage
 import rs.dusk.network.rs.codec.game.encode.message.ObjectRemoveMessage
 import rs.dusk.utility.getProperty
 import rs.dusk.utility.inject
+import rs.dusk.world.interact.entity.obj.RemoveObject
 import rs.dusk.world.interact.entity.obj.spawn.SpawnObject
 
 val files: FileLoader by inject()
@@ -64,6 +65,23 @@ SpawnObject then {
     }
 }
 
+/**
+ * Removes an object, optionally reverting after a set time
+ */
+RemoveObject then {
+    despawn(gameObject)
+    // Revert
+    if (ticks >= 0) {
+        objects.setTimer(gameObject, scheduler.add {
+            try {
+                delay(ticks)
+            } finally {
+                respawn(gameObject)
+            }
+        })
+    }
+}
+
 fun despawn(gameObject: GameObject) {
     batcher.update(
         gameObject.tile.chunk,
@@ -75,19 +93,22 @@ fun despawn(gameObject: GameObject) {
 
 fun spawnCustom(gameObject: GameObject) {
     if (gameObject.id == -1) {
-        val removal =
-            objects[gameObject.tile].firstOrNull { it.tile == gameObject.tile && it.type == gameObject.type && it.rotation == gameObject.rotation }
+        val removal = objects[gameObject.tile].firstOrNull { it.tile == gameObject.tile && it.type == gameObject.type && it.rotation == gameObject.rotation }
         if(removal == null) {
             logger.debug { "Cannot find object to despawn $gameObject" }
         } else {
             despawn(removal)
         }
     } else {
-        batcher.update(
-            gameObject.tile.chunk,
-            ObjectAddMessage(gameObject.tile.offset(), gameObject.id, gameObject.type, gameObject.rotation)
-        )
-        objects.addTemp(gameObject)
-        bus.emit(Registered(gameObject))
+        respawn(gameObject)
     }
+}
+
+fun respawn(gameObject: GameObject) {
+    batcher.update(
+        gameObject.tile.chunk,
+        ObjectAddMessage(gameObject.tile.offset(), gameObject.id, gameObject.type, gameObject.rotation)
+    )
+    objects.addTemp(gameObject)
+    bus.emit(Registered(gameObject))
 }

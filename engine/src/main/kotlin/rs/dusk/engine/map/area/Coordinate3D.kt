@@ -5,14 +5,13 @@ interface Coordinate3D : Coordinate2D {
 
     fun add(x: Int = 0, y: Int = 0, plane: Int = 0): Coordinate3D
 
-    fun within(other: Coordinate3D, radius: Int): Boolean {
-        return plane == other.plane && super.within(other, radius)
+    fun within(other: Coordinate3D, radius: Int, plane: Boolean = true): Boolean {
+        return (!plane || this.plane == other.plane) && super.within(other, radius)
     }
 }
 
 @Suppress("UNCHECKED_CAST")
-fun <T : Coordinate3D> T.area(radius: Int, planes: Int = 1)
-        = Area3D(
+fun <T : Coordinate3D> T.area(radius: Int, planes: Int = 1) = Area3D(
     add(-radius, -radius) as T,
     (radius * 2) + 1,
     (radius * 2) + 1,

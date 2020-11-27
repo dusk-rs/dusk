@@ -3,15 +3,17 @@ package rs.dusk.tools.definition.item.pipe.extra
 import rs.dusk.engine.entity.item.ItemKept
 import rs.dusk.engine.entity.item.ItemUse
 import rs.dusk.tools.Pipeline
-import rs.dusk.tools.definition.item.ItemExtras
+import rs.dusk.tools.definition.item.Extras
 
 /**
  * Removes default values to save space
  */
-class ItemDefaults : Pipeline.Modifier<ItemExtras> {
-    override fun modify(content: ItemExtras): ItemExtras {
-        val (_, extras) = content
-        process(extras)
+class ItemDefaults : Pipeline.Modifier<MutableMap<Int, Extras>> {
+
+    override fun modify(content: MutableMap<Int, Extras>): MutableMap<Int, Extras> {
+        content.forEach { (_, builder) ->
+            process(builder.second)
+        }
         return content
     }
 

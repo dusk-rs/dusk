@@ -5,20 +5,22 @@ import rs.dusk.engine.entity.definition.DefinitionsDecoder.Companion.toIdentifie
 import rs.dusk.engine.entity.item.ItemKept
 import rs.dusk.engine.entity.item.ItemUse
 import rs.dusk.tools.Pipeline
-import rs.dusk.tools.definition.item.ItemDefinitionPipeline
-import rs.dusk.tools.definition.item.ItemExtras
+import rs.dusk.tools.definition.item.Extras
+import rs.dusk.tools.definition.item.pipe.page.PageCollector
+import rs.dusk.tools.wiki.model.Infobox.indexSuffix
+import rs.dusk.tools.wiki.model.Infobox.splitByVersion
 import rs.dusk.tools.wiki.model.WikiPage
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-class InfoBoxItem(val revision: LocalDate) : Pipeline.Modifier<ItemExtras> {
+class InfoBoxItem(val revision: LocalDate) : Pipeline.Modifier<Extras> {
 
-    override fun modify(content: ItemExtras): ItemExtras {
+    override fun modify(content: Extras): Extras {
         val (builder, extras) = content
-        val (id, name, page, rs3Page, _) = builder
+        val (id, name, page, _, rs3, _) = builder
         // Prioritise rs3 pages first as they have better data formats and names
-        if (rs3Page != null) {
-            processRs3(extras, id, rs3Page, builder)
+        if (rs3 != null) {
+            processRs3(extras, id, rs3, builder)
         }
         if (page != null) {
             processRs2(extras, page)
@@ -29,20 +31,72 @@ class InfoBoxItem(val revision: LocalDate) : Pipeline.Modifier<ItemExtras> {
         return content
     }
 
-    private fun processRs3(extras: MutableMap<String, Any>, id: Int, page: WikiPage, builder: ItemDefinitionPipeline.PageCollector) {
-        val template = page.getTemplateMap("infobox item") ?: return
-        if (template.any { it.key.startsWith("version") }) {
-            val versionEntry = template.entries.firstOrNull { (it.value as String).toIntOrNull() == id }
-            val version = versionEntry?.key?.removePrefix("id")?.toIntOrNull()
-            if (version != null) {
-                processRs3(template, extras, page, builder, version.toString())
-                return
+    private fun processRs3(extras: MutableMap<String, Any>, id: Int, page: WikiPage, builder: PageCollector) {
+        splitByVersion(page, "infobox item", id, false) { template, suffix ->
+            template.forEach { (key, value) ->
+                if (key.startsWith("weight$suffix")) {
+                    extras.putIfAbsent(key.removeSuffix(suffix), (value as? String)?.toDoubleOrNull() ?: 0.0)
+                    return@forEach
+                }
+                when (key) {
+                    "name$suffix" -> {
+                        val version = template["version$suffix"] as? String
+                        val uid = toIdentifier(page.title.replace("(historical)", "").trim())
+                        if (version != null) {
+                            builder.uid = uid.appendSuffix("_${toIdentifier(version)}")
+                            replaceRs3Names(builder, page, version)
+                        } else if (builder.rs3Idd) {
+                            builder.uid = uid
+                            replaceRs3Names(builder, page, "")
+                        }
+                    }
+                    "AKA$suffix" -> extras.putIfAbsent(key.removeSuffix(suffix).toLowerCase(), removeLinks(value as String))
+                    "tradeable$suffix", "edible$suffix", "bankable$suffix", "stacksinbank$suffix" -> {
+                        val text = value as String
+                        extras.putIfAbsent(key.removeSuffix(suffix), text.equals("yes", true))
+                    }
+                    "examine$suffix" -> {
+                        val text = removeLinks(value as String).replace("adrenaline", "recover special").replace(usedInRegex, "").trim()
+                        splitExamine(text, extras, key, suffix, false)
+                    }
+                    "destroy$suffix" -> {
+                        val text = removeLinks(value as String)
+                        splitExamine(text, extras, key, suffix, false)
+                    }
+                    "restriction$suffix" -> {
+                        val text = value as String
+                        val use = if (text == "removed") {
+                            val removal = template["removal"] as? String
+                            if (removal == null || removal.isBlank() || LocalDate.parse(removeLinks(removal), formatter).isBefore(revision)) {
+                                ItemUse.Removed
+                            } else {
+                                ItemUse.Surface
+                            }
+                        } else {
+                            ItemUse.valueOf(text.toLowerCase().capitalize())
+                        }
+                        extras.putIfAbsent("use", use)
+                    }
+                    "kept$suffix" -> {
+                        val tradeable = (template["tradeable$suffix"] as? String)?.equals("yes", true) ?: false
+                        val text = value as String
+                        val kept = when (text.toLowerCase()) {
+                            "always" -> ItemKept.Wilderness
+                            "alwaysinclwild", "safe" -> ItemKept.Always
+                            "reclaimable" -> if (tradeable) ItemKept.Never else ItemKept.Reclaim
+                            "dropped" -> ItemKept.Never
+                            "never" -> ItemKept.Vanish
+                            else -> ItemKept.Vanish
+                        }
+                        extras.putIfAbsent(key.removeSuffix(suffix), kept)
+                    }
+                    else -> return@forEach
+                }
             }
         }
-        processRs3(template, extras, page, builder, "")
     }
 
-    private fun replaceRs3Names(builder: ItemDefinitionPipeline.PageCollector, page: WikiPage, suffix: String) {
+    private fun replaceRs3Names(builder: PageCollector, page: WikiPage, suffix: String) {
         if (builder.uid.isNotEmpty()) {
             if (isRs3Name(page.title) || page.title.contains("adrenaline", true)) {
                 builder.uid = toIdentifier(builder.name.appendSuffix(" ${toIdentifier(suffix)}").trim())
@@ -52,69 +106,6 @@ class InfoBoxItem(val revision: LocalDate) : Pipeline.Modifier<ItemExtras> {
 
     private fun String.appendSuffix(suffix: String): String {
         return if (!endsWith(suffix)) "$this$suffix" else this
-    }
-
-    private fun processRs3(template: Map<String, Any>, extras: MutableMap<String, Any>, page: WikiPage, builder: ItemDefinitionPipeline.PageCollector, suffix: String) {
-        template.forEach { (key, value) ->
-            if (key.startsWith("weight$suffix")) {
-                extras.putIfAbsent(key.removeSuffix(suffix), (value as? String)?.toDoubleOrNull() ?: 0.0)
-                return@forEach
-            }
-            when (key) {
-                "name$suffix" -> {
-                    val version = template["version$suffix"] as? String
-                    val uid = toIdentifier(page.title.replace("(historical)", "").trim())
-                    if (version != null) {
-                        builder.uid = uid.appendSuffix("_${toIdentifier(version)}")
-                        replaceRs3Names(builder, page, version)
-                    } else if (builder.idd) {
-                        builder.uid = uid
-                        replaceRs3Names(builder, page, "")
-                    }
-                }
-                "AKA$suffix" -> extras.putIfAbsent(key.removeSuffix(suffix).toLowerCase(), removeLinks(value as String))
-                "tradeable$suffix", "edible$suffix", "bankable$suffix", "stacksinbank$suffix" -> {
-                    val text = value as String
-                    extras.putIfAbsent(key.removeSuffix(suffix), text.equals("yes", true))
-                }
-                "examine$suffix" -> {
-                    val text = removeLinks(value as String).replace("adrenaline", "recover special").replace(usedInRegex, "").trim()
-                    splitByLineBreak(text, extras, key, suffix, false)
-                }
-                "destroy$suffix" -> {
-                    val text = removeLinks(value as String)
-                    splitByLineBreak(text, extras, key, suffix, false)
-                }
-                "restriction$suffix" -> {
-                    val text = value as String
-                    val use = if (text == "removed") {
-                        val removal = template["removal"] as? String
-                        if (removal == null || removal.isBlank() || LocalDate.parse(removeLinks(removal), formatter).isBefore(revision)) {
-                            ItemUse.Removed
-                        } else {
-                            ItemUse.Surface
-                        }
-                    } else {
-                        ItemUse.valueOf(text.toLowerCase().capitalize())
-                    }
-                    extras.putIfAbsent("use", use)
-                }
-                "kept$suffix" -> {
-                    val tradeable = (template["tradeable$suffix"] as? String)?.equals("yes", true) ?: false
-                    val text = value as String
-                    val kept = when (text.toLowerCase()) {
-                        "always" -> ItemKept.Wilderness
-                        "alwaysinclwild", "safe" -> ItemKept.Always
-                        "reclaimable" -> if (tradeable) ItemKept.Never else ItemKept.Reclaim
-                        "dropped" -> ItemKept.Never
-                        "never" -> ItemKept.Vanish
-                        else -> ItemKept.Vanish
-                    }
-                    extras.putIfAbsent(key.removeSuffix(suffix), kept)
-                }
-                else -> return@forEach
-            }
-        }
     }
 
     private fun processRs2(extras: MutableMap<String, Any>, page: WikiPage) {
@@ -127,7 +118,7 @@ class InfoBoxItem(val revision: LocalDate) : Pipeline.Modifier<ItemExtras> {
                         return@forEach
                     }
                     val override = isRs3Name(page.title) || isRs3Examine(examine)
-                    splitByLineBreak(examine, extras, key, "", override)
+                    splitExamine(examine, extras, key, "", override)
                 }
                 else -> return@forEach
             }
@@ -135,7 +126,7 @@ class InfoBoxItem(val revision: LocalDate) : Pipeline.Modifier<ItemExtras> {
     }
 
     companion object {
-        private val formatter = DateTimeFormatter.ofPattern("d MMMM yyyy")!!
+        val formatter = DateTimeFormatter.ofPattern("d MMMM yyyy")!!
         private val usedInRegex = "Used (?:in|with) .*?\\([0-9 &,]+\\).*?\\.".toRegex()
 
         private val linkNameRegex = "\\[\\[(.*?)]]".toRegex()
@@ -176,7 +167,7 @@ class InfoBoxItem(val revision: LocalDate) : Pipeline.Modifier<ItemExtras> {
             }
         }
 
-        fun splitByLineBreak(text: String, extras: MutableMap<String, Any>, key: String, suffix: String, override: Boolean) {
+        fun splitExamine(text: String, extras: MutableMap<String, Any>, key: String, suffix: String, override: Boolean) {
             val text = removeBold(formatLineBreaks(text).replace("\"", ""))
             if (text.contains(linebreak) || text.contains(":") || text.contains("(")) {
                 val parts = when {
@@ -195,7 +186,7 @@ class InfoBoxItem(val revision: LocalDate) : Pipeline.Modifier<ItemExtras> {
                 for (it in parts) {
                     val line = getLine(it)
                     if (line != null) {
-                        val key = "${key.removeSuffix(suffix)}${if (index > 0) (index + 1).toString() else ""}"
+                        val key = indexSuffix(key.removeSuffix(suffix), index)
                         if (!append(extras, line, key, override)) {
                             break
                         }
@@ -208,7 +199,7 @@ class InfoBoxItem(val revision: LocalDate) : Pipeline.Modifier<ItemExtras> {
             }
         }
 
-        private fun formatLineBreaks(text: String) = text
+        fun formatLineBreaks(text: String) = text
             .replace("<br/>", linebreak)
             .replace("<br />", linebreak)
             .replace("\n", " ")
@@ -261,6 +252,6 @@ class InfoBoxItem(val revision: LocalDate) : Pipeline.Modifier<ItemExtras> {
         }
 
         fun removeBold(text: String) = text.replace("'''", "").replace("''", "")
-//        fun removeParentheses(text: String) =
+        fun removeParentheses(text: String) = text.replace(removeParentheses, "").replace("(", "").replace(")", "")
     }
 }

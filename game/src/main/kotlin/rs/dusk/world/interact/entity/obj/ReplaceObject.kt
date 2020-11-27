@@ -13,7 +13,7 @@ import rs.dusk.utility.get
  * [owner] is also optional to allow for an object to replaced just for one player.
  */
 data class ReplaceObject(
-    val original: GameObject,
+    val gameObject: GameObject,
     val id: Int,
     val tile: Tile,
     val type: Int,
@@ -22,6 +22,10 @@ data class ReplaceObject(
     val owner: String? = null
 ) : Event<Unit>() {
     companion object : EventCompanion<ReplaceObject>
+}
+
+fun GameObject.replace(id: Int, tile: Tile = this.tile, type: Int = this.type, rotation: Int = this.rotation, ticks: Int = -1, owner: String? = null) {
+    get<EventBus>().emit(ReplaceObject(this, id, tile, type, rotation, ticks, owner))
 }
 
 fun replaceObject(
