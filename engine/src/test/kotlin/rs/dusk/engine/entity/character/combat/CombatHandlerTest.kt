@@ -6,6 +6,8 @@ import org.junit.BeforeClass
 import org.junit.Test
 import rs.dusk.engine.entity.character.combat.CombatHandler.Companion.NO_TARGET
 import rs.dusk.engine.entity.character.combat.strategy.MeleeStrategy
+import rs.dusk.engine.entity.character.combat.strategy.attack.CrushStrategy
+import rs.dusk.engine.entity.character.combat.strategy.damage.DefaultDamageStrategy
 import rs.dusk.engine.entity.character.npc.NPC
 import rs.dusk.engine.entity.character.player.Player
 
@@ -31,7 +33,7 @@ internal class CombatHandlerTest {
             npc = mockk(relaxed = true)
             playerHandler = CombatHandler()
             npcHandler = CombatHandler()
-            melee = MeleeStrategy()
+            melee = MeleeStrategy(DefaultDamageStrategy(), CrushStrategy())
         }
     }
 

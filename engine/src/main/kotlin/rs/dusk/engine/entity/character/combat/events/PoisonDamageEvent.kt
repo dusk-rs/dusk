@@ -6,10 +6,10 @@ import rs.dusk.engine.entity.character.combat.CombatEvent
 /**
  * @author David Schlachter <davidschlachter96@gmail.com>
  * @nickname Javatar
- * @date 11/27/20 11:15 PM
+ * @date 11/27/20 11:14 PM
  **/
-class NoTypeDamageEvent : CombatEvent {
+class PoisonDamageEvent : CombatEvent {
     override fun apply(character: Character) {
-        println("Hits through prayers, cause it has no type! $character")
+        println("Poisoning $character")
     }
 }
