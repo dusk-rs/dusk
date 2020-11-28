@@ -10,3 +10,6 @@ dependencies {
 tasks.withType<Test> {
     jvmArgs("-XX:-OmitStackTraceInFastThrow")
 }
+tasks.withType<Test> {
+    useJUnitPlatform()
+}

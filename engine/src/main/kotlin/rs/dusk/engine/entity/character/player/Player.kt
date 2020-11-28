@@ -41,6 +41,7 @@ class Player(
     @Transient val dialogues: Dialogues = Dialogues(),
     val experience: Experience = Experience(),
     val levels: Levels = Levels(experience)
+
 ) : Character {
 
     override val effects = CharacterEffects(this)
