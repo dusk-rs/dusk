@@ -1,7 +1,5 @@
 package rs.dusk.engine.entity.character.combat
 
-import rs.dusk.engine.entity.character.Character
-
 /**
  * @author David Schlachter <davidschlachter96@gmail.com>
  * @nickname Javatar

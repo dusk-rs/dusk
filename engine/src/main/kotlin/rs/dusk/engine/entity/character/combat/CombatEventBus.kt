@@ -11,6 +11,10 @@ import java.util.concurrent.TimeUnit
  **/
 class CombatEventBus {
 
+    /**
+     * Event bus, damage events, poison events etc are sent through this event bus
+     */
+
     val events: MutableSharedFlow<CombatEvent> by lazy { MutableSharedFlow() }
 
     fun sendIntervalEvent(combatEvent: CombatEvent, delay: Long, unit: TimeUnit): Job {

@@ -8,10 +8,18 @@ package rs.dusk.engine.entity.character.combat
  **/
 interface AttackStrategy {
 
+    /**
+     * The experience in which this provides on damage
+     */
+
     val training: TrainingSkill
 
     fun minAttackSpeed(): Long
     fun maxAttackSpeed(): Long
+
+    /**
+     * The next attack speed
+     */
 
     fun nextAttackSpeed(): Long
 

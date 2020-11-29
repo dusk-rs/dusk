@@ -17,12 +17,24 @@ class CombatHandler {
     val focusedTarget: MutableStateFlow<CombatTarget> by lazy { MutableStateFlow(NO_TARGET) }
     val eventHandler = CombatEventBus()
 
+    /**
+     * Starts a interval with a dynamic delay and emits all combat events, eg poison, damage, veng etc
+     * This function should NOT be called in cycle, has the dynamic interval with the strategy
+     * @param strategy The combat strategy
+     * @see CombatStrategy
+     */
+
     suspend fun attack(strategy: CombatStrategy) {
 
         dynamicInterval(strategy.nextAttackTime(), TimeUnit.MILLISECONDS) { strategy.nextAttackTime() }
             .collect { eventHandler.sendEvents(*strategy.createDamageEvent().toTypedArray()) }
 
     }
+
+    /**
+     * Binds the given target and subscribes that target to the attackers event bus
+     * @param target The target
+     */
 
     fun bind(target: Character) {
 
@@ -34,6 +46,10 @@ class CombatHandler {
         }
 
     }
+
+    /**
+     * Unbinds the focused target and disposes (cancels) all subscriptions
+     */
 
     fun unbind() {
         focusedTarget.value = NO_TARGET

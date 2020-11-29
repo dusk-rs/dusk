@@ -9,6 +9,11 @@ import rs.dusk.engine.entity.character.Character
  **/
 interface CombatEvent {
 
+    /**
+     * Applies given event to target
+     * @param character the target
+     */
+
     fun apply(character: Character)
 
 }
