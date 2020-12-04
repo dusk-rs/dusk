@@ -49,8 +49,14 @@ class PlayerIO {
      * Loads a player's file
      */
     fun load(username: String): Player {
+        logger.info { "Attempting to load player $username" }
+
         val path = fileIO.generateFilePath(path, username)
+        logger.debug { "[username=$username, path=path]"}
+
         val data = fileIO.read<Player>(path)
+        logger.debug { "[data=$data]"}
+
         val player: Player? = data
         if (player == null) {
             logger.trace { "New player constructed" }
@@ -69,7 +75,7 @@ class PlayerIO {
         val username = data.name
         val path = fileIO.generateFilePath(path, username)
         fileIO.write(path, username, data)
-        logger.info { "Saved player file [username=$username]"}
+        logger.info { "Saved player file [username=$username]" }
     }
 
     /**

@@ -52,6 +52,7 @@ class GameLoginMessageHandler : LoginMessageHandler<GameLoginMessage>() {
         val session = ctx.channel().getSession()
 
         val callback: (LoginResponse) -> Unit = { response ->
+            logger.info { "Callback received! [response=$response]"}
             if (response is LoginResponse.Success) {
                 val player = response.player
                 pipeline.writeAndFlush(GameLoginDetails(2, player.index, msg.username))
@@ -64,12 +65,14 @@ class GameLoginMessageHandler : LoginMessageHandler<GameLoginMessage>() {
                 }
 
                 executor.sync {
+                    logger.trace { "Swap codecs" }
                     channel.setCodec(repository.get(GameCodec::class))
 
                     bus.emit(RegionLogin(player))
                     bus.emit(PlayerRegistered(player))
                     player.start()
                     bus.emit(Registered(player))
+                    logger.trace { "Emit registered" }
                 }
             } else {
                 pipeline.writeAndFlush(GameLoginConnectionResponseMessage(response.code))
@@ -77,14 +80,9 @@ class GameLoginMessageHandler : LoginMessageHandler<GameLoginMessage>() {
         }
 
         executor.sync {
-            bus.emit(
-                Login(
-                    msg.username,
-                    session,
-                    callback,
-                    msg
-                )
-            )
+            logger.info { "Request - Emit login event [username=${msg.username}]" }
+            bus.emit(Login(msg.username, session, callback, msg))
+            logger.info { "Post - Emit login event [username=${msg.username}]" }
         }
     }
 }

@@ -1,9 +1,10 @@
 package rs.dusk.engine.io.file.jackson
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.exc.MismatchedInputException
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
-import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator.Feature.MINIMIZE_QUOTES
-import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator.Feature.WRITE_DOC_START_MARKER
+import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator
+import com.github.michaelbull.logging.InlineLogger
 import org.koin.dsl.module
 import rs.dusk.engine.io.IO
 import java.io.File
@@ -15,19 +16,45 @@ import kotlin.reflect.KClass
  *
  * @since April 03, 2020
  */
-open class JacksonIO : IO {
+open class JacksonIO(private val quotes: Boolean = false) : IO {
+
+    private val logger = InlineLogger()
 
     /**
      * The instance of the mapper
      */
-    val mapper: ObjectMapper = ObjectMapper(YAMLFactory().disable(WRITE_DOC_START_MARKER).apply {
-        enable(MINIMIZE_QUOTES)
+    val mapper = ObjectMapper(YAMLFactory().disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER).apply {
+        if (!quotes) {
+            enable(YAMLGenerator.Feature.MINIMIZE_QUOTES)
+        }
     })
+
+    init {
+        mapper.findAndRegisterModules()
+        logger.info { "YAML file mapper loaded." }
+    }
 
     /**
      * Loads data from an object mapper
      */
     inline fun <reified T : Any> read(path: String): T = mapper.readValue(File(path), T::class.java)
+
+    /**
+     * Loads data from an object mapper where possible
+     */
+    inline fun <reified T : Any> readNullable(path: String): T? {
+        val file = File(path)
+        return if (file.exists()) {
+            try {
+                mapper.readValue(file, T::class.java)
+            } catch (e: MismatchedInputException) {
+                e.printStackTrace()
+                null
+            }
+        } else {
+            null
+        }
+    }
 
     override fun read(path: String, data: KClass<Any>): Any {
         return mapper.readValue<Any>(File(path), data.java)

@@ -23,9 +23,13 @@ class LoginQueue(
     private val bus: EventBus,
     private val loginPerTickCap: Int,
     private val attempts: MutableSet<String> = mutableSetOf(),
-    private val loginQueue: Queue<Pair<Player, Login>> = LinkedList(),
+    private val collection: Queue<Pair<Player, Login>> = LinkedList(),
     private val indexer: IndexAllocator = IndexAllocator(MAX_PLAYERS)
 ) {
+
+    init {
+
+    }
 
     private val load = Mutex()
     private val login = Mutex()
@@ -33,17 +37,23 @@ class LoginQueue(
     /**
      * Calls login for first loginPerTickCap loaded players
      */
-
     fun tick() = runBlocking {
+        logger.debug { "Login queue is ticking [size=${collection.size}]..." }
+
         login.withLock {
+            logger.debug { "withLock" }
+
             var count = 0
-            var next = loginQueue.poll()
+            var next = collection.poll()
             while (next != null) {
+
+                logger.trace { "[next=$next]" }
+
                 login(next.first, next.second)
                 if (count++ >= loginPerTickCap) {
                     break
                 }
-                next = loginQueue.poll()
+                next = collection.poll()
             }
         }
     }
@@ -52,24 +62,31 @@ class LoginQueue(
      * Accepts client and spawns player in world.
      */
     fun login(player: Player, attempt: Login) {
+        logger.debug { "Request - Emit player spawn [$player, $attempt]"}
         bus.emit(PlayerSpawn(player, attempt.name, attempt.session, attempt.data))
         attempt.respond(LoginResponse.Success(player))
+        logger.debug { "Complete - Respond [$player, $attempt]"}
     }
 
     /**
      * Check hasn't already attempted login before attempt to load in background
      */
     fun add(login: Login): Deferred<Unit>? = runBlocking {
+        logger.trace { "Created blocking task" }
         load.withLock {
+            logger.trace { "Checking if the player was already online!"}
             if (attempts.contains(login.name)) {
                 login.respond(LoginResponse.AccountOnline)
+                logger.trace { "Login attempt failed [login=$login]" }
                 return@runBlocking null
             } else {
+                logger.trace { "Login attempt added [login=$login]" }
                 attempts.add(login.name)
             }
             val index = indexer.obtain()
             scope.async {
                 val response = load(index, login)
+                logger.trace { "Login attempt synced [login=$login, response=response]" }
                 if (response !is LoginResponse.Success) {
                     remove(login.name)
                     login.respond(response)
@@ -92,7 +109,7 @@ class LoginQueue(
         try {
             val player = loader.load(attempt.name)
             player.index = index
-            login.withLock { loginQueue.add(player to attempt) }
+            load.withLock { collection.add(player to attempt) }
             logger.info { "Player ${attempt.name} loaded and queued for login." }
             return LoginResponse.Success(player)
         } catch (e: IllegalStateException) {
