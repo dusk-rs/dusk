@@ -1,5 +1,6 @@
 package rs.dusk.engine.entity.character.player
 
+import com.fasterxml.jackson.annotation.JsonProperty
 import rs.dusk.engine.action.Action
 import rs.dusk.engine.client.ui.InterfaceOptions
 import rs.dusk.engine.client.ui.Interfaces
@@ -25,25 +26,21 @@ import rs.dusk.engine.path.TargetStrategy
  * @since March 28, 2020
  */
 class Player(
-	override var index : Int = -1,
+	/**
+	 * The text used to log in
+	 */
+	@JsonProperty("login")
+	var login : String = ""
 	
-	override var id : Int = -1,
-	var login : String = "",
-	
-	override var tile : Tile = Tile.EMPTY,
-	override var size : Size = Size.TILE,
-	val viewport : Viewport = Viewport(),
-	override val visuals : Visuals = Visuals(),
-	override val movement : Movement = Movement(tile),
-	override val action : Action = Action(),
-	val containers : MutableMap<Int, Container> = mutableMapOf(),
-	val variables : MutableMap<Int, Any> = mutableMapOf(),
-	override val values : CharacterValues = CharacterValues(),
-	val delays : Delays = Delays(),
-	val dialogues : Dialogues = Dialogues(),
-	val experience : Experience = Experience(),
-	val levels : Levels = Levels(experience)
 ) : Character {
+	override var id : Int = -1
+	
+	override var index : Int = -1
+	
+	@JsonProperty("tile")
+	override var tile : Tile = Tile.EMPTY
+	
+	override var size : Size = Size.TILE
 	
 	override val effects = CharacterEffects(this)
 	
@@ -52,6 +49,12 @@ class Player(
 	val options = PlayerOptions(this)
 	
 	val gameFrame = PlayerGameFrame()
+	
+	val delays : Delays = Delays()
+	
+	val viewport : Viewport = Viewport()
+	
+	val dialogues : Dialogues = Dialogues()
 	
 	lateinit var interfaces : Interfaces
 	
@@ -65,6 +68,23 @@ class Player(
 	
 	var changeValue : Int = -1
 	
+	override val visuals : Visuals = Visuals()
+	
+	override val movement : Movement = Movement(tile)
+	
+	override val action : Action = Action()
+	
+	val containers : MutableMap<Int, Container> = mutableMapOf()
+	
+	val variables : MutableMap<Int, Any> = mutableMapOf()
+	
+	override val values : CharacterValues = CharacterValues()
+	
+	@JsonProperty("experience")
+	val experience : Experience = Experience()
+	
+	@JsonProperty("levels")
+	val levels : Levels = Levels(experience)
 	fun start() {
 		options.set(2, "Follow")
 		options.set(4, "Trade with")

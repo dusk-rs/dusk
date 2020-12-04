@@ -28,10 +28,6 @@ open class YAMLIO(private val quotes : Boolean = false) : IO {
 	 * The instance of the mapper
 	 */
 	val mapper = ObjectMapper(YAMLFactory()).apply {
-		configure(MapperFeature.USE_ANNOTATIONS, true)
-		configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-		configure(DeserializationFeature.USE_JAVA_ARRAY_FOR_JSON_ARRAY, true)
-		configure(MapperFeature.PROPAGATE_TRANSIENT_MARKER, true)
 		writerWithDefaultPrettyPrinter()
 	}
 	
