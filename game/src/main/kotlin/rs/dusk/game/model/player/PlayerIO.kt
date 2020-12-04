@@ -8,6 +8,7 @@ import rs.dusk.engine.client.ui.InterfaceOptions
 import rs.dusk.engine.client.ui.PlayerInterfaceIO
 import rs.dusk.engine.client.ui.detail.InterfaceDetails
 import rs.dusk.engine.entity.character.player.Player
+import rs.dusk.engine.entity.character.update.visual.player.name
 import rs.dusk.engine.entity.definition.ContainerDefinitions
 import rs.dusk.engine.event.EventBus
 import rs.dusk.engine.io.file.FileIO
@@ -47,18 +48,28 @@ class PlayerIO {
     /**
      * Loads a player's file
      */
-    fun loadPlayer(name: String): Player {
-        val read = read(name)
-        if (read == null) {
+    fun load(username: String): Player {
+        val path = fileIO.generateFilePath(path, username)
+        val data = fileIO.read<Player>(path)
+        val player: Player? = data
+        if (player == null) {
             logger.trace { "New player constructed" }
+            return Player()
         }
-        return bind(read)
+
+        logger.info { "read operation return [player=$player]" }
+
+        return player
     }
 
-    private fun read(name: String): Player {
-        val player: Player = fileIO.read("${name}.yml")
-        logger.info { "read operation return [player=$player]" }
-        return player
+    /**
+     * Saves a player's file
+     */
+    fun save(data: Player) {
+        val username = data.name
+        val path = fileIO.generateFilePath(path, username)
+        fileIO.write(path, username, data)
+        logger.info { "Saved player file [username=$username]"}
     }
 
     /**

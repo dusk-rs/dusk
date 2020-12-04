@@ -16,8 +16,8 @@ import rs.dusk.engine.entity.list.entityListModule
 import rs.dusk.engine.entity.obj.objectFactoryModule
 import rs.dusk.engine.event.EventBus
 import rs.dusk.engine.event.eventModule
-import rs.dusk.engine.io.file.fileLoaderModule
-import rs.dusk.engine.io.file.jackson.strategy.ymlPlayerModule
+import rs.dusk.engine.io.file.fileIO
+import rs.dusk.engine.io.file.jackson.jacksonIOModule
 import rs.dusk.engine.map.chunk.batchedChunkModule
 import rs.dusk.engine.map.chunk.instanceModule
 import rs.dusk.engine.map.collision.collisionModule
@@ -40,11 +40,12 @@ import java.util.concurrent.Executors
 
 abstract class WorldScript : KoinMock() {
 
-    override val modules = listOf(codecRepositoryModule,
+    override val modules = listOf(
+        codecRepositoryModule,
         eventModule,
         cacheModule,
-        fileLoaderModule,
-        ymlPlayerModule,
+        fileIO,
+        jacksonIOModule,
         entityListModule,
         scriptModule,
         clientSessionModule,
@@ -69,7 +70,8 @@ abstract class WorldScript : KoinMock() {
         instancePoolModule,
         detailsModule,
         logoutModule,
-        objectFactoryModule)
+        objectFactoryModule
+    )
 
     override val propertyPaths = listOf("/game.properties", "/private.properties")
 

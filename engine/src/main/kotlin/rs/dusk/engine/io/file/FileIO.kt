@@ -13,6 +13,7 @@ import rs.dusk.engine.io.file.jackson.JacksonIO
  */
 class FileIO : JacksonIO() {
 
+    fun generateFilePath(path: String, identifier: String) = "${path}/${identifier}.yml"
 
 }
 

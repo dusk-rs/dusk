@@ -1,5 +1,7 @@
 package rs.dusk.engine.io
 
+import kotlin.reflect.KClass
+
 /**
  * @author Tyluur <itstyluur@gmail.com>
  *
@@ -14,7 +16,7 @@ interface IO {
      *
      * @return Any The data type of the data that was read
      */
-    fun read(path: String, `class`: Class<Any>): Any
+    fun read(path: String, `class`: KClass<Any>): Any
 
     /**
      * The strategy to write data

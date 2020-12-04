@@ -182,6 +182,7 @@ var Player.emote: Int
     }
 
 var Player.name: String
+
     get() = appearance.displayName
     set(value) = flag {
         displayName = value
