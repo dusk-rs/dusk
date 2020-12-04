@@ -1,11 +1,11 @@
 package rs.dusk.engine.io.file.jackson
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility
-import com.fasterxml.jackson.annotation.PropertyAccessor
+import com.fasterxml.jackson.annotation.JsonAutoDetect
+import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.SerializationFeature.FAIL_ON_SELF_REFERENCES
 import com.fasterxml.jackson.databind.exc.MismatchedInputException
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
-import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator
 import com.github.michaelbull.logging.InlineLogger
 import org.koin.dsl.module
 import rs.dusk.engine.io.IO
@@ -19,23 +19,25 @@ import kotlin.reflect.KClass
  *
  * @since April 03, 2020
  */
-open class JacksonIO(private val quotes : Boolean = false) : IO {
+open class YAMLIO(private val quotes : Boolean = false) : IO {
 	
 	private val logger = InlineLogger()
 	
 	/**
 	 * The instance of the mapper
 	 */
-	val mapper = ObjectMapper(YAMLFactory().disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER).apply {
-		if (!quotes) {
-			enable(YAMLGenerator.Feature.MINIMIZE_QUOTES)
-		}
-	})
+	val mapper = ObjectMapper(YAMLFactory()).apply {
+		disable(FAIL_ON_SELF_REFERENCES)
+		configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+		configure(DeserializationFeature.USE_JAVA_ARRAY_FOR_JSON_ARRAY, true)
+	}
 	
 	init {
+		mapper.setVisibility(
+			mapper.serializationConfig.defaultVisibilityChecker.withFieldVisibility(JsonAutoDetect.Visibility.ANY)
+				.withGetterVisibility(JsonAutoDetect.Visibility.NONE)
+		)
 		mapper.findAndRegisterModules()
-		mapper.setVisibility(PropertyAccessor.FIELD, Visibility.NONE);
-		mapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
 		logger.info { "YAML file mapper loaded." }
 	}
 	
@@ -71,12 +73,15 @@ open class JacksonIO(private val quotes : Boolean = false) : IO {
 	override fun write(path : String, identifier : String, data : Any) {
 		try {
 			val location = "$path$identifier.yml"
-			val dataString = mapper.writeValueAsString(data) ?: ""
+			val yml = try {
+				mapper.writeValueAsString(data)
+			} catch (e : Exception) {
+				e.printStackTrace()
+				null
+			}
+			val dataString = yml ?: ""
 			
 			FileFunction.write(location, dataString)
-			logger.info { "Wrote to file successfully..." }
-			logger.info { "path = [${path}], identifier = [${identifier}], data = [${data}]" }
-			logger.info { "----------------------" }
 		} catch (e : Exception) {
 			e.printStackTrace()
 		}
@@ -84,4 +89,4 @@ open class JacksonIO(private val quotes : Boolean = false) : IO {
 	
 }
 
-val jacksonIOModule = module { single(createdAtStart = true) { JacksonIO() } }
+val jacksonIOModule = module { single(createdAtStart = true) { YAMLIO() } }

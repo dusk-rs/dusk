@@ -1,7 +1,7 @@
 package rs.dusk.engine.io.file
 
 import org.koin.dsl.module
-import rs.dusk.engine.io.file.jackson.JacksonIO
+import rs.dusk.engine.io.file.jackson.YAMLIO
 
 /**
  * @author Tyluur <itstyluur@gmail.com>
@@ -11,7 +11,7 @@ import rs.dusk.engine.io.file.jackson.JacksonIO
  *
  * @since April 03, 2020
  */
-class FileIO : JacksonIO() {
+class FileIO : YAMLIO() {
 	
 	fun generateFilePath(path : String) = "${path}"
 	

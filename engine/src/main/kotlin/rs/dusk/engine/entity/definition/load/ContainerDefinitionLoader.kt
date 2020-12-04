@@ -4,9 +4,9 @@ import rs.dusk.cache.config.decoder.ContainerDecoder
 import rs.dusk.engine.TimedLoader
 import rs.dusk.engine.entity.character.contain.StackMode
 import rs.dusk.engine.entity.definition.ContainerDefinitions
-import rs.dusk.engine.io.file.jackson.JacksonIO
+import rs.dusk.engine.io.file.jackson.YAMLIO
 
-class ContainerDefinitionLoader(private val IO: JacksonIO, private val decoder: ContainerDecoder) :
+class ContainerDefinitionLoader(private val IO: YAMLIO, private val decoder: ContainerDecoder) :
     TimedLoader<ContainerDefinitions>("container definition") {
 
     override fun load(args: Array<out Any?>): ContainerDefinitions {

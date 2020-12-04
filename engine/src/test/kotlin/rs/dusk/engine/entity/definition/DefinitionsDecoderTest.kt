@@ -11,7 +11,7 @@ import rs.dusk.cache.DefinitionDecoder
 import rs.dusk.cache.definition.Extra
 import rs.dusk.engine.TimedLoader
 import rs.dusk.engine.entity.DefinitionsDecoder
-import rs.dusk.engine.io.file.jackson.JacksonIO
+import rs.dusk.engine.io.file.jackson.YAMLIO
 import rs.dusk.engine.io.file.FileIO
 
 abstract class DefinitionsDecoderTest<T, D : DefinitionDecoder<T>, S : DefinitionsDecoder<T, D>> where T : Definition, T : Extra {
@@ -32,7 +32,7 @@ abstract class DefinitionsDecoderTest<T, D : DefinitionDecoder<T>, S : Definitio
 
     abstract fun definitions(decoder: D, id: Map<String, Map<String, Any>>, names: Map<Int, String>): S
 
-    abstract fun loader(io: JacksonIO): TimedLoader<S>
+    abstract fun loader(io: YAMLIO): TimedLoader<S>
 
     lateinit var decoder: D
 
@@ -47,7 +47,7 @@ abstract class DefinitionsDecoderTest<T, D : DefinitionDecoder<T>, S : Definitio
     @Test
     fun `Load details`() {
         val io: FileIO = mockk()
-        every { io.load<Map<String, Map<String, Any>>>("path") } returns mutableMapOf("name" to map(1))
+        every { io.read<Map<String, Map<String, Any>>>("path") } returns mutableMapOf("name" to map(1))
         val detailLoader = loader(io)
         val result = detailLoader.run("path")
         assertEquals(mapOf("name" to populated(1)), result.extras)

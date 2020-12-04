@@ -3,9 +3,9 @@ package rs.dusk.engine.entity.definition.load
 import rs.dusk.cache.definition.decoder.NPCDecoder
 import rs.dusk.engine.TimedLoader
 import rs.dusk.engine.entity.definition.NPCDefinitions
-import rs.dusk.engine.io.file.jackson.JacksonIO
+import rs.dusk.engine.io.file.jackson.YAMLIO
 
-class NPCDefinitionLoader(private val io: JacksonIO, private val decoder: NPCDecoder) :
+class NPCDefinitionLoader(private val io: YAMLIO, private val decoder: NPCDecoder) :
     TimedLoader<NPCDefinitions>("npc definition") {
 
     override fun load(args: Array<out Any?>): NPCDefinitions {

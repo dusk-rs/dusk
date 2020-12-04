@@ -6,7 +6,7 @@ import rs.dusk.cache.definition.data.GraphicDefinition
 import rs.dusk.cache.definition.decoder.GraphicDecoder
 import rs.dusk.engine.TimedLoader
 import rs.dusk.engine.entity.definition.load.GraphicDefinitionLoader
-import rs.dusk.engine.io.file.jackson.JacksonIO
+import rs.dusk.engine.io.file.jackson.YAMLIO
 
 internal class GraphicDefinitionsTest :
     DefinitionsDecoderTest<GraphicDefinition, GraphicDecoder, GraphicDefinitions>() {
@@ -33,7 +33,7 @@ internal class GraphicDefinitionsTest :
         return GraphicDefinitions(decoder, id, names)
     }
 
-    override fun loader(io: JacksonIO): TimedLoader<GraphicDefinitions> {
+    override fun loader(io: YAMLIO): TimedLoader<GraphicDefinitions> {
         return GraphicDefinitionLoader(io, decoder)
     }
 
