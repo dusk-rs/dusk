@@ -53,7 +53,6 @@ class GameLoginMessageHandler : LoginMessageHandler<GameLoginMessage>() {
 
         val callback: (LoginResponse) -> Unit = { response ->
             logger.info { "Callback received! [response=$response]"}
-            pipeline.writeAndFlush(GameLoginConnectionResponseMessage(response.code))
             if (response is LoginResponse.Success) {
                 val player = response.player
                 pipeline.writeAndFlush(GameLoginDetails(2, player.index, msg.username))

@@ -12,9 +12,9 @@ import rs.dusk.engine.io.file.jackson.JacksonIO
  * @since April 03, 2020
  */
 class FileIO : JacksonIO() {
-
-    fun generateFilePath(path: String, identifier: String) = "${path}${identifier}.yml"
-
+	
+	fun generateFilePath(path : String) = "${path}"
+	
 }
 
 val fileIO = module { single(createdAtStart = true) { FileIO() } }

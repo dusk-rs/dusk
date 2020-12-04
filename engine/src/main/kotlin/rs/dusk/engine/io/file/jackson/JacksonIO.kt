@@ -1,5 +1,7 @@
 package rs.dusk.engine.io.file.jackson
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility
+import com.fasterxml.jackson.annotation.PropertyAccessor
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.exc.MismatchedInputException
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
@@ -32,6 +34,8 @@ open class JacksonIO(private val quotes : Boolean = false) : IO {
 	
 	init {
 		mapper.findAndRegisterModules()
+		mapper.setVisibility(PropertyAccessor.FIELD, Visibility.NONE);
+		mapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
 		logger.info { "YAML file mapper loaded." }
 	}
 	
@@ -65,10 +69,17 @@ open class JacksonIO(private val quotes : Boolean = false) : IO {
 	}
 	
 	override fun write(path : String, identifier : String, data : Any) {
-		val location = "$path$identifier"
-		val dataString = mapper.writeValueAsString(data)
-		println("path = [${path}], identifier = [${identifier}], data = [${data}], location=$location")
-		FileFunction.write(location, dataString)
+		try {
+			val location = "$path$identifier.yml"
+			val dataString = mapper.writeValueAsString(data) ?: ""
+			
+			FileFunction.write(location, dataString)
+			logger.info { "Wrote to file successfully..." }
+			logger.info { "path = [${path}], identifier = [${identifier}], data = [${data}]" }
+			logger.info { "----------------------" }
+		} catch (e : Exception) {
+			e.printStackTrace()
+		}
 	}
 	
 }

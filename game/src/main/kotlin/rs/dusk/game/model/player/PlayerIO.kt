@@ -8,7 +8,6 @@ import rs.dusk.engine.client.ui.InterfaceOptions
 import rs.dusk.engine.client.ui.PlayerInterfaceIO
 import rs.dusk.engine.client.ui.detail.InterfaceDetails
 import rs.dusk.engine.entity.character.player.Player
-import rs.dusk.engine.entity.character.update.visual.player.name
 import rs.dusk.engine.entity.definition.ContainerDefinitions
 import rs.dusk.engine.event.EventBus
 import rs.dusk.engine.io.file.FileIO
@@ -49,18 +48,18 @@ class PlayerIO {
 	/**
 	 * Loads a player's file
 	 */
-	fun load(username : String) : Player {
-		logger.info { "Attempting to load player $username" }
+	fun load(login : String) : Player {
+		logger.info { "Attempting to load player $login" }
 		
-		val path = fileIO.generateFilePath(path, username)
-		logger.debug { "[username=$username, path=$path]" }
+		val path = "${fileIO.generateFilePath(path)}$login.yml"
+		logger.info { "[username=$login, path=$path]" }
 		
 		var new = false
 		val player : Player = try {
-			logger.trace { "Attempting to read" }
+			logger.info { "Attempting to read" }
 			fileIO.read<Player>(path)
 		} catch (e : FileNotFoundException) {
-			logger.trace { "New player constructed" }
+			logger.info { "New player constructed" }
 			new = true
 			Player(id = -1, tile = tile)
 		} catch (e : Exception) {
@@ -68,25 +67,26 @@ class PlayerIO {
 			null
 		} ?: throw IllegalStateException("Unable to find player")
 		
-		logger.trace { "Found player [player=$player]" }
+		player.login = login
+		logger.info { "Found player [player=$player]" }
+		
+		bind(player)
+		logger.info { "Bound player [player=$player]" }
 		
 		if (new) {
 			save(player)
 			logger.info { "Saved new player [$player, path=$path]" }
 		}
-		bind(player)
-		logger.info { "Bound player [player=$player]" }
 		return player
 	}
 	
 	/**
 	 * Saves a player's file
 	 */
-	fun save(data : Player) {
-		val username = data.name
-		val path = fileIO.generateFilePath(path, username)
-		fileIO.write(path, username, data)
-		logger.info { "Saved player file [username=$username]" }
+	fun save(player : Player) {
+		val identifier = player.login
+		val path = fileIO.generateFilePath(path)
+		fileIO.write(path, identifier, player)
 	}
 	
 	/**
