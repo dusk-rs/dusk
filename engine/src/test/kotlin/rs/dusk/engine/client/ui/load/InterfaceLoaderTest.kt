@@ -176,7 +176,7 @@ internal class InterfaceLoaderTest {
     fun `Load from file`() {
         val path = "dusk/example/interfaces.yml"
         val raw = mapOf("interface_name" to mapOf("id" to 1, "type" to "interface_type"))
-        every { fileIO.load<Map<String, Map<String, Any>>>(path) } returns raw
+        every { fileIO.read<Map<String, Map<String, Any>>>(path) } returns raw
         val result = loader.loadFile(path)
         assertEquals(raw, result)
     }
@@ -199,8 +199,8 @@ internal class InterfaceLoaderTest {
             "interface_type" to mapOf("index" to 0),
             "root" to mapOf("index" to 0, "parent" to "root")
         )
-        every { fileIO.load<Map<String, Map<String, Any>>>(detailsPath) } returns detailData
-        every { fileIO.load<Map<String, Map<String, Any>>>(typesPath) } returns typesData
+        every { fileIO.read<Map<String, Map<String, Any>>>(detailsPath) } returns detailData
+        every { fileIO.read<Map<String, Map<String, Any>>>(typesPath) } returns typesData
         val result = loader.loadAll(detailsPath, typesPath)
         val expected = InterfaceDetails(
             mapOf(

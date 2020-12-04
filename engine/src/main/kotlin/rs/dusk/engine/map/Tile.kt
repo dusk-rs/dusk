@@ -1,5 +1,6 @@
 package rs.dusk.engine.map
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import rs.dusk.engine.map.area.Coordinate3D
 import rs.dusk.engine.map.chunk.Chunk
 import rs.dusk.engine.map.region.Region
@@ -13,7 +14,7 @@ data class Tile(override val x: Int, override val y: Int, override val plane: In
     Coordinate3D {
 
     constructor(id: Int) : this(id shr 14 and 0x3fff, id and 0x3fff, id shr 28)
-
+	
     val id by lazy { getId(x, y, plane) }
     val chunk by lazy { Chunk(x / 8, y / 8, plane) }
     val region by lazy { Region(x / 64, y / 64) }

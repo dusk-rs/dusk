@@ -27,8 +27,10 @@ import rs.dusk.engine.path.TargetStrategy
  */
 class Player(
 	@Transient override var index : Int = -1,
+	@Transient
 	override var id : Int = -1,
 	var login : String = "",
+	@Transient
 	override var tile : Tile = Tile.EMPTY,
 	@Transient override var size : Size = Size.TILE,
 	@Transient val viewport : Viewport = Viewport(),
@@ -44,6 +46,7 @@ class Player(
 	val levels : Levels = Levels(experience)
 ) : Character {
 	
+	@Transient
 	override val effects = CharacterEffects(this)
 	
 	@Transient

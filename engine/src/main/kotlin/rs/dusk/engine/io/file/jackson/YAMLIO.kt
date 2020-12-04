@@ -2,6 +2,7 @@ package rs.dusk.engine.io.file.jackson
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect
 import com.fasterxml.jackson.databind.DeserializationFeature
+import com.fasterxml.jackson.databind.MapperFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature.FAIL_ON_SELF_REFERENCES
 import com.fasterxml.jackson.databind.exc.MismatchedInputException
@@ -27,16 +28,14 @@ open class YAMLIO(private val quotes : Boolean = false) : IO {
 	 * The instance of the mapper
 	 */
 	val mapper = ObjectMapper(YAMLFactory()).apply {
-		disable(FAIL_ON_SELF_REFERENCES)
+		configure(MapperFeature.USE_ANNOTATIONS, true)
 		configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
 		configure(DeserializationFeature.USE_JAVA_ARRAY_FOR_JSON_ARRAY, true)
+		configure(MapperFeature.PROPAGATE_TRANSIENT_MARKER, true)
+		writerWithDefaultPrettyPrinter()
 	}
 	
 	init {
-		mapper.setVisibility(
-			mapper.serializationConfig.defaultVisibilityChecker.withFieldVisibility(JsonAutoDetect.Visibility.ANY)
-				.withGetterVisibility(JsonAutoDetect.Visibility.NONE)
-		)
 		mapper.findAndRegisterModules()
 		logger.info { "YAML file mapper loaded." }
 	}
