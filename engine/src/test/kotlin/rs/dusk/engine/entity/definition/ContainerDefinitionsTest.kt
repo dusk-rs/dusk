@@ -5,11 +5,12 @@ import org.junit.jupiter.api.BeforeEach
 import rs.dusk.cache.config.data.ContainerDefinition
 import rs.dusk.cache.config.decoder.ContainerDecoder
 import rs.dusk.engine.TimedLoader
-import rs.dusk.engine.data.file.FileLoader
 import rs.dusk.engine.entity.character.contain.StackMode
 import rs.dusk.engine.entity.definition.load.ContainerDefinitionLoader
+import rs.dusk.engine.io.file.FileIO
 
-internal class ContainerDefinitionsTest : DefinitionsDecoderTest<ContainerDefinition, ContainerDecoder, ContainerDefinitions>() {
+internal class ContainerDefinitionsTest :
+    DefinitionsDecoderTest<ContainerDefinition, ContainerDecoder, ContainerDefinitions>() {
 
     @BeforeEach
     override fun setup() {
@@ -26,7 +27,7 @@ internal class ContainerDefinitionsTest : DefinitionsDecoderTest<ContainerDefini
         )
     }
 
-    override fun populated(id: Int):  Map<String, Any> {
+    override fun populated(id: Int): Map<String, Any> {
         return mapOf(
             "id" to id,
             "width" to 2,
@@ -39,12 +40,16 @@ internal class ContainerDefinitionsTest : DefinitionsDecoderTest<ContainerDefini
         return ContainerDefinition(id)
     }
 
-    override fun definitions(decoder: ContainerDecoder, id: Map<String, Map<String, Any>>, names: Map<Int, String>): ContainerDefinitions {
+    override fun definitions(
+        decoder: ContainerDecoder,
+        id: Map<String, Map<String, Any>>,
+        names: Map<Int, String>
+    ): ContainerDefinitions {
         return ContainerDefinitions(decoder, id, names)
     }
 
-    override fun loader(loader: FileLoader): TimedLoader<ContainerDefinitions> {
-        return ContainerDefinitionLoader(loader, decoder)
+    override fun loader(io: FileIO): TimedLoader<ContainerDefinitions> {
+        return ContainerDefinitionLoader(io, decoder)
     }
 
 }

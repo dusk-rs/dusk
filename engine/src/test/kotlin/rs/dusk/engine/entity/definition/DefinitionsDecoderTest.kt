@@ -10,8 +10,8 @@ import rs.dusk.cache.Definition
 import rs.dusk.cache.DefinitionDecoder
 import rs.dusk.cache.definition.Extra
 import rs.dusk.engine.TimedLoader
-import rs.dusk.engine.data.file.FileLoader
 import rs.dusk.engine.entity.DefinitionsDecoder
+import rs.dusk.engine.io.file.FileIO
 
 abstract class DefinitionsDecoderTest<T, D : DefinitionDecoder<T>, S : DefinitionsDecoder<T, D>> where T : Definition, T : Extra {
 
@@ -31,7 +31,7 @@ abstract class DefinitionsDecoderTest<T, D : DefinitionDecoder<T>, S : Definitio
 
     abstract fun definitions(decoder: D, id: Map<String, Map<String, Any>>, names: Map<Int, String>): S
 
-    abstract fun loader(loader: FileLoader): TimedLoader<S>
+    abstract fun loader(io: FileIO): TimedLoader<S>
 
     lateinit var decoder: D
 
@@ -45,9 +45,9 @@ abstract class DefinitionsDecoderTest<T, D : DefinitionDecoder<T>, S : Definitio
 
     @Test
     fun `Load details`() {
-        val loader: FileLoader = mockk()
-        every { loader.load<Map<String, Map<String, Any>>>("path") } returns mutableMapOf("name" to map(1))
-        val detailLoader = loader(loader)
+        val io: FileIO = mockk()
+        every { io.load<Map<String, Map<String, Any>>>("path") } returns mutableMapOf("name" to map(1))
+        val detailLoader = loader(io)
         val result = detailLoader.run("path")
         assertEquals(mapOf("name" to populated(1)), result.extras)
         assertEquals(mapOf(1 to "name"), result.names)

@@ -5,10 +5,11 @@ import org.junit.jupiter.api.BeforeEach
 import rs.dusk.cache.definition.data.AnimationDefinition
 import rs.dusk.cache.definition.decoder.AnimationDecoder
 import rs.dusk.engine.TimedLoader
-import rs.dusk.engine.data.file.FileLoader
 import rs.dusk.engine.entity.definition.load.AnimationDefinitionLoader
+import rs.dusk.engine.io.file.FileIO
 
-internal class AnimationDefinitionsTest : DefinitionsDecoderTest<AnimationDefinition, AnimationDecoder, AnimationDefinitions>() {
+internal class AnimationDefinitionsTest :
+    DefinitionsDecoderTest<AnimationDefinition, AnimationDecoder, AnimationDefinitions>() {
 
     @BeforeEach
     override fun setup() {
@@ -24,12 +25,16 @@ internal class AnimationDefinitionsTest : DefinitionsDecoderTest<AnimationDefini
         return AnimationDefinition(id)
     }
 
-    override fun definitions(decoder: AnimationDecoder, id: Map<String, Map<String, Any>>, names: Map<Int, String>): AnimationDefinitions {
+    override fun definitions(
+        decoder: AnimationDecoder,
+        id: Map<String, Map<String, Any>>,
+        names: Map<Int, String>
+    ): AnimationDefinitions {
         return AnimationDefinitions(decoder, id, names)
     }
 
-    override fun loader(loader: FileLoader): TimedLoader<AnimationDefinitions> {
-        return AnimationDefinitionLoader(loader, decoder)
+    override fun loader(io: FileIO): TimedLoader<AnimationDefinitions> {
+        return AnimationDefinitionLoader(io, decoder)
     }
 
 }

@@ -2,13 +2,14 @@ package rs.dusk.engine.entity.definition.load
 
 import rs.dusk.cache.definition.decoder.ItemDecoder
 import rs.dusk.engine.TimedLoader
-import rs.dusk.engine.data.file.FileLoader
 import rs.dusk.engine.entity.definition.ItemDefinitions
 import rs.dusk.engine.entity.item.EquipSlot
 import rs.dusk.engine.entity.item.EquipType
 import rs.dusk.engine.entity.item.ItemDrop
+import rs.dusk.engine.io.file.FileIO
 
-class ItemDefinitionLoader(private val loader: FileLoader, private val decoder: ItemDecoder) : TimedLoader<ItemDefinitions>("item definition") {
+class ItemDefinitionLoader(private val IO: FileIO, private val decoder: ItemDecoder) :
+    TimedLoader<ItemDefinitions>("item definition") {
 
     private var equipmentCount = 0
     private val equipmentIndices = (0 until decoder.size).map {
@@ -22,7 +23,7 @@ class ItemDefinitionLoader(private val loader: FileLoader, private val decoder: 
 
     override fun load(args: Array<out Any?>): ItemDefinitions {
         val path = args[0] as String
-        val data: Map<String, Map<String, Any>> = loader.load(path)
+        val data: Map<String, Map<String, Any>> = IO.load(path)
         val map = data.mapValues { entry ->
             entry.value.mapValues { convert(it.key, it.value) }.toMutableMap().apply {
                 this["equip"] = equipmentIndices.getOrDefault(entry.value["id"] as Int, -1)

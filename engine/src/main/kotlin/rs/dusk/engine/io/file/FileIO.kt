@@ -1,4 +1,4 @@
-package rs.dusk.engine.data.file
+package rs.dusk.engine.io.file
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.exc.MismatchedInputException
@@ -10,14 +10,18 @@ import java.io.File
 
 /**
  * @author Greg Hibberd <greg@greghibberd.com>
+ * @author Tyluur <itstyluur@gmail.com>
+ *
  * @since April 03, 2020
  */
-class FileLoader(private val quotes: Boolean = false) {
+class FileIO(private val quotes: Boolean = false) {
+
     val mapper = ObjectMapper(YAMLFactory().disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER).apply {
         if (!quotes) {
             enable(YAMLGenerator.Feature.MINIMIZE_QUOTES)
         }
     })
+
     private val logger = InlineLogger()
 
     init {
@@ -49,5 +53,5 @@ class FileLoader(private val quotes: Boolean = false) {
 }
 
 val fileLoaderModule = module {
-    single { FileLoader() }
+    single { FileIO() }
 }

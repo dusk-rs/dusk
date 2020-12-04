@@ -1,9 +1,9 @@
 package rs.dusk.world.interact.entity.npc.spawn
 
-import rs.dusk.engine.data.file.FileLoader
 import rs.dusk.engine.entity.Direction
 import rs.dusk.engine.event.EventBus
 import rs.dusk.engine.event.then
+import rs.dusk.engine.io.file.FileIO
 import rs.dusk.engine.map.Tile
 import rs.dusk.engine.map.region.Region
 import rs.dusk.engine.map.region.RegionLoaded
@@ -11,7 +11,7 @@ import rs.dusk.engine.tick.Startup
 import rs.dusk.utility.getProperty
 import rs.dusk.utility.inject
 
-val files: FileLoader by inject()
+val files: FileIO by inject()
 val bus: EventBus by inject()
 
 data class NPCSpawnPoint(val id: Int, val tile: Tile, val direction: Direction = Direction.NONE)

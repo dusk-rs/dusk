@@ -4,13 +4,14 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
+import rs.dusk.engine.io.file.FileIO
 import java.io.File
 
 /**
  * @author Greg Hibberd <greg@greghibberd.com>
  * @since April 04, 2020
  */
-internal class FileLoaderTest {
+internal class FileIOTest {
 
 
     private enum class TestEnum {
@@ -35,7 +36,7 @@ internal class FileLoaderTest {
         val path = "test.yml"
         val file = File(path)
         file.writeText(text)
-        val loader = FileLoader()
+        val loader = FileIO()
         // When
         val result = loader.loadOrNull<TestData>(path)
         // Then
@@ -50,7 +51,7 @@ internal class FileLoaderTest {
     fun `Load no data`() {
         // Given
         val path = "invalid.yml"
-        val loader = FileLoader()
+        val loader = FileIO()
         // When
         val result = loader.loadOrNull<TestData>(path)
         // Then

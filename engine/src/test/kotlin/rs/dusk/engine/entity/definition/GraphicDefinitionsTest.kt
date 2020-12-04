@@ -5,10 +5,11 @@ import org.junit.jupiter.api.BeforeEach
 import rs.dusk.cache.definition.data.GraphicDefinition
 import rs.dusk.cache.definition.decoder.GraphicDecoder
 import rs.dusk.engine.TimedLoader
-import rs.dusk.engine.data.file.FileLoader
 import rs.dusk.engine.entity.definition.load.GraphicDefinitionLoader
+import rs.dusk.engine.io.file.FileIO
 
-internal class GraphicDefinitionsTest : DefinitionsDecoderTest<GraphicDefinition, GraphicDecoder, GraphicDefinitions>() {
+internal class GraphicDefinitionsTest :
+    DefinitionsDecoderTest<GraphicDefinition, GraphicDecoder, GraphicDefinitions>() {
 
     @BeforeEach
     override fun setup() {
@@ -24,12 +25,16 @@ internal class GraphicDefinitionsTest : DefinitionsDecoderTest<GraphicDefinition
         return GraphicDefinition(id)
     }
 
-    override fun definitions(decoder: GraphicDecoder, id: Map<String, Map<String, Any>>, names: Map<Int, String>): GraphicDefinitions {
+    override fun definitions(
+        decoder: GraphicDecoder,
+        id: Map<String, Map<String, Any>>,
+        names: Map<Int, String>
+    ): GraphicDefinitions {
         return GraphicDefinitions(decoder, id, names)
     }
 
-    override fun loader(loader: FileLoader): TimedLoader<GraphicDefinitions> {
-        return GraphicDefinitionLoader(loader, decoder)
+    override fun loader(io: FileIO): TimedLoader<GraphicDefinitions> {
+        return GraphicDefinitionLoader(io, decoder)
     }
 
 }

@@ -10,15 +10,14 @@ import rs.dusk.engine.client.clientSessionModule
 import rs.dusk.engine.client.ui.detail.interfaceModule
 import rs.dusk.engine.client.update.updatingTasksModule
 import rs.dusk.engine.client.variable.variablesModule
-import rs.dusk.engine.data.file.fileLoaderModule
-import rs.dusk.engine.data.file.ymlPlayerModule
-import rs.dusk.engine.data.playerLoaderModule
 import rs.dusk.engine.entity.character.update.visualUpdatingModule
 import rs.dusk.engine.entity.detailsModule
 import rs.dusk.engine.entity.list.entityListModule
 import rs.dusk.engine.entity.obj.objectFactoryModule
 import rs.dusk.engine.event.EventBus
 import rs.dusk.engine.event.eventModule
+import rs.dusk.engine.io.file.fileLoaderModule
+import rs.dusk.engine.io.player.strategy.ymlPlayerModule
 import rs.dusk.engine.map.chunk.batchedChunkModule
 import rs.dusk.engine.map.chunk.instanceModule
 import rs.dusk.engine.map.collision.collisionModule
@@ -50,7 +49,6 @@ abstract class WorldScript : KoinMock() {
         scriptModule,
         clientSessionModule,
         gameServerFactory,
-        playerLoaderModule,
         xteaModule,
         visualUpdatingModule,
         updatingTasksModule,
@@ -87,8 +85,6 @@ abstract class WorldScript : KoinMock() {
         val scriptPackage = "${clazz.packageName}.$name"
         return Class.forName(scriptPackage).constructors.first().newInstance(emptyArray<String>()) as T
     }
-
-    // TODO player setup & teardown
 
     @BeforeEach
     open fun setup() {

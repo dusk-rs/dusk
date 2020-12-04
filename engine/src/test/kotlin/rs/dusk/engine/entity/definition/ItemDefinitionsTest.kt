@@ -5,11 +5,11 @@ import org.junit.jupiter.api.BeforeEach
 import rs.dusk.cache.definition.data.ItemDefinition
 import rs.dusk.cache.definition.decoder.ItemDecoder
 import rs.dusk.engine.TimedLoader
-import rs.dusk.engine.data.file.FileLoader
 import rs.dusk.engine.entity.definition.load.ItemDefinitionLoader
 import rs.dusk.engine.entity.item.EquipSlot
 import rs.dusk.engine.entity.item.EquipType
 import rs.dusk.engine.entity.item.ItemDrop
+import rs.dusk.engine.io.file.FileIO
 
 internal class ItemDefinitionsTest : DefinitionsDecoderTest<ItemDefinition, ItemDecoder, ItemDefinitions>() {
 
@@ -60,12 +60,16 @@ internal class ItemDefinitionsTest : DefinitionsDecoderTest<ItemDefinition, Item
         return ItemDefinition(id)
     }
 
-    override fun definitions(decoder: ItemDecoder, id: Map<String, Map<String, Any>>, names: Map<Int, String>): ItemDefinitions {
+    override fun definitions(
+        decoder: ItemDecoder,
+        id: Map<String, Map<String, Any>>,
+        names: Map<Int, String>
+    ): ItemDefinitions {
         return ItemDefinitions(decoder, id, names)
     }
 
-    override fun loader(loader: FileLoader): TimedLoader<ItemDefinitions> {
-        return ItemDefinitionLoader(loader, decoder)
+    override fun loader(io: FileIO): TimedLoader<ItemDefinitions> {
+        return ItemDefinitionLoader(io, decoder)
     }
 
 }

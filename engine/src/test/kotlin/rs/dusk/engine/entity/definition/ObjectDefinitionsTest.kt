@@ -5,8 +5,8 @@ import org.junit.jupiter.api.BeforeEach
 import rs.dusk.cache.definition.data.ObjectDefinition
 import rs.dusk.cache.definition.decoder.ObjectDecoder
 import rs.dusk.engine.TimedLoader
-import rs.dusk.engine.data.file.FileLoader
 import rs.dusk.engine.entity.definition.load.ObjectDefinitionLoader
+import rs.dusk.engine.io.file.FileIO
 
 internal class ObjectDefinitionsTest : DefinitionsDecoderTest<ObjectDefinition, ObjectDecoder, ObjectDefinitions>() {
 
@@ -24,11 +24,15 @@ internal class ObjectDefinitionsTest : DefinitionsDecoderTest<ObjectDefinition, 
         return ObjectDefinition(id)
     }
 
-    override fun definitions(decoder: ObjectDecoder, id: Map<String, Map<String, Any>>, names: Map<Int, String>): ObjectDefinitions {
+    override fun definitions(
+        decoder: ObjectDecoder,
+        id: Map<String, Map<String, Any>>,
+        names: Map<Int, String>
+    ): ObjectDefinitions {
         return ObjectDefinitions(decoder, id, names)
     }
 
-    override fun loader(loader: FileLoader): TimedLoader<ObjectDefinitions> {
-        return ObjectDefinitionLoader(decoder, loader)
+    override fun loader(io: FileIO): TimedLoader<ObjectDefinitions> {
+        return ObjectDefinitionLoader(decoder, io)
     }
 }

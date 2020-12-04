@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import rs.dusk.engine.entity.character.player.Player
 import rs.dusk.engine.event.eventModule
+import rs.dusk.engine.io.StorageStrategy
+import rs.dusk.engine.io.player.PlayerIO
 import rs.dusk.engine.map.collision.collisionModule
 import rs.dusk.engine.path.strat.FollowTargetStrategy
 import rs.dusk.engine.path.strat.RectangleTargetStrategy
@@ -17,17 +19,16 @@ import rs.dusk.engine.script.KoinMock
  * @author Greg Hibberd <greg@greghibberd.com>
  * @since April 03, 2020
  */
-internal class PlayerLoaderTest : KoinMock() {
+internal class PlayerIOTest : KoinMock() {
 
     override val modules = listOf(eventModule, collisionModule)
-
 
     @Test
     fun `load strategy`() {
         // Given
         val strategy = mockk<StorageStrategy<Player>>(relaxed = true)
         every { strategy.load("test") } returns mockk(relaxed = true)
-        val loader = PlayerLoader(mockk(), mockk(), mockk(), mockk(), strategy)
+        val loader = PlayerIO()
         // When
         loader.loadPlayer("test")
         // Then
@@ -39,7 +40,7 @@ internal class PlayerLoaderTest : KoinMock() {
         // Given
         val strategy = mockk<StorageStrategy<Player>>(relaxed = true)
         every { strategy.load("test") } returns null
-        val loader = PlayerLoader(mockk(), mockk(), mockk(), mockk(), strategy)
+        val loader = PlayerIO()
         // When
         val result = loader.loadPlayer("test")
         // Then
@@ -61,7 +62,7 @@ internal class PlayerLoaderTest : KoinMock() {
         // Given
         val strategy = mockk<StorageStrategy<Player>>(relaxed = true)
         every { strategy.load("test") } returns null
-        val loader = PlayerLoader(mockk(), mockk(), mockk(), mockk(), strategy)
+        val loader = PlayerIO()
         // When
         val result = loader.loadPlayer("test")
         // Then

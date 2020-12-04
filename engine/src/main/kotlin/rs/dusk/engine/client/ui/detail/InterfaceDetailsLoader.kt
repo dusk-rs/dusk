@@ -2,17 +2,17 @@ package rs.dusk.engine.client.ui.detail
 
 import org.koin.dsl.module
 import rs.dusk.engine.TimedLoader
-import rs.dusk.engine.data.file.FileLoader
 import rs.dusk.engine.entity.character.player.PlayerGameFrame.Companion.GAME_FRAME_NAME
 import rs.dusk.engine.entity.character.player.PlayerGameFrame.Companion.GAME_FRAME_RESIZE_NAME
+import rs.dusk.engine.io.file.FileIO
 
 private const val DEFAULT_TYPE = "main_screen"
 private const val DEFAULT_FIXED_PARENT = GAME_FRAME_NAME
 private const val DEFAULT_RESIZE_PARENT = GAME_FRAME_RESIZE_NAME
 
-class InterfaceDetailsLoader(private val loader: FileLoader) : TimedLoader<InterfaceDetails>("interfaces") {
+class InterfaceDetailsLoader(private val IO: FileIO) : TimedLoader<InterfaceDetails>("interfaces") {
 
-    fun loadFile(path: String): Map<String, Map<String, Any>> = loader.load(path)
+    fun loadFile(path: String): Map<String, Map<String, Any>> = IO.load(path)
 
     override fun load(args: Array<out Any?>): InterfaceDetails {
         return loadAll(args[0] as String, args[1] as String)
@@ -79,7 +79,13 @@ class InterfaceDetailsLoader(private val loader: FileLoader) : TimedLoader<Inter
             val container = map["container"] as? String ?: ""
             val primary = map["primary"] as? Boolean ?: true
             val options = map["options"] as? Map<*, *>
-            InterfaceComponentDetail(id, name, container = container, primaryContainer = primary, options = convert(options))
+            InterfaceComponentDetail(
+                id,
+                name,
+                container = container,
+                primaryContainer = primary,
+                options = convert(options)
+            )
         }
     }
 

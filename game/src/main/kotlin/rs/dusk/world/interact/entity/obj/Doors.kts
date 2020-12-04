@@ -1,5 +1,4 @@
 import com.github.michaelbull.logging.InlineLogger
-import rs.dusk.engine.data.file.FileLoader
 import rs.dusk.engine.entity.Direction
 import rs.dusk.engine.entity.character.clear
 import rs.dusk.engine.entity.character.inc
@@ -11,6 +10,7 @@ import rs.dusk.engine.entity.obj.ObjectOption
 import rs.dusk.engine.entity.obj.Objects
 import rs.dusk.engine.event.then
 import rs.dusk.engine.event.where
+import rs.dusk.engine.io.file.FileIO
 import rs.dusk.engine.map.Tile
 import rs.dusk.utility.func.isDoor
 import rs.dusk.utility.getProperty
@@ -19,7 +19,7 @@ import rs.dusk.world.interact.entity.obj.replaceObject
 import rs.dusk.world.interact.entity.obj.replaceObjectPair
 
 val objects: Objects by inject()
-val loader: FileLoader by inject()
+val IO: FileIO by inject()
 val logger = InlineLogger()
 
 // Delay in ticks before a door closes itself
@@ -27,13 +27,13 @@ val doorCloseDelay = 500
 // Times a door can be closed consecutively before getting stuck
 val doorStuckCount = 5
 
-val doors: Map<Int, Int> = loader.load<Map<String, Int>>(getProperty("doorsPath")).mapKeys { it.key.toInt() }
-val fences: Map<Int, Int> = loader.load<Map<String, Int>>(getProperty("fencesPath")).mapKeys { it.key.toInt() }
+val doors: Map<Int, Int> = IO.load<Map<String, Int>>(getProperty("doorsPath")).mapKeys { it.key.toInt() }
+val fences: Map<Int, Int> = IO.load<Map<String, Int>>(getProperty("fencesPath")).mapKeys { it.key.toInt() }
 
 ObjectOption where { obj.def.isDoor() && option == "Close" } then {
     // Prevent players from trapping one another
-    if(player.delayed(Delay.DoorSlam)) {
-        if(player.inc("doorSlamCount") > doorStuckCount) {
+    if (player.delayed(Delay.DoorSlam)) {
+        if (player.inc("doorSlamCount") > doorStuckCount) {
             player.message("The door seems to be stuck.")
             return@then
         }

@@ -11,15 +11,14 @@ import rs.dusk.engine.client.clientSessionModule
 import rs.dusk.engine.client.ui.detail.interfaceModule
 import rs.dusk.engine.client.update.updatingTasksModule
 import rs.dusk.engine.client.variable.variablesModule
-import rs.dusk.engine.data.file.fileLoaderModule
-import rs.dusk.engine.data.file.ymlPlayerModule
-import rs.dusk.engine.data.playerLoaderModule
 import rs.dusk.engine.entity.character.update.visualUpdatingModule
 import rs.dusk.engine.entity.detailsModule
 import rs.dusk.engine.entity.list.entityListModule
 import rs.dusk.engine.entity.obj.objectFactoryModule
 import rs.dusk.engine.event.EventBus
 import rs.dusk.engine.event.eventModule
+import rs.dusk.engine.io.file.fileLoaderModule
+import rs.dusk.engine.io.player.strategy.ymlPlayerModule
 import rs.dusk.engine.map.chunk.batchedChunkModule
 import rs.dusk.engine.map.chunk.instanceModule
 import rs.dusk.engine.map.collision.collisionModule
@@ -44,46 +43,47 @@ import rs.dusk.world.interact.entity.player.spawn.logout.logoutModule
 import java.util.concurrent.Executors
 
 /**
+ * @author Tyluur <itstyluur@gmail.com>
  * @author Greg Hibberd <greg@greghibberd.com>
+ *
  * @since April 18, 2020
  */
 object Dusk {
-	
-	const val name = "Dusk"
-	
-	@JvmStatic
-	fun main(args : Array<String>) {
-		preload()
-		
-		val world = World(1)
-		val disconnect = DisconnectEvent()
-		val server = GameServer(world, disconnect)
-		
-		val bus : EventBus = get()
-		val executor : TaskExecutor = get()
-		val service = Executors.newSingleThreadScheduledExecutor()
-		val start : SyncTask = get()
-		val engine = GameLoop(bus, executor, service)
-		
-		server.run()
-		engine.setup(start)
-		engine.start()
-	}
-	
-	fun preload() {
-		startKoin {
-			slf4jLogger()
-			modules(
+
+    const val name = "Dusk"
+
+    @JvmStatic
+    fun main(args: Array<String>) {
+        loadModules()
+
+        val world = World(1)
+        val disconnect = DisconnectEvent()
+        val server = GameServer(world, disconnect)
+
+        val bus: EventBus = get()
+        val executor: TaskExecutor = get()
+        val service = Executors.newSingleThreadScheduledExecutor()
+        val start: SyncTask = get()
+        val engine = GameLoop(bus, executor, service)
+
+        server.run()
+        engine.setup(start)
+        engine.start()
+    }
+
+    fun loadModules() {
+        startKoin {
+            slf4jLogger()
+            modules(
 				codecRepositoryModule,
 				eventModule,
 				cacheModule,
 				fileLoaderModule,
-				ymlPlayerModule/*, sqlPlayerModule*/,
+				ymlPlayerModule,
 				entityListModule,
 				scriptModule,
 				clientSessionModule,
 				gameServerFactory,
-				playerLoaderModule,
 				xteaModule,
 				visualUpdatingModule,
 				updatingTasksModule,
@@ -106,8 +106,8 @@ object Dusk {
 				logoutModule,
 				objectFactoryModule
 			)
-			fileProperties("/game.properties")
-			fileProperties("/private.properties")
-		}
-	}
+            fileProperties("/game.properties")
+            fileProperties("/private.properties")
+        }
+    }
 }

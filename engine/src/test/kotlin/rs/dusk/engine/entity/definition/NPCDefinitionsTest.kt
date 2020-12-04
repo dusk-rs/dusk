@@ -5,8 +5,8 @@ import org.junit.jupiter.api.BeforeEach
 import rs.dusk.cache.definition.data.NPCDefinition
 import rs.dusk.cache.definition.decoder.NPCDecoder
 import rs.dusk.engine.TimedLoader
-import rs.dusk.engine.data.file.FileLoader
 import rs.dusk.engine.entity.definition.load.NPCDefinitionLoader
+import rs.dusk.engine.io.file.FileIO
 
 internal class NPCDefinitionsTest : DefinitionsDecoderTest<NPCDefinition, NPCDecoder, NPCDefinitions>() {
 
@@ -24,11 +24,15 @@ internal class NPCDefinitionsTest : DefinitionsDecoderTest<NPCDefinition, NPCDec
         return NPCDefinition(id)
     }
 
-    override fun definitions(decoder: NPCDecoder, id: Map<String, Map<String, Any>>, names: Map<Int, String>): NPCDefinitions {
+    override fun definitions(
+        decoder: NPCDecoder,
+        id: Map<String, Map<String, Any>>,
+        names: Map<Int, String>
+    ): NPCDefinitions {
         return NPCDefinitions(decoder, id, names)
     }
 
-    override fun loader(loader: FileLoader): TimedLoader<NPCDefinitions> {
-        return NPCDefinitionLoader(loader, decoder)
+    override fun loader(io: FileIO): TimedLoader<NPCDefinitions> {
+        return NPCDefinitionLoader(io, decoder)
     }
 }

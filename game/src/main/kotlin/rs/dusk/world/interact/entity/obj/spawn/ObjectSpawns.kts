@@ -1,7 +1,6 @@
 import com.github.michaelbull.logging.InlineLogger
 import rs.dusk.engine.action.Scheduler
 import rs.dusk.engine.action.delay
-import rs.dusk.engine.data.file.FileLoader
 import rs.dusk.engine.entity.Registered
 import rs.dusk.engine.entity.Unregistered
 import rs.dusk.engine.entity.item.offset
@@ -10,6 +9,7 @@ import rs.dusk.engine.entity.obj.GameObjectFactory
 import rs.dusk.engine.entity.obj.Objects
 import rs.dusk.engine.event.EventBus
 import rs.dusk.engine.event.then
+import rs.dusk.engine.io.file.FileIO
 import rs.dusk.engine.map.chunk.ChunkBatcher
 import rs.dusk.engine.map.region.Region
 import rs.dusk.engine.map.region.RegionLoaded
@@ -20,7 +20,7 @@ import rs.dusk.utility.getProperty
 import rs.dusk.utility.inject
 import rs.dusk.world.interact.entity.obj.spawn.SpawnObject
 
-val files: FileLoader by inject()
+val files: FileIO by inject()
 val objects: Objects by inject()
 val scheduler: Scheduler by inject()
 val bus: EventBus by inject()
@@ -77,7 +77,7 @@ fun spawnCustom(gameObject: GameObject) {
     if (gameObject.id == -1) {
         val removal =
             objects[gameObject.tile].firstOrNull { it.tile == gameObject.tile && it.type == gameObject.type && it.rotation == gameObject.rotation }
-        if(removal == null) {
+        if (removal == null) {
             logger.debug { "Cannot find object to despawn $gameObject" }
         } else {
             despawn(removal)

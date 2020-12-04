@@ -1,11 +1,11 @@
 import rs.dusk.engine.action.Scheduler
 import rs.dusk.engine.action.delay
-import rs.dusk.engine.data.file.FileLoader
 import rs.dusk.engine.entity.Unregistered
 import rs.dusk.engine.entity.item.FloorItem
 import rs.dusk.engine.event.EventBus
 import rs.dusk.engine.event.then
 import rs.dusk.engine.event.where
+import rs.dusk.engine.io.file.FileIO
 import rs.dusk.engine.map.Tile
 import rs.dusk.engine.map.region.Region
 import rs.dusk.engine.map.region.RegionLoaded
@@ -14,7 +14,7 @@ import rs.dusk.utility.getProperty
 import rs.dusk.utility.inject
 import rs.dusk.world.interact.entity.item.spawn.Drop
 
-val files: FileLoader by inject()
+val files: FileIO by inject()
 val bus: EventBus by inject()
 val scheduler: Scheduler by inject()
 
