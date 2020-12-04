@@ -7,7 +7,7 @@ import rs.dusk.cache.config.decoder.ContainerDecoder
 import rs.dusk.engine.TimedLoader
 import rs.dusk.engine.entity.character.contain.StackMode
 import rs.dusk.engine.entity.definition.load.ContainerDefinitionLoader
-import rs.dusk.engine.io.jackson.JacksonIO
+import rs.dusk.engine.io.file.jackson.JacksonIO
 
 internal class ContainerDefinitionsTest :
     DefinitionsDecoderTest<ContainerDefinition, ContainerDecoder, ContainerDefinitions>() {

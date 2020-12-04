@@ -6,7 +6,7 @@ import rs.dusk.engine.entity.item.FloorItem
 import rs.dusk.engine.event.EventBus
 import rs.dusk.engine.event.then
 import rs.dusk.engine.event.where
-import rs.dusk.engine.io.jackson.file.FileIO
+import rs.dusk.engine.io.file.FileIO
 import rs.dusk.engine.map.Tile
 import rs.dusk.engine.map.region.Region
 import rs.dusk.engine.map.region.RegionLoaded
@@ -25,7 +25,7 @@ val spawns: MutableMap<Region, MutableList<ItemSpawn>> = mutableMapOf()
 val links = mutableMapOf<FloorItem, ItemSpawn>()
 
 Startup then {
-    val items: Array<ItemSpawn> = files.load(getProperty("floorItemsPath"))
+    val items: Array<ItemSpawn> = files.read(getProperty("floorItemsPath"))
     items.forEach { spawn ->
         val list = spawns.getOrPut(spawn.tile.region) { mutableListOf() }
         list.add(spawn)

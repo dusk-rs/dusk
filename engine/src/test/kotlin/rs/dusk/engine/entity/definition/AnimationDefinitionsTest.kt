@@ -6,7 +6,7 @@ import rs.dusk.cache.definition.data.AnimationDefinition
 import rs.dusk.cache.definition.decoder.AnimationDecoder
 import rs.dusk.engine.TimedLoader
 import rs.dusk.engine.entity.definition.load.AnimationDefinitionLoader
-import rs.dusk.engine.io.jackson.JacksonIO
+import rs.dusk.engine.io.file.jackson.JacksonIO
 
 internal class AnimationDefinitionsTest :
     DefinitionsDecoderTest<AnimationDefinition, AnimationDecoder, AnimationDefinitions>() {

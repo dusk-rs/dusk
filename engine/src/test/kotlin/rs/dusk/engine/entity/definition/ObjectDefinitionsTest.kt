@@ -6,7 +6,7 @@ import rs.dusk.cache.definition.data.ObjectDefinition
 import rs.dusk.cache.definition.decoder.ObjectDecoder
 import rs.dusk.engine.TimedLoader
 import rs.dusk.engine.entity.definition.load.ObjectDefinitionLoader
-import rs.dusk.engine.io.jackson.JacksonIO
+import rs.dusk.engine.io.file.jackson.JacksonIO
 
 internal class ObjectDefinitionsTest : DefinitionsDecoderTest<ObjectDefinition, ObjectDecoder, ObjectDefinitions>() {
 

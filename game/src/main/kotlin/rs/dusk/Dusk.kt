@@ -17,7 +17,8 @@ import rs.dusk.engine.entity.list.entityListModule
 import rs.dusk.engine.entity.obj.objectFactoryModule
 import rs.dusk.engine.event.EventBus
 import rs.dusk.engine.event.eventModule
-import rs.dusk.engine.io.jackson.file.fileIOModule
+import rs.dusk.engine.io.file.fileIO
+import rs.dusk.engine.io.file.jackson.jacksonIOModule
 import rs.dusk.engine.map.chunk.batchedChunkModule
 import rs.dusk.engine.map.chunk.instanceModule
 import rs.dusk.engine.map.collision.collisionModule
@@ -30,6 +31,7 @@ import rs.dusk.engine.path.pathFindModule
 import rs.dusk.engine.task.SyncTask
 import rs.dusk.engine.task.TaskExecutor
 import rs.dusk.engine.task.executorModule
+import rs.dusk.game.model.player.playerIO
 import rs.dusk.network.codecRepositoryModule
 import rs.dusk.network.server.GameServer
 import rs.dusk.network.server.World
@@ -78,7 +80,9 @@ object Dusk {
 				eventModule,
 				cacheModule,
 				entityListModule,
-				fileIOModule,
+				jacksonIOModule,
+				fileIO,
+				playerIO,
 				scriptModule,
 				clientSessionModule,
 				gameServerFactory,

@@ -1,19 +1,21 @@
 package rs.dusk.engine.io
 
 /**
- * @author Greg Hibberd <greg@greghibberd.com>
  * @author Tyluur <itstyluur@gmail.com>
+ * @author Greg Hibberd <greg@greghibberd.com>
+ *
  * @since April 03, 2020
  */
-interface StorageStrategy<T : Any> {
+interface StorageStrategy<T : Any> : IO {
 
     /**
-     * The strategy to load data
+     * The io operations to use
      */
-    fun load(uid: String): T?
+    val io: IO
 
     /**
-     * The strategy to save data
+     * The path that files will save to
      */
-    fun save(uid: String, data: T)
+    fun path(uid: String): String
+
 }

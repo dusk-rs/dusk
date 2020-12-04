@@ -90,7 +90,7 @@ class LoginQueue(
             return LoginResponse.WorldFull
         }
         try {
-            val player = loader.loadPlayer(attempt.name, false)
+            val player = loader.loadPlayer(attempt.name)
             player.index = index
             login.withLock { loginQueue.add(player to attempt) }
             logger.info { "Player ${attempt.name} loaded and queued for login." }

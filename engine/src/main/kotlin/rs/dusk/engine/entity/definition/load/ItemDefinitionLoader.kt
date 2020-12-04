@@ -6,7 +6,7 @@ import rs.dusk.engine.entity.definition.ItemDefinitions
 import rs.dusk.engine.entity.item.EquipSlot
 import rs.dusk.engine.entity.item.EquipType
 import rs.dusk.engine.entity.item.ItemDrop
-import rs.dusk.engine.io.jackson.JacksonIO
+import rs.dusk.engine.io.file.jackson.JacksonIO
 
 class ItemDefinitionLoader(private val IO: JacksonIO, private val decoder: ItemDecoder) :
     TimedLoader<ItemDefinitions>("item definition") {
@@ -23,7 +23,7 @@ class ItemDefinitionLoader(private val IO: JacksonIO, private val decoder: ItemD
 
     override fun load(args: Array<out Any?>): ItemDefinitions {
         val path = args[0] as String
-        val data: Map<String, Map<String, Any>> = IO.load(path)
+        val data: Map<String, Map<String, Any>> = IO.read(path)
         val map = data.mapValues { entry ->
             entry.value.mapValues { convert(it.key, it.value) }.toMutableMap().apply {
                 this["equip"] = equipmentIndices.getOrDefault(entry.value["id"] as Int, -1)

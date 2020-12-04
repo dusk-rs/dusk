@@ -9,7 +9,7 @@ import rs.dusk.engine.entity.definition.load.ItemDefinitionLoader
 import rs.dusk.engine.entity.item.EquipSlot
 import rs.dusk.engine.entity.item.EquipType
 import rs.dusk.engine.entity.item.ItemDrop
-import rs.dusk.engine.io.jackson.JacksonIO
+import rs.dusk.engine.io.file.jackson.JacksonIO
 
 internal class ItemDefinitionsTest : DefinitionsDecoderTest<ItemDefinition, ItemDecoder, ItemDefinitions>() {
 

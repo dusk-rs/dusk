@@ -9,7 +9,7 @@ import rs.dusk.engine.entity.obj.GameObjectFactory
 import rs.dusk.engine.entity.obj.Objects
 import rs.dusk.engine.event.EventBus
 import rs.dusk.engine.event.then
-import rs.dusk.engine.io.jackson.file.FileIO
+import rs.dusk.engine.io.file.FileIO
 import rs.dusk.engine.map.chunk.ChunkBatcher
 import rs.dusk.engine.map.region.Region
 import rs.dusk.engine.map.region.RegionLoaded
@@ -31,7 +31,7 @@ val logger = InlineLogger()
 val spawns: MutableMap<Region, MutableList<GameObject>> = mutableMapOf()
 
 Startup then {
-    val gameObjects: Array<GameObject> = io.load(getProperty("objectsPath"))
+    val gameObjects: Array<GameObject> = io.read(getProperty("objectsPath"))
     gameObjects.forEach { gameObject ->
         val list = spawns.getOrPut(gameObject.tile.region) { mutableListOf() }
         list.add(gameObject)

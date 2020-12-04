@@ -8,8 +8,8 @@ import rs.dusk.cache.definition.decoder.NPCDecoder
 import rs.dusk.engine.client.cacheDefinitionModule
 import rs.dusk.engine.client.cacheModule
 import rs.dusk.engine.entity.DefinitionsDecoder.Companion.toIdentifier
-import rs.dusk.engine.io.jackson.file.FileIO
-import rs.dusk.engine.io.jackson.file.fileIOModule
+import rs.dusk.engine.io.file.FileIO
+import rs.dusk.engine.io.file.fileIO
 
 /**
  * Dumps unique string identifiers for animation ids
@@ -23,7 +23,7 @@ object AnimationNames {
     fun main(args: Array<String>) {
         val koin = startKoin {
             fileProperties("/tool.properties")
-            modules(cacheModule, cacheDefinitionModule, fileIOModule)
+            modules(cacheModule, cacheDefinitionModule, fileIO)
         }.koin
         val cache: Cache = koin.get()
         val loader: FileIO = koin.get()

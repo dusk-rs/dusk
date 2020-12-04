@@ -9,7 +9,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import rs.dusk.engine.client.ui.detail.*
-import rs.dusk.engine.io.jackson.file.FileIO
+import rs.dusk.engine.io.file.FileIO
 
 internal class InterfaceLoaderTest {
 

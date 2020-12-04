@@ -3,7 +3,7 @@ package rs.dusk.world.interact.entity.npc.spawn
 import rs.dusk.engine.entity.Direction
 import rs.dusk.engine.event.EventBus
 import rs.dusk.engine.event.then
-import rs.dusk.engine.io.jackson.file.FileIO
+import rs.dusk.engine.io.file.FileIO
 import rs.dusk.engine.map.Tile
 import rs.dusk.engine.map.region.Region
 import rs.dusk.engine.map.region.RegionLoaded
@@ -20,7 +20,7 @@ val spawns: MutableMap<Region, MutableList<NPCSpawnPoint>> = mutableMapOf()
 
 Startup then {
     val path: String = getProperty("npcsPath")
-    val points: Array<NPCSpawnPoint> = io.load(path)
+    val points: Array<NPCSpawnPoint> = io.read(path)
     points.forEach { spawn ->
         val list = spawns.getOrPut(spawn.tile.region) { mutableListOf() }
         list.add(spawn)
