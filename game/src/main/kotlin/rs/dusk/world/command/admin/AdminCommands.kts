@@ -18,7 +18,7 @@ import rs.dusk.utility.get
 import rs.dusk.utility.inject
 import rs.dusk.world.command.Command
 import rs.dusk.world.interact.entity.npc.spawn.NPCSpawn
-import rs.dusk.world.interact.entity.player.spawn.login.Login
+import rs.dusk.world.interact.entity.player.spawn.login.LoginRequest
 import rs.dusk.world.interact.entity.player.spawn.login.LoginResponse
 import java.util.concurrent.atomic.AtomicInteger
 
@@ -69,8 +69,7 @@ Command where { prefix == "bot" } then {
             }
         }
         bus.emit(
-            Login(
-                "Bot ${botCounter.getAndIncrement()}",
+            LoginRequest(
                 callback = callback
             )
         )

@@ -9,13 +9,13 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import rs.dusk.core.network.model.session.Session
-import rs.dusk.engine.data.PlayerLoader
 import rs.dusk.engine.entity.character.IndexAllocator
 import rs.dusk.engine.entity.character.player.Player
 import rs.dusk.engine.event.EventBus
 import rs.dusk.engine.event.eventModule
-import rs.dusk.world.interact.entity.player.spawn.login.Login
+import rs.dusk.game.model.player.PlayerIO
 import rs.dusk.world.interact.entity.player.spawn.login.LoginQueue
+import rs.dusk.world.interact.entity.player.spawn.login.LoginRequest
 import rs.dusk.world.interact.entity.player.spawn.login.LoginResponse
 import rs.dusk.world.interact.entity.player.spawn.login.loginQueueModule
 import rs.dusk.world.script.KoinMock
@@ -29,9 +29,9 @@ internal class LoginQueueTest : KoinMock() {
 
     lateinit var loginQueue: LoginQueue
     lateinit var bus: EventBus
-    lateinit var loader: PlayerLoader
+    lateinit var loader: PlayerIO
     lateinit var indexer: IndexAllocator
-    lateinit var queue: Queue<Pair<Player, Login>>
+    lateinit var queue: Queue<Pair<Player, LoginRequest>>
     lateinit var attempts: MutableSet<String>
 
     override val modules = listOf(
@@ -55,12 +55,12 @@ internal class LoginQueueTest : KoinMock() {
         val session: Session = mockk(relaxed = true)
         val player: Player = mockk(relaxed = true)
         every { indexer.obtain() } returns 1
-        every { loader.loadPlayer(any()) } returns player
+        every { loader.load(any()) } returns player
         var result: LoginResponse? = null
         val callback = { response: LoginResponse ->
             result = response
         }
-        val login = Login("Test", session, callback)
+        val login = LoginRequest(session = session, callback = callback)
         // When
         loginQueue.add(login)?.await()
         loginQueue.tick()
@@ -76,7 +76,7 @@ internal class LoginQueueTest : KoinMock() {
         val callback = { response: LoginResponse ->
             result = response
         }
-        val login = Login("Test", callback = callback)
+        val login = LoginRequest(callback = callback)
         // When
         loginQueue.add(login)?.await()
         loginQueue.tick()
@@ -89,13 +89,13 @@ internal class LoginQueueTest : KoinMock() {
         // Given
         every { indexer.obtain() } returns 1
         every {
-            loader.loadPlayer(any())
-        } throws(IllegalStateException("Loading went wrong"))
+            loader.load(any())
+        } throws (IllegalStateException("Loading went wrong"))
         var result: LoginResponse? = null
         val callback = { response: LoginResponse ->
             result = response
         }
-        val login = Login("Test", callback = callback)
+        val login = LoginRequest(callback = callback)
         // When
         loginQueue.add(login)?.await()
         loginQueue.tick()
@@ -108,13 +108,13 @@ internal class LoginQueueTest : KoinMock() {
         // Given
         val player1: Player = mockk(relaxed = true)
         val player2: Player = mockk(relaxed = true)
-        every { loader.loadPlayer(any()) } answers {
+        every { loader.load(any()) } answers {
             val name: String = arg(0)
-            if(name == "Test1") player1 else player2
+            if (name == "Test1") player1 else player2
         }
         var first = true
         every { indexer.obtain() } answers {
-            if(first) {
+            if (first) {
                 first = false
                 1
             } else {
@@ -125,12 +125,12 @@ internal class LoginQueueTest : KoinMock() {
         val callback1 = { response: LoginResponse ->
             result1 = response
         }
-        val login1 = Login("Test1", callback = callback1)
+        val login1 = LoginRequest(callback = callback1)
         var result2: LoginResponse? = null
         val callback2 = { response: LoginResponse ->
             result2 = response
         }
-        val login2 = Login("Test2", callback = callback2)
+        val login2 = LoginRequest(callback = callback2)
         // When
         val d1 = loginQueue.add(login2)
         val d2 = loginQueue.add(login1)
@@ -139,8 +139,8 @@ internal class LoginQueueTest : KoinMock() {
         loginQueue.tick()
         // Then
         verifyOrder {
-            loader.loadPlayer("Test2")
-            loader.loadPlayer("Test1")
+            loader.load("Test2")
+            loader.load("Test1")
         }
         assertEquals(LoginResponse.Success(player1), result1)
         assertEquals(LoginResponse.Success(player2), result2)

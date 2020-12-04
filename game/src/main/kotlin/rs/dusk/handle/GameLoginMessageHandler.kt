@@ -26,7 +26,7 @@ import rs.dusk.network.rs.codec.login.decode.message.GameLoginMessage
 import rs.dusk.network.rs.codec.login.encode.message.GameLoginConnectionResponseMessage
 import rs.dusk.network.rs.codec.login.encode.message.GameLoginDetails
 import rs.dusk.utility.inject
-import rs.dusk.world.interact.entity.player.spawn.login.Login
+import rs.dusk.world.interact.entity.player.spawn.login.LoginRequest
 import rs.dusk.world.interact.entity.player.spawn.login.LoginResponse
 
 /**
@@ -53,6 +53,7 @@ class GameLoginMessageHandler : LoginMessageHandler<GameLoginMessage>() {
 
         val callback: (LoginResponse) -> Unit = { response ->
             logger.info { "Callback received! [response=$response]"}
+            pipeline.writeAndFlush(GameLoginConnectionResponseMessage(response.code))
             if (response is LoginResponse.Success) {
                 val player = response.player
                 pipeline.writeAndFlush(GameLoginDetails(2, player.index, msg.username))
@@ -81,7 +82,7 @@ class GameLoginMessageHandler : LoginMessageHandler<GameLoginMessage>() {
 
         executor.sync {
             logger.info { "Request - Emit login event [username=${msg.username}]" }
-            bus.emit(Login(msg.username, session, callback, msg))
+            bus.emit(LoginRequest(msg, session, callback))
             logger.info { "Post - Emit login event [username=${msg.username}]" }
         }
     }

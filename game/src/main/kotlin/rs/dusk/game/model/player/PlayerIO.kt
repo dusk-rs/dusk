@@ -20,6 +20,7 @@ import rs.dusk.network.rs.codec.game.encode.message.SkillLevelMessage
 import rs.dusk.utility.get
 import rs.dusk.utility.getProperty
 import rs.dusk.utility.inject
+import java.io.FileNotFoundException
 
 /**
  * @author Tyluur <itstyluur@gmail.com>
@@ -31,7 +32,7 @@ class PlayerIO {
 
     private val logger = InlineLogger()
 
-    private val path = "${getProperty<String>("local_files_path")}/players/"
+    private val path = "${getProperty<String>("local_files_path")}players/"
 
     private val x = getProperty("homeX", 0)
     private val y = getProperty("homeY", 0)
@@ -52,19 +53,22 @@ class PlayerIO {
         logger.info { "Attempting to load player $username" }
 
         val path = fileIO.generateFilePath(path, username)
-        logger.debug { "[username=$username, path=path]"}
+        logger.debug { "[username=$username, path=$path]" }
 
-        val data = fileIO.read<Player>(path)
-        logger.debug { "[data=$data]"}
-
-        val player: Player? = data
-        if (player == null) {
+        var new = false
+        val player = try {
+            fileIO.read<Player>(path)
+        } catch (e: FileNotFoundException) {
+            new = true
             logger.trace { "New player constructed" }
-            return Player()
+            Player(id = -1, tile = tile)
         }
-
-        logger.info { "read operation return [player=$player]" }
-
+        if (new) {
+            save(player)
+            logger.info { "Saved new player [$player, path=$path]"}
+        }
+        bind(player)
+        logger.info { "Bound player [player=$player]" }
         return player
     }
 

@@ -7,6 +7,7 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator
 import com.github.michaelbull.logging.InlineLogger
 import org.koin.dsl.module
 import rs.dusk.engine.io.IO
+import rs.dusk.utility.func.FileFunction
 import java.io.File
 import kotlin.reflect.KClass
 
@@ -37,7 +38,10 @@ open class JacksonIO(private val quotes: Boolean = false) : IO {
     /**
      * Loads data from an object mapper
      */
-    inline fun <reified T : Any> read(path: String): T = mapper.readValue(File(path), T::class.java)
+    inline fun <reified T : Any> read(path: String): T {
+        val file = FileFunction.find(path)
+        return mapper.readValue(file, T::class.java)
+    }
 
     /**
      * Loads data from an object mapper where possible

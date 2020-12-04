@@ -1,6 +1,8 @@
 package rs.dusk.utility.func
 
 import io.github.classgraph.ClassGraph
+import java.io.File
+import java.io.FileNotFoundException
 
 class FileFunction {
 
@@ -19,6 +21,14 @@ class FileFunction {
                 }
             }
             return classes
+        }
+
+        fun find(path: String): File {
+            val file = File(path)
+            if (!file.exists()) {
+                throw FileNotFoundException("Unable to find that file! [file=$file]")
+            }
+            return file
         }
 
     }
