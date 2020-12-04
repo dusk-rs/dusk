@@ -35,9 +35,9 @@ private object ContainerNames {
         }
         println(map)
         val fileIO = FileIO()
-        val path = "./container-details.yml"
+        val path = ""
         val sorted = map.map { it.value to Ids(it.key) }.sortedBy { it.second.id }.toMap()
-        fileIO.save(path, sorted)
+        fileIO.write(path, "container-details.yml", sorted)
         println("${sorted.size} container identifiers dumped to $path.")
     }
 

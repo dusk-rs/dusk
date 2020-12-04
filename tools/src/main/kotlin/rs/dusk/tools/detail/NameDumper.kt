@@ -15,11 +15,16 @@ abstract class NameDumper {
         return emptyMap()
     }
 
-    fun dump(loader: FileIO, path: String, name: String, count: Int) {
+    fun dump(io: FileIO, path: String, name: String, count: Int) {
         val entities = getNamedEntities(count)
         val unique = getUniqueList(entities)
-        val sorted = unique.toList().sortedBy { it.second["id"] as Int }.toMap()
-        loader.save(path, sorted)
+	
+	    val sorted = unique.toList().sortedBy { it.second["id"] as Int }.toMap()
+	
+	    val path ="./data/dump/"
+	    val identifier = "graphic-details.yml"
+	    io.write(path, identifier, sorted)
+	    
         println("${unique.size} $name identifiers dumped to $path.")
     }
 

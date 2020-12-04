@@ -38,10 +38,10 @@ object AnimationNames {
             }
         }
 
-        val path = "./animation-details.yml"
-        val sorted = map.map { it.value.first() to Ids(it.key) }.sortedBy { it.second.id }.toMap()
-        loader.save(path, sorted)
-        println("${sorted.size} animation identifiers dumped to $path.")
+	    val path = "./data/dump/"
+	    val data = map.map { it.value.first() to Ids(it.key) }.sortedBy { it.second.id }.toMap()
+	    loader.write(path, "animation-details.yml", data)
+        println("${data.size} animation identifiers dumped to $path.")
     }
 
     private fun getRenderAnimations(cache: Cache): Map<Int, String> {

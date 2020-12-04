@@ -283,7 +283,7 @@ private class WikiItemNames(val decoder: ItemDecoder, val types: ItemTypes, val 
             }.koin
             loadEquipSlotsAndTypes()
             val decoder = ItemDecoder(koin.get())
-            val loader = FileIO(true)
+            val io = FileIO()
             val types = ItemTypes(decoder)
 
             val text = File("./data/dump/Items667.json").readText()
@@ -291,7 +291,7 @@ private class WikiItemNames(val decoder: ItemDecoder, val types: ItemTypes, val 
             val raw: MutableMap<Int, MutableMap<String, Any>> = mapper.readValue(text)
 
             val names = WikiItemNames(decoder, types, raw)
-            names.dump(loader, "./data/dump/item-details.yml", "item", decoder.size)
+            names.dump(io, "./data/dump/item-details.yml", "item", decoder.size)
         }
     }
 

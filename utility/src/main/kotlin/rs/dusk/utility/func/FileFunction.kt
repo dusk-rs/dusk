@@ -1,6 +1,7 @@
 package rs.dusk.utility.func
 
 import io.github.classgraph.ClassGraph
+import nonapi.io.github.classgraph.utils.FileUtils
 import java.io.File
 import java.io.FileNotFoundException
 
@@ -30,6 +31,10 @@ class FileFunction {
             }
             return file
         }
-
+	    
+	    fun write(path: String, data: String) {
+		    return File(path).writeText(data)
+	    }
+	
     }
 }

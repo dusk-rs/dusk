@@ -31,7 +31,7 @@ object GraphicNames {
         addItemModels(cache, models)
         addNPCModels(cache, models)
         addObjectModels(cache, models)
-        val loader: FileIO = koin.get()
+        val io: FileIO = koin.get()
         val decoder = GraphicDecoder(cache)
         val map = mutableMapOf<Int, MutableList<String>>()
         repeat(decoder.size) { id ->
@@ -42,9 +42,12 @@ object GraphicNames {
             }
         }
 
-        val path = "./graphic-details.yml"
         val sorted = map.map { it.value.first() to Ids(it.key) }.sortedBy { it.second.id }.toMap()
-        loader.save(path, sorted)
+	    
+	    val path ="./data/dump/"
+	    val identifier = "graphic-details.yml"
+	    io.write(path, identifier, sorted)
+	    
         println("${sorted.size} graphic identifiers dumped to $path.")
     }
 
