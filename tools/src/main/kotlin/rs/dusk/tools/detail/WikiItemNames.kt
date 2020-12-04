@@ -9,10 +9,10 @@ import rs.dusk.cache.CacheDelegate
 import rs.dusk.cache.definition.decoder.ItemDecoder
 import rs.dusk.engine.client.cacheDefinitionModule
 import rs.dusk.engine.client.cacheModule
-import rs.dusk.engine.data.file.FileLoader
-import rs.dusk.engine.data.file.fileLoaderModule
 import rs.dusk.engine.entity.item.EquipSlot
 import rs.dusk.engine.entity.item.EquipType
+import rs.dusk.engine.io.jackson.file.FileIO
+import rs.dusk.engine.io.jackson.file.fileIOModule
 import rs.dusk.tools.convert.ItemDecoder718
 import java.io.File
 
@@ -279,11 +279,11 @@ private class WikiItemNames(val decoder: ItemDecoder, val types: ItemTypes, val 
         fun main(args: Array<String>) {
             val koin = startKoin {
                 fileProperties("/tool.properties")
-                modules(cacheModule, cacheDefinitionModule, fileLoaderModule)
+                modules(cacheModule, cacheDefinitionModule, fileIOModule)
             }.koin
             loadEquipSlotsAndTypes()
             val decoder = ItemDecoder(koin.get())
-            val loader = FileLoader(true)
+            val loader = FileIO(true)
             val types = ItemTypes(decoder)
 
             val text = File("./data/dump/Items667.json").readText()

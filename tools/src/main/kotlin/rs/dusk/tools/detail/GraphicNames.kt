@@ -8,9 +8,9 @@ import rs.dusk.cache.definition.decoder.NPCDecoder
 import rs.dusk.cache.definition.decoder.ObjectDecoder
 import rs.dusk.engine.client.cacheDefinitionModule
 import rs.dusk.engine.client.cacheModule
-import rs.dusk.engine.data.file.FileLoader
-import rs.dusk.engine.data.file.fileLoaderModule
 import rs.dusk.engine.entity.DefinitionsDecoder.Companion.toIdentifier
+import rs.dusk.engine.io.jackson.file.FileIO
+import rs.dusk.engine.io.jackson.file.fileIOModule
 
 /**
  * Dumps unique string identifiers for graphic ids
@@ -24,19 +24,19 @@ object GraphicNames {
     fun main(args: Array<String>) {
         val koin = startKoin {
             fileProperties("/tool.properties")
-            modules(cacheModule, cacheDefinitionModule, fileLoaderModule)
+            modules(cacheModule, cacheDefinitionModule, fileIOModule)
         }.koin
         val cache: Cache = koin.get()
         val models = mutableMapOf<Int, MutableList<String>>()
         addItemModels(cache, models)
         addNPCModels(cache, models)
         addObjectModels(cache, models)
-        val loader: FileLoader = koin.get()
+        val loader: FileIO = koin.get()
         val decoder = GraphicDecoder(cache)
         val map = mutableMapOf<Int, MutableList<String>>()
         repeat(decoder.size) { id ->
             val def = decoder.getOrNull(id) ?: return@repeat
-            if(def.modelId != 0) {
+            if (def.modelId != 0) {
                 val name = models[def.modelId]?.firstOrNull() ?: return@repeat
                 map.getOrPut(id) { mutableListOf() }.add(toIdentifier(name))
             }
@@ -85,7 +85,7 @@ object GraphicNames {
     }
 
     private fun MutableMap<Int, MutableList<String>>.add(id: Int, name: String) {
-        if(id != -1 && name != "" && name != "null") {
+        if (id != -1 && name != "" && name != "null") {
             getOrPut(id) { mutableListOf() }.add(name)
         }
     }

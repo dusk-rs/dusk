@@ -1,7 +1,7 @@
 package rs.dusk.tools.detail
 
-import rs.dusk.engine.data.file.FileLoader
 import rs.dusk.engine.entity.DefinitionsDecoder.Companion.toIdentifier
+import rs.dusk.engine.io.jackson.file.FileIO
 import java.io.File
 
 /**
@@ -34,10 +34,10 @@ private object ContainerNames {
             }
         }
         println(map)
-        val fileLoader = FileLoader()
+        val fileIO = FileIO()
         val path = "./container-details.yml"
         val sorted = map.map { it.value to Ids(it.key) }.sortedBy { it.second.id }.toMap()
-        fileLoader.save(path, sorted)
+        fileIO.save(path, sorted)
         println("${sorted.size} container identifiers dumped to $path.")
     }
 

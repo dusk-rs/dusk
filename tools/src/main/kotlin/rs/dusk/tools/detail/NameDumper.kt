@@ -1,7 +1,7 @@
 package rs.dusk.tools.detail
 
-import rs.dusk.engine.data.file.FileLoader
 import rs.dusk.engine.entity.DefinitionsDecoder.Companion.toIdentifier
+import rs.dusk.engine.io.jackson.file.FileIO
 
 abstract class NameDumper {
 
@@ -15,7 +15,7 @@ abstract class NameDumper {
         return emptyMap()
     }
 
-    fun dump(loader: FileLoader, path: String, name: String, count: Int) {
+    fun dump(loader: FileIO, path: String, name: String, count: Int) {
         val entities = getNamedEntities(count)
         val unique = getUniqueList(entities)
         val sorted = unique.toList().sortedBy { it.second["id"] as Int }.toMap()

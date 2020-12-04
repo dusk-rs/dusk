@@ -3,9 +3,9 @@ package rs.dusk.engine.entity.definition.load
 import rs.dusk.cache.definition.decoder.GraphicDecoder
 import rs.dusk.engine.TimedLoader
 import rs.dusk.engine.entity.definition.GraphicDefinitions
-import rs.dusk.engine.io.file.FileIO
+import rs.dusk.engine.io.jackson.JacksonIO
 
-class GraphicDefinitionLoader(private val IO: FileIO, private val decoder: GraphicDecoder) :
+class GraphicDefinitionLoader(private val IO: JacksonIO, private val decoder: GraphicDecoder) :
     TimedLoader<GraphicDefinitions>("graphic definition") {
 
     override fun load(args: Array<out Any?>): GraphicDefinitions {

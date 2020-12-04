@@ -11,7 +11,8 @@ import rs.dusk.cache.DefinitionDecoder
 import rs.dusk.cache.definition.Extra
 import rs.dusk.engine.TimedLoader
 import rs.dusk.engine.entity.DefinitionsDecoder
-import rs.dusk.engine.io.file.FileIO
+import rs.dusk.engine.io.jackson.JacksonIO
+import rs.dusk.engine.io.jackson.file.FileIO
 
 abstract class DefinitionsDecoderTest<T, D : DefinitionDecoder<T>, S : DefinitionsDecoder<T, D>> where T : Definition, T : Extra {
 
@@ -31,7 +32,7 @@ abstract class DefinitionsDecoderTest<T, D : DefinitionDecoder<T>, S : Definitio
 
     abstract fun definitions(decoder: D, id: Map<String, Map<String, Any>>, names: Map<Int, String>): S
 
-    abstract fun loader(io: FileIO): TimedLoader<S>
+    abstract fun loader(io: JacksonIO): TimedLoader<S>
 
     lateinit var decoder: D
 

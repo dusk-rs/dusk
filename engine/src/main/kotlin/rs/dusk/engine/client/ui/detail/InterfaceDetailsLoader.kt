@@ -4,15 +4,15 @@ import org.koin.dsl.module
 import rs.dusk.engine.TimedLoader
 import rs.dusk.engine.entity.character.player.PlayerGameFrame.Companion.GAME_FRAME_NAME
 import rs.dusk.engine.entity.character.player.PlayerGameFrame.Companion.GAME_FRAME_RESIZE_NAME
-import rs.dusk.engine.io.file.FileIO
+import rs.dusk.engine.io.jackson.JacksonIO
 
 private const val DEFAULT_TYPE = "main_screen"
 private const val DEFAULT_FIXED_PARENT = GAME_FRAME_NAME
 private const val DEFAULT_RESIZE_PARENT = GAME_FRAME_RESIZE_NAME
 
-class InterfaceDetailsLoader(private val IO: FileIO) : TimedLoader<InterfaceDetails>("interfaces") {
+class InterfaceDetailsLoader(private val io: JacksonIO) : TimedLoader<InterfaceDetails>("interfaces") {
 
-    fun loadFile(path: String): Map<String, Map<String, Any>> = IO.load(path)
+    fun loadFile(path: String): Map<String, Map<String, Any>> = io.load(path)
 
     override fun load(args: Array<out Any?>): InterfaceDetails {
         return loadAll(args[0] as String, args[1] as String)

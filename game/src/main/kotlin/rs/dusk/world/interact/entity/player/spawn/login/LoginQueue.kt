@@ -10,22 +10,8 @@ import rs.dusk.engine.entity.character.player.Player
 import rs.dusk.engine.entity.character.player.PlayerSpawn
 import rs.dusk.engine.entity.list.MAX_PLAYERS
 import rs.dusk.engine.event.EventBus
-import rs.dusk.engine.io.player.PlayerIO
+import rs.dusk.game.model.player.PlayerIO
 import java.util.*
-
-/**
- * @author Greg Hibberd <greg@greghibberd.com>
- * @since March 31, 2020
- */
-val loginQueueModule = module {
-    single {
-        LoginQueue(
-            get(),
-            get(),
-            getProperty("loginPerTickCap", 1)
-        )
-    }
-}
 
 /**
  * Keeps track of number of players online, prevents duplicate login attempts
@@ -104,7 +90,7 @@ class LoginQueue(
             return LoginResponse.WorldFull
         }
         try {
-            val player = loader.loadPlayer(attempt.name)
+            val player = loader.loadPlayer(attempt.name, false)
             player.index = index
             login.withLock { loginQueue.add(player to attempt) }
             logger.info { "Player ${attempt.name} loaded and queued for login." }
@@ -118,5 +104,19 @@ class LoginQueue(
     companion object {
         private val logger = InlineLogger()
         private val scope = CoroutineScope(newFixedThreadPoolContext(2, "LoginQueue"))
+    }
+}
+
+/**
+ * @author Greg Hibberd <greg@greghibberd.com>
+ * @since March 31, 2020
+ */
+val loginQueueModule = module {
+    single {
+        LoginQueue(
+            get(),
+            get(),
+            getProperty("loginPerTickCap", 1)
+        )
     }
 }

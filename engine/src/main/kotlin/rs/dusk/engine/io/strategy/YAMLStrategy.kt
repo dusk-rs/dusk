@@ -1,9 +1,9 @@
-package rs.dusk.engine.io.player.strategy
+package rs.dusk.engine.io.strategy
 
-import org.koin.dsl.module
 import rs.dusk.engine.entity.character.player.Player
 import rs.dusk.engine.io.StorageStrategy
-import rs.dusk.engine.io.file.FileIO
+import rs.dusk.engine.io.jackson.file.FileIO
+import rs.dusk.utility.getProperty
 import rs.dusk.utility.inject
 
 /**
@@ -12,17 +12,24 @@ import rs.dusk.utility.inject
  *
  * @since April 03, 2020
  */
-class YMLStrategy(private val path: String) : StorageStrategy<Player> {
+abstract class YAMLStrategy(
 
     /**
-     * The path that files will save to
+     * The contents of what will be in the folder
      */
-    private fun path(name: String) = "./data/io/$path/$name.yml"
+    val contents: String
+
+) : StorageStrategy<Player> {
 
     /**
      * The io operations to use
      */
     private val io: FileIO by inject()
+
+    /**
+     * The path that files will save to
+     */
+    private fun path(uid: String) = "${getProperty<String>("io_directory")}/${contents}/$uid"
 
     /**
      * Load the player data from the yml file
@@ -38,11 +45,4 @@ class YMLStrategy(private val path: String) : StorageStrategy<Player> {
         return io.save(path(uid), data)
     }
 
-}
-
-@Suppress("USELESS_CAST")
-val ymlPlayerModule = module {
-    single {
-        YMLStrategy(getProperty("savePath"))
-    }
 }

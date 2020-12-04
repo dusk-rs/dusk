@@ -1,36 +1,30 @@
-package rs.dusk.engine.io.file
+package rs.dusk.engine.io.jackson
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.exc.MismatchedInputException
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
-import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator
-import com.github.michaelbull.logging.InlineLogger
-import org.koin.dsl.module
 import java.io.File
 
 /**
- * @author Greg Hibberd <greg@greghibberd.com>
  * @author Tyluur <itstyluur@gmail.com>
+ * @author Greg Hibberd <greg@greghibberd.com>
  *
  * @since April 03, 2020
  */
-class FileIO(private val quotes: Boolean = false) {
+abstract class JacksonIO {
 
-    val mapper = ObjectMapper(YAMLFactory().disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER).apply {
-        if (!quotes) {
-            enable(YAMLGenerator.Feature.MINIMIZE_QUOTES)
-        }
-    })
+    /**
+     * The instance of the mapper
+     */
+    abstract val mapper: ObjectMapper
 
-    private val logger = InlineLogger()
-
-    init {
-        mapper.findAndRegisterModules()
-        logger.info { "YAML file mapper loaded." }
-    }
-
+    /**
+     * Loads data from an object mapper
+     */
     inline fun <reified T : Any> load(path: String) = mapper.readValue(File(path), T::class.java)
 
+    /**
+     * Loads data from an object mapper where possible
+     */
     inline fun <reified T : Any> loadOrNull(path: String): T? {
         val file = File(path)
         return if (file.exists()) {
@@ -45,13 +39,12 @@ class FileIO(private val quotes: Boolean = false) {
         }
     }
 
+    /**
+     * Saves data to a file
+     */
     fun <T : Any> save(path: String, data: T) {
         val file = File(path)
         return mapper.writeValue(file, data)
     }
 
-}
-
-val fileLoaderModule = module {
-    single { FileIO() }
 }
