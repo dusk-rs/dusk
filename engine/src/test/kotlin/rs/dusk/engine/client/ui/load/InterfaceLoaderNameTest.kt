@@ -13,7 +13,7 @@ internal class InterfaceLoaderNameTest {
 
     @BeforeEach
     fun setup() {
-        loader = InterfaceDetailsLoader(mockk())
+        loader = InterfaceDetailsLoader()
     }
 
     @Test

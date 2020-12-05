@@ -10,7 +10,6 @@ import org.koin.dsl.module
 import org.koin.test.mock.declareMock
 import rs.dusk.cache.definition.data.NPCDefinition
 import rs.dusk.engine.client.cacheDefinitionModule
-import rs.dusk.engine.data.file.fileLoaderModule
 import rs.dusk.engine.entity.Direction
 import rs.dusk.engine.entity.Registered
 import rs.dusk.engine.entity.Size
@@ -40,7 +39,7 @@ internal class NPCSpawnsTest : ScriptMock() {
     @BeforeEach
     override fun setup() {
         bus = spyk(EventBus())
-        loadModules(cacheDefinitionModule, entityListModule, module { single { bus }}, collisionModule, fileLoaderModule)
+        loadModules(cacheDefinitionModule, entityListModule, module { single { bus }}, collisionModule)
         super.setup()
         spawnHandler = bus.get(NPCSpawn::class)!!
     }

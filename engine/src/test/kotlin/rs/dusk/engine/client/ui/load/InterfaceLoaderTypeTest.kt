@@ -18,7 +18,7 @@ internal class InterfaceLoaderTypeTest {
     @BeforeEach
     fun setup() {
         names = mutableMapOf("toplevel" to toplevel, "toplevel_full" to toplevel)
-        loader = InterfaceDetailsLoader(mockk())
+        loader = InterfaceDetailsLoader()
     }
 
     @Test
