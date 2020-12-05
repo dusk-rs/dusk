@@ -5,12 +5,14 @@ import rs.dusk.engine.TimedLoader
 import rs.dusk.engine.entity.character.player.PlayerGameFrame.Companion.GAME_FRAME_NAME
 import rs.dusk.engine.entity.character.player.PlayerGameFrame.Companion.GAME_FRAME_RESIZE_NAME
 import rs.dusk.engine.io.file.jackson.yaml.YamlIO
+import rs.dusk.utility.inject
 
 private const val DEFAULT_TYPE = "main_screen"
 private const val DEFAULT_FIXED_PARENT = GAME_FRAME_NAME
 private const val DEFAULT_RESIZE_PARENT = GAME_FRAME_RESIZE_NAME
 
-class InterfaceDetailsLoader(private val io : YamlIO<InterfaceDetails>) : TimedLoader<InterfaceDetails>("interfaces") {
+class InterfaceDetailsLoader : TimedLoader<InterfaceDetails>("interfaces") {
+	private val io : YamlIO<InterfaceDetails> by inject()
 	
 	fun loadFile(path : String) : Map<String, Map<String, Any>> = io.read(path)
 	
@@ -117,7 +119,6 @@ class InterfaceDetailsLoader(private val io : YamlIO<InterfaceDetails>) : TimedL
 
 val interfaceModule = module {
 	single(createdAtStart = true) {
-		InterfaceDetailsLoader(get())
-			.run(getProperty("interfacesPath"), getProperty("interfaceTypesPath"))
+		InterfaceDetailsLoader().run(getProperty("interfacesPath"), getProperty("interfaceTypesPath"))
 	}
 }

@@ -10,6 +10,7 @@ import rs.dusk.engine.entity.obj.Objects
 import rs.dusk.engine.event.EventBus
 import rs.dusk.engine.event.then
 import rs.dusk.engine.io.file.FileIO
+import rs.dusk.engine.io.file.jackson.yaml.YamlIO
 import rs.dusk.engine.map.chunk.ChunkBatcher
 import rs.dusk.engine.map.region.Region
 import rs.dusk.engine.map.region.RegionLoaded
@@ -20,7 +21,7 @@ import rs.dusk.utility.getProperty
 import rs.dusk.utility.inject
 import rs.dusk.world.interact.entity.obj.spawn.SpawnObject
 
-val io: FileIO by inject()
+val io: YamlIO<Array<GameObject>> by inject()
 val objects: Objects by inject()
 val scheduler: Scheduler by inject()
 val bus: EventBus by inject()

@@ -48,7 +48,7 @@ internal class ContainerDefinitionsTest :
         return ContainerDefinitions(decoder, id, names)
     }
 
-    override fun loader(io: YamlIO): TimedLoader<ContainerDefinitions> {
+    override fun loader(io: YamlIO<ContainerDefinitions>): TimedLoader<ContainerDefinitions> {
         return ContainerDefinitionLoader(io, decoder)
     }
 

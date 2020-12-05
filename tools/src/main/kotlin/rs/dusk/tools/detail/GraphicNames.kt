@@ -10,87 +10,86 @@ import rs.dusk.engine.client.cacheDefinitionModule
 import rs.dusk.engine.client.cacheModule
 import rs.dusk.engine.entity.DefinitionsDecoder.Companion.toIdentifier
 import rs.dusk.engine.io.file.FileIO
-import rs.dusk.engine.io.file.fileIO
 
 /**
  * Dumps unique string identifiers for graphic ids
  * Identifies graphic names by cross referencing graphic models with npc/object/item names & their models
  */
 object GraphicNames {
-
-    private data class Ids(val id: Int)
-
-    @JvmStatic
-    fun main(args: Array<String>) {
-        val koin = startKoin {
-            fileProperties("/tool.properties")
-            modules(cacheModule, cacheDefinitionModule, fileIO)
-        }.koin
-        val cache: Cache = koin.get()
-        val models = mutableMapOf<Int, MutableList<String>>()
-        addItemModels(cache, models)
-        addNPCModels(cache, models)
-        addObjectModels(cache, models)
-        val io: FileIO = koin.get()
-        val decoder = GraphicDecoder(cache)
-        val map = mutableMapOf<Int, MutableList<String>>()
-        repeat(decoder.size) { id ->
-            val def = decoder.getOrNull(id) ?: return@repeat
-            if (def.modelId != 0) {
-                val name = models[def.modelId]?.firstOrNull() ?: return@repeat
-                map.getOrPut(id) { mutableListOf() }.add(toIdentifier(name))
-            }
-        }
-
-        val sorted = map.map { it.value.first() to Ids(it.key) }.sortedBy { it.second.id }.toMap()
-	    
-	    val path ="./data/dump/"
-	    val identifier = "graphic-details.yml"
-	    io.write(sorted)
-	    
-        println("${sorted.size} graphic identifiers dumped to $path.")
-    }
-
-    private fun addItemModels(cache: Cache, models: MutableMap<Int, MutableList<String>>) {
-        val decoder = ItemDecoder(cache)
-        repeat(decoder.size) { id ->
-            val def = decoder.getOrNull(id) ?: return@repeat
-            models.add(def.primaryMaleModel, def.name)
-            models.add(def.secondaryMaleModel, def.name)
-            models.add(def.tertiaryMaleModel, def.name)
-            models.add(def.primaryFemaleModel, def.name)
-            models.add(def.secondaryFemaleModel, def.name)
-            models.add(def.tertiaryFemaleModel, def.name)
-            models.add(def.modelId, def.name)
-        }
-    }
-
-    private fun addNPCModels(cache: Cache, models: MutableMap<Int, MutableList<String>>) {
-        val decoder = NPCDecoder(cache, member = true)
-        repeat(decoder.size) { id ->
-            val def = decoder.getOrNull(id) ?: return@repeat
-            def.modelIds?.forEach { model ->
-                models.add(model, def.name)
-            }
-        }
-    }
-
-    private fun addObjectModels(cache: Cache, models: MutableMap<Int, MutableList<String>>) {
-        val decoder = ObjectDecoder(cache, member = true, lowDetail = false)
-        repeat(decoder.size) { id ->
-            val def = decoder.getOrNull(id) ?: return@repeat
-            def.modelIds?.forEach { array ->
-                array.forEach { model ->
-                    models.add(model, def.name)
-                }
-            }
-        }
-    }
-
-    private fun MutableMap<Int, MutableList<String>>.add(id: Int, name: String) {
-        if (id != -1 && name != "" && name != "null") {
-            getOrPut(id) { mutableListOf() }.add(name)
-        }
-    }
-
+	
+	private data class Ids(val id : Int)
+	
+	@JvmStatic
+	fun main(args : Array<String>) {
+		val koin = startKoin {
+			fileProperties("/tool.properties")
+			modules(cacheModule, cacheDefinitionModule)
+		}.koin
+		val cache : Cache = koin.get()
+		val models = mutableMapOf<Int, MutableList<String>>()
+		addItemModels(cache, models)
+		addNPCModels(cache, models)
+		addObjectModels(cache, models)
+		val io : FileIO = koin.get()
+		val decoder = GraphicDecoder(cache)
+		val map = mutableMapOf<Int, MutableList<String>>()
+		repeat(decoder.size) { id ->
+			val def = decoder.getOrNull(id) ?: return@repeat
+			if (def.modelId != 0) {
+				val name = models[def.modelId]?.firstOrNull() ?: return@repeat
+				map.getOrPut(id) { mutableListOf() }.add(toIdentifier(name))
+			}
+		}
+		
+		val sorted = map.map { it.value.first() to Ids(it.key) }.sortedBy { it.second.id }.toMap()
+		
+		val path = "./data/dump/"
+		val identifier = "graphic-details.yml"
+		//io.write(sorted)
+		
+		println("${sorted.size} graphic identifiers dumped to $path.")
+	}
+	
+	private fun addItemModels(cache : Cache, models : MutableMap<Int, MutableList<String>>) {
+		val decoder = ItemDecoder(cache)
+		repeat(decoder.size) { id ->
+			val def = decoder.getOrNull(id) ?: return@repeat
+			models.add(def.primaryMaleModel, def.name)
+			models.add(def.secondaryMaleModel, def.name)
+			models.add(def.tertiaryMaleModel, def.name)
+			models.add(def.primaryFemaleModel, def.name)
+			models.add(def.secondaryFemaleModel, def.name)
+			models.add(def.tertiaryFemaleModel, def.name)
+			models.add(def.modelId, def.name)
+		}
+	}
+	
+	private fun addNPCModels(cache : Cache, models : MutableMap<Int, MutableList<String>>) {
+		val decoder = NPCDecoder(cache, member = true)
+		repeat(decoder.size) { id ->
+			val def = decoder.getOrNull(id) ?: return@repeat
+			def.modelIds?.forEach { model ->
+				models.add(model, def.name)
+			}
+		}
+	}
+	
+	private fun addObjectModels(cache : Cache, models : MutableMap<Int, MutableList<String>>) {
+		val decoder = ObjectDecoder(cache, member = true, lowDetail = false)
+		repeat(decoder.size) { id ->
+			val def = decoder.getOrNull(id) ?: return@repeat
+			def.modelIds?.forEach { array ->
+				array.forEach { model ->
+					models.add(model, def.name)
+				}
+			}
+		}
+	}
+	
+	private fun MutableMap<Int, MutableList<String>>.add(id : Int, name : String) {
+		if (id != -1 && name != "" && name != "null") {
+			getOrPut(id) { mutableListOf() }.add(name)
+		}
+	}
+	
 }

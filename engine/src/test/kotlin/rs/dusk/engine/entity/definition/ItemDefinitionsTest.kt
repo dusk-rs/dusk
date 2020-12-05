@@ -68,7 +68,7 @@ internal class ItemDefinitionsTest : DefinitionsDecoderTest<ItemDefinition, Item
         return ItemDefinitions(decoder, id, names)
     }
 
-    override fun loader(io: YamlIO): TimedLoader<ItemDefinitions> {
+    override fun loader(io: YamlIO<ItemDefinitions>): TimedLoader<ItemDefinitions> {
         return ItemDefinitionLoader(io, decoder)
     }
 

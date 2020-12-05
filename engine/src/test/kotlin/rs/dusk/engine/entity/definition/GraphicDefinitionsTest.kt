@@ -33,7 +33,7 @@ internal class GraphicDefinitionsTest :
         return GraphicDefinitions(decoder, id, names)
     }
 
-    override fun loader(io: YamlIO): TimedLoader<GraphicDefinitions> {
+    override fun loader(io: YamlIO<GraphicDefinitions>): TimedLoader<GraphicDefinitions> {
         return GraphicDefinitionLoader(io, decoder)
     }
 

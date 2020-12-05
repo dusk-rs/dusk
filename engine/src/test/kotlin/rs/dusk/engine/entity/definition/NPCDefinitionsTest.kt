@@ -32,7 +32,7 @@ internal class NPCDefinitionsTest : DefinitionsDecoderTest<NPCDefinition, NPCDec
         return NPCDefinitions(decoder, id, names)
     }
 
-    override fun loader(io: YamlIO): TimedLoader<NPCDefinitions> {
+    override fun loader(io: YamlIO<NPCDefinitions>): TimedLoader<NPCDefinitions> {
         return NPCDefinitionLoader(io, decoder)
     }
 }

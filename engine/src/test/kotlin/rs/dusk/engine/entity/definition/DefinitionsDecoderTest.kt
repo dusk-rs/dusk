@@ -32,7 +32,7 @@ abstract class DefinitionsDecoderTest<T, D : DefinitionDecoder<T>, S : Definitio
 
     abstract fun definitions(decoder: D, id: Map<String, Map<String, Any>>, names: Map<Int, String>): S
 
-    abstract fun loader(io: YamlIO): TimedLoader<S>
+    abstract fun loader(io: YamlIO<S>): TimedLoader<S>
 
     lateinit var decoder: D
 
@@ -46,7 +46,7 @@ abstract class DefinitionsDecoderTest<T, D : DefinitionDecoder<T>, S : Definitio
 
     @Test
     fun `Load details`() {
-        val io: FileIO = mockk()
+        val io: YamlIO<S> = mockk()
         every { io.read<Map<String, Map<String, Any>>>("path") } returns mutableMapOf("name" to map(1))
         val detailLoader = loader(io)
         val result = detailLoader.run("path")

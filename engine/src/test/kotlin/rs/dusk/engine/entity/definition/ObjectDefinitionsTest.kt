@@ -32,7 +32,7 @@ internal class ObjectDefinitionsTest : DefinitionsDecoderTest<ObjectDefinition, 
         return ObjectDefinitions(decoder, id, names)
     }
 
-    override fun loader(io: YamlIO): TimedLoader<ObjectDefinitions> {
+    override fun loader(io: YamlIO<ObjectDefinitions>): TimedLoader<ObjectDefinitions> {
         return ObjectDefinitionLoader(decoder, io)
     }
 }

@@ -33,7 +33,7 @@ internal class AnimationDefinitionsTest :
         return AnimationDefinitions(decoder, id, names)
     }
 
-    override fun loader(io: YamlIO): TimedLoader<AnimationDefinitions> {
+    override fun loader(io: YamlIO<AnimationDefinitions>): TimedLoader<AnimationDefinitions> {
         return AnimationDefinitionLoader(io, decoder)
     }
 

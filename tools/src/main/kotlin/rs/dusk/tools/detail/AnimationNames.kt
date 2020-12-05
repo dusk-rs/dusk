@@ -8,75 +8,74 @@ import rs.dusk.cache.definition.decoder.NPCDecoder
 import rs.dusk.engine.client.cacheDefinitionModule
 import rs.dusk.engine.client.cacheModule
 import rs.dusk.engine.entity.DefinitionsDecoder.Companion.toIdentifier
-import rs.dusk.engine.io.file.FileIO
-import rs.dusk.engine.io.file.fileIO
+import rs.dusk.engine.io.file.jackson.yaml.YamlIO
 
 /**
  * Dumps unique string identifiers for animation ids
  * Identifies animation names by cross referencing npc names with render animations
  */
 object AnimationNames {
-
-    private data class Ids(val id: Int)
-
-    @JvmStatic
-    fun main(args: Array<String>) {
-        val koin = startKoin {
-            fileProperties("/tool.properties")
-            modules(cacheModule, cacheDefinitionModule, fileIO)
-        }.koin
-        val cache: Cache = koin.get()
-        val loader: FileIO = koin.get()
-        val decoder = AnimationDecoder(cache)
-        val renders = getRenderAnimations(cache)
-        val map = mutableMapOf<Int, MutableList<String>>()
-        repeat(decoder.size) { id ->
-            val def = decoder.getOrNull(id) ?: return@repeat
-            val render = renders[id]
-            if(render != null) {
-                map.getOrPut(id) { mutableListOf() }.add(render)
-            }
-        }
-
-	    val path = "./data/dump/"
-	    val data = map.map { it.value.first() to Ids(it.key) }.sortedBy { it.second.id }.toMap()
-	    loader.write(data)
-        println("${data.size} animation identifiers dumped to $path.")
-    }
-
-    private fun getRenderAnimations(cache: Cache): Map<Int, String> {
-        val renders = getNPCRenderIds(cache)
-        val decoder = RenderAnimationDecoder(cache)
-        val map = mutableMapOf<Int, String>()
-        repeat(decoder.size) { id ->
-            val def = decoder.getOrNull(id) ?: return@repeat
-            val name = toIdentifier(renders[id] ?: return@repeat)
-            map.add(def.run, name, "_run")
-            map.add(def.primaryIdle, name, "_idle")
-            map.add(def.primaryWalk, name, "_walk")
-            map.add(def.turning, name, "_turn")
-            map.add(def.secondaryWalk, name, "_walk2")
-            map.add(def.walkBackwards, name, "_walk_back")
-            map.add(def.sideStepLeft, name, "_step_left")
-            map.add(def.sideStepRight, name, "_step_right")
-        }
-        return map
-    }
-
-    private fun MutableMap<Int, String>.add(id: Int, name: String, suffix: String) {
-        if(id != -1 && name != "" && name != "null") {
-            set(id, "${name}${suffix}")
-        }
-    }
-
-    private fun getNPCRenderIds(cache: Cache): Map<Int, String> {
-        val map = mutableMapOf<Int, String>()
-        val decoder = NPCDecoder(cache, member = true)
-        repeat(decoder.size) { id ->
-            val def = decoder.getOrNull(id) ?: return@repeat
-            map[def.renderEmote] = def.name
-        }
-        return map
-    }
-
+	
+	private data class Ids(val id : Int)
+	
+	@JvmStatic
+	fun main(args : Array<String>) {
+		val koin = startKoin {
+			fileProperties("/tool.properties")
+			modules(cacheModule, cacheDefinitionModule)
+		}.koin
+		val cache : Cache = koin.get()
+		val yamlIO : YamlIO<Map<String, AnimationNames.Ids>> = koin.get()
+		val decoder = AnimationDecoder(cache)
+		val renders = getRenderAnimations(cache)
+		val map = mutableMapOf<Int, MutableList<String>>()
+		repeat(decoder.size) { id ->
+			val def = decoder.getOrNull(id) ?: return@repeat
+			val render = renders[id]
+			if (render != null) {
+				map.getOrPut(id) { mutableListOf() }.add(render)
+			}
+		}
+		
+		val path = "./data/dump/"
+		val data = map.map { it.value.first() to Ids(it.key) }.sortedBy { it.second.id }.toMap()
+		yamlIO.write(data)
+		println("${data.size} animation identifiers dumped to $path.")
+	}
+	
+	private fun getRenderAnimations(cache : Cache) : Map<Int, String> {
+		val renders = getNPCRenderIds(cache)
+		val decoder = RenderAnimationDecoder(cache)
+		val map = mutableMapOf<Int, String>()
+		repeat(decoder.size) { id ->
+			val def = decoder.getOrNull(id) ?: return@repeat
+			val name = toIdentifier(renders[id] ?: return@repeat)
+			map.add(def.run, name, "_run")
+			map.add(def.primaryIdle, name, "_idle")
+			map.add(def.primaryWalk, name, "_walk")
+			map.add(def.turning, name, "_turn")
+			map.add(def.secondaryWalk, name, "_walk2")
+			map.add(def.walkBackwards, name, "_walk_back")
+			map.add(def.sideStepLeft, name, "_step_left")
+			map.add(def.sideStepRight, name, "_step_right")
+		}
+		return map
+	}
+	
+	private fun MutableMap<Int, String>.add(id : Int, name : String, suffix : String) {
+		if (id != -1 && name != "" && name != "null") {
+			set(id, "${name}${suffix}")
+		}
+	}
+	
+	private fun getNPCRenderIds(cache : Cache) : Map<Int, String> {
+		val map = mutableMapOf<Int, String>()
+		val decoder = NPCDecoder(cache, member = true)
+		repeat(decoder.size) { id ->
+			val def = decoder.getOrNull(id) ?: return@repeat
+			map[def.renderEmote] = def.name
+		}
+		return map
+	}
+	
 }
