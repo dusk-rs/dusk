@@ -74,11 +74,11 @@ object Dusk {
         startKoin {
             slf4jLogger()
             modules(
+	            playerIO,
 				codecRepositoryModule,
 				eventModule,
 				cacheModule,
 				entityListModule,
-				playerIO,
 				scriptModule,
 				clientSessionModule,
 				gameServerFactory,

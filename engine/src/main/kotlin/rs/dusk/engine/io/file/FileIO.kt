@@ -26,7 +26,7 @@ interface FileIO : IO {
 		return FileFunction.find(path)
 	}
 	
-	fun write(path : String, data : String) {
-		FileFunction.write(path, data)
+	fun write(path : String, data : String) : File {
+		return FileFunction.write(path, data)
 	}
 }
