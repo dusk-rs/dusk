@@ -9,7 +9,7 @@ import rs.dusk.engine.entity.definition.load.ItemDefinitionLoader
 import rs.dusk.engine.entity.item.EquipSlot
 import rs.dusk.engine.entity.item.EquipType
 import rs.dusk.engine.entity.item.ItemDrop
-import rs.dusk.engine.io.file.jackson.YAMLIO
+import rs.dusk.engine.io.file.jackson.yaml.YamlIO
 
 internal class ItemDefinitionsTest : DefinitionsDecoderTest<ItemDefinition, ItemDecoder, ItemDefinitions>() {
 
@@ -68,7 +68,7 @@ internal class ItemDefinitionsTest : DefinitionsDecoderTest<ItemDefinition, Item
         return ItemDefinitions(decoder, id, names)
     }
 
-    override fun loader(io: YAMLIO): TimedLoader<ItemDefinitions> {
+    override fun loader(io: YamlIO): TimedLoader<ItemDefinitions> {
         return ItemDefinitionLoader(io, decoder)
     }
 

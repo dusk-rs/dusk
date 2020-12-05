@@ -46,7 +46,7 @@ object GraphicNames {
 	    
 	    val path ="./data/dump/"
 	    val identifier = "graphic-details.yml"
-	    io.write(path, identifier, sorted)
+	    io.write(sorted)
 	    
         println("${sorted.size} graphic identifiers dumped to $path.")
     }

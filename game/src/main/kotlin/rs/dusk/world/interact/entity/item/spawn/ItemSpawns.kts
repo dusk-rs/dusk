@@ -6,7 +6,7 @@ import rs.dusk.engine.entity.item.FloorItem
 import rs.dusk.engine.event.EventBus
 import rs.dusk.engine.event.then
 import rs.dusk.engine.event.where
-import rs.dusk.engine.io.file.FileIO
+import rs.dusk.engine.io.file.jackson.yaml.YamlIO
 import rs.dusk.engine.map.Tile
 import rs.dusk.engine.map.region.Region
 import rs.dusk.engine.map.region.RegionLoaded
@@ -15,7 +15,7 @@ import rs.dusk.utility.getProperty
 import rs.dusk.utility.inject
 import rs.dusk.world.interact.entity.item.spawn.Drop
 
-val files: FileIO by inject()
+val yamlIO: YamlIO<ItemSpawn> by inject()
 val bus: EventBus by inject()
 val scheduler: Scheduler by inject()
 
@@ -25,7 +25,7 @@ val spawns: MutableMap<Region, MutableList<ItemSpawn>> = mutableMapOf()
 val links = mutableMapOf<FloorItem, ItemSpawn>()
 
 Startup then {
-    val items: Array<ItemSpawn> = files.read(getProperty("floorItemsPath"))
+    val items: Array<ItemSpawn> = yamlIO.read(getProperty("floorItemsPath"))
     items.forEach { spawn ->
         val list = spawns.getOrPut(spawn.tile.region) { mutableListOf() }
         list.add(spawn)

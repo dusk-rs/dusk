@@ -22,23 +22,27 @@ import rs.dusk.engine.path.TargetStrategy
 
 /**
  * A player controlled by client or bot
+ * @author Tyluur <itstyluur@gmail.com
  * @author Greg Hibberd <greg@greghibberd.com>
+ *
  * @since March 28, 2020
  */
 class Player(
+	
+	override var id : Int = -1,
+	
 	/**
-	 * The text used to log in
+	 * The string used to log in
 	 */
 	@JsonProperty("login")
-	var login : String = ""
+	var login : String = "",
 	
-) : Character {
-	override var id : Int = -1
-	
-	override var index : Int = -1
+	override var index : Int = -1,
 	
 	@JsonProperty("tile")
 	override var tile : Tile = Tile.EMPTY
+
+) : Character {
 	
 	override var size : Size = Size.TILE
 	

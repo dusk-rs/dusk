@@ -6,7 +6,7 @@ import rs.dusk.cache.definition.data.NPCDefinition
 import rs.dusk.cache.definition.decoder.NPCDecoder
 import rs.dusk.engine.TimedLoader
 import rs.dusk.engine.entity.definition.load.NPCDefinitionLoader
-import rs.dusk.engine.io.file.jackson.YAMLIO
+import rs.dusk.engine.io.file.jackson.yaml.YamlIO
 
 internal class NPCDefinitionsTest : DefinitionsDecoderTest<NPCDefinition, NPCDecoder, NPCDefinitions>() {
 
@@ -32,7 +32,7 @@ internal class NPCDefinitionsTest : DefinitionsDecoderTest<NPCDefinition, NPCDec
         return NPCDefinitions(decoder, id, names)
     }
 
-    override fun loader(io: YAMLIO): TimedLoader<NPCDefinitions> {
+    override fun loader(io: YamlIO): TimedLoader<NPCDefinitions> {
         return NPCDefinitionLoader(io, decoder)
     }
 }

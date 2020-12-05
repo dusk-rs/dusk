@@ -3,9 +3,9 @@ package rs.dusk.engine.entity.definition.load
 import rs.dusk.cache.definition.decoder.AnimationDecoder
 import rs.dusk.engine.TimedLoader
 import rs.dusk.engine.entity.definition.AnimationDefinitions
-import rs.dusk.engine.io.file.jackson.YAMLIO
+import rs.dusk.engine.io.file.jackson.yaml.YamlIO
 
-class AnimationDefinitionLoader(private val io: YAMLIO, private val decoder: AnimationDecoder) :
+class AnimationDefinitionLoader(private val io: YamlIO<AnimationDefinitions>, private val decoder: AnimationDecoder) :
     TimedLoader<AnimationDefinitions>("animation definition") {
 
     override fun load(args: Array<out Any?>): AnimationDefinitions {

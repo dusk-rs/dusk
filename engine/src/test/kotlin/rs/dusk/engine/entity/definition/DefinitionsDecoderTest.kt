@@ -11,7 +11,7 @@ import rs.dusk.cache.DefinitionDecoder
 import rs.dusk.cache.definition.Extra
 import rs.dusk.engine.TimedLoader
 import rs.dusk.engine.entity.DefinitionsDecoder
-import rs.dusk.engine.io.file.jackson.YAMLIO
+import rs.dusk.engine.io.file.jackson.yaml.YamlIO
 import rs.dusk.engine.io.file.FileIO
 
 abstract class DefinitionsDecoderTest<T, D : DefinitionDecoder<T>, S : DefinitionsDecoder<T, D>> where T : Definition, T : Extra {
@@ -32,7 +32,7 @@ abstract class DefinitionsDecoderTest<T, D : DefinitionDecoder<T>, S : Definitio
 
     abstract fun definitions(decoder: D, id: Map<String, Map<String, Any>>, names: Map<Int, String>): S
 
-    abstract fun loader(io: YAMLIO): TimedLoader<S>
+    abstract fun loader(io: YamlIO): TimedLoader<S>
 
     lateinit var decoder: D
 

@@ -40,7 +40,7 @@ object AnimationNames {
 
 	    val path = "./data/dump/"
 	    val data = map.map { it.value.first() to Ids(it.key) }.sortedBy { it.second.id }.toMap()
-	    loader.write(path, "animation-details.yml", data)
+	    loader.write(data)
         println("${data.size} animation identifiers dumped to $path.")
     }
 

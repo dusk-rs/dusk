@@ -11,6 +11,7 @@ import rs.dusk.engine.entity.obj.Objects
 import rs.dusk.engine.event.then
 import rs.dusk.engine.event.where
 import rs.dusk.engine.io.file.FileIO
+import rs.dusk.engine.io.file.jackson.yaml.YamlIO
 import rs.dusk.engine.map.Tile
 import rs.dusk.utility.func.isDoor
 import rs.dusk.utility.getProperty
@@ -19,7 +20,7 @@ import rs.dusk.world.interact.entity.obj.replaceObject
 import rs.dusk.world.interact.entity.obj.replaceObjectPair
 
 val objects: Objects by inject()
-val io: FileIO by inject()
+val io: YamlIO<Map<Int, Int>> by inject()
 val logger = InlineLogger()
 
 // Delay in ticks before a door closes itself

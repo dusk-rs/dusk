@@ -23,7 +23,7 @@ abstract class NameDumper {
 	
 	    val path ="./data/dump/"
 	    val identifier = "graphic-details.yml"
-	    io.write(path, identifier, sorted)
+	    io.write(sorted)
 	    
         println("${unique.size} $name identifiers dumped to $path.")
     }

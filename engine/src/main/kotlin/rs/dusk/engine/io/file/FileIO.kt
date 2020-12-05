@@ -1,7 +1,8 @@
 package rs.dusk.engine.io.file
 
-import org.koin.dsl.module
-import rs.dusk.engine.io.file.jackson.YAMLIO
+import rs.dusk.engine.io.IO
+import rs.dusk.utility.func.FileFunction
+import java.io.File
 
 /**
  * @author Tyluur <itstyluur@gmail.com>
@@ -11,10 +12,17 @@ import rs.dusk.engine.io.file.jackson.YAMLIO
  *
  * @since April 03, 2020
  */
-class FileIO : YAMLIO() {
+interface FileIO : IO {
 	
-	fun generateFilePath(path : String) = "${path}"
+	/**
+	 * The location of the file
+	 */
+	fun location() : String
 	
+	/**
+	 * Finds a file by a path
+	 */
+	fun find(path : String) : File {
+		return FileFunction.find(path)
+	}
 }
-
-val fileIO = module { single(createdAtStart = true) { FileIO() } }

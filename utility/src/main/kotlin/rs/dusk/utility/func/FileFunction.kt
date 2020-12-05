@@ -33,18 +33,17 @@ class FileFunction {
 			return file
 		}
 		
-		fun write(path : String, data : String) : Boolean {
+		fun write(path : String, data : String) : File {
+			val file = File(path)
 			try {
-				val file = File(path)
 				val myWriter = FileWriter(file)
 				file.mkdirs()
 				myWriter.write(data)
 				myWriter.close()
-				return true
 			} catch (e : Exception) {
 				e.printStackTrace()
-				return false
 			}
+			return file
 		}
 		
 	}

@@ -11,14 +11,17 @@ import rs.dusk.engine.entity.character.player.Player
 import rs.dusk.engine.entity.definition.ContainerDefinitions
 import rs.dusk.engine.event.EventBus
 import rs.dusk.engine.io.file.FileIO
+import rs.dusk.engine.io.file.jackson.yaml.YamlIO
 import rs.dusk.engine.map.Tile
 import rs.dusk.engine.map.collision.Collisions
 import rs.dusk.engine.path.strat.FollowTargetStrategy
 import rs.dusk.engine.path.strat.RectangleTargetStrategy
 import rs.dusk.network.rs.codec.game.encode.message.SkillLevelMessage
+import rs.dusk.utility.func.FileFunction
 import rs.dusk.utility.get
 import rs.dusk.utility.getProperty
 import rs.dusk.utility.inject
+import java.io.File
 import java.io.FileNotFoundException
 
 /**
@@ -27,11 +30,9 @@ import java.io.FileNotFoundException
  *
  * @since April 03, 2020
  */
-class PlayerIO {
+class PlayerIO : YamlIO<Player> {
 	
 	private val logger = InlineLogger()
-	
-	private val path = "${getProperty<String>("local_files_path")}players/"
 	
 	private val x = getProperty("homeX", 0)
 	private val y = getProperty("homeY", 0)
@@ -44,28 +45,46 @@ class PlayerIO {
 	private val interfaces : InterfaceDetails = get()
 	
 	private val fileIO : FileIO by inject()
+	private val yamlIO : YamlIO<Player> by inject()
+	
+	override fun location() : String {
+		return "${getProperty<String>("local_files_path")}players/"
+	}
+	
+	override fun <Player> read(identifier : String) : Player {
+		val path = yamlIO.generatePath(identifier)
+		val file = fileIO.find(path)
+		
+		val player : Player = try {
+			yamlIO.read<Player>(path)
+		} catch (e : FileNotFoundException) {
+			Player(id = -1, tile = tile)
+		} catch (e : Exception) {
+			e.printStackTrace()
+			null
+		} as Player? ?: throw IllegalStateException("Unable to find player")
+		
+		logger.info { "" }
+		
+		return player
+	}
+	
+	override fun write(player : Player) : File {
+		val dataString =
+			try {
+				mapper().writeValueAsString(player)
+			} catch (e : Exception) {
+				e.printStackTrace()
+				""
+			}
+		return FileFunction.write(location(), dataString)
+	}
 	
 	/**
 	 * Loads a player's file
 	 */
 	fun load(login : String) : Player {
-		logger.info { "Attempting to load player $login" }
-		
-		val path = "${fileIO.generateFilePath(path)}$login.yml"
-		logger.info { "[username=$login, path=$path]" }
-		
-		var new = false
-		val player : Player = try {
-			logger.info { "Attempting to read" }
-			fileIO.read<Player>(path)
-		} catch (e : FileNotFoundException) {
-			logger.info { "New player constructed" }
-			new = true
-			Player(id = -1, tile = tile)
-		} catch (e : Exception) {
-			e.printStackTrace()
-			null
-		} ?: throw IllegalStateException("Unable to find player")
+		val player = read<Player>(login)
 		
 		player.login = login
 		logger.info { "Found player [player=$player]" }
@@ -73,26 +92,23 @@ class PlayerIO {
 		bind(player)
 		logger.info { "Bound player [player=$player]" }
 		
-		if (new) {
-			save(player)
-			logger.info { "Saved new player [$player, path=$path]" }
-		}
+		save(player)
 		return player
 	}
 	
 	/**
 	 * Saves a player's file
 	 */
-	fun save(player : Player) {
+	fun save(player : Player) : File {
 		val identifier = player.login
-		val path = fileIO.generateFilePath(path)
-		fileIO.write(path, identifier, player)
+		val path = yamlIO.generatePath(identifier)
+		return yamlIO.write(player)
 	}
 	
 	/**
 	 * Bind all necessary components of the player
 	 */
-	fun bind(player : Player) : Player {
+	private fun bind(player : Player) : Player {
 		val interfaceIO = PlayerInterfaceIO(player, bus)
 		player.interfaces = InterfaceManager(interfaceIO, interfaces, player.gameFrame)
 		player.interfaceOptions = InterfaceOptions(player, interfaces, definitions)

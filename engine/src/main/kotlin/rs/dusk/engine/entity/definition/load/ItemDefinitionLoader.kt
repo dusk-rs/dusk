@@ -6,9 +6,9 @@ import rs.dusk.engine.entity.definition.ItemDefinitions
 import rs.dusk.engine.entity.item.EquipSlot
 import rs.dusk.engine.entity.item.EquipType
 import rs.dusk.engine.entity.item.ItemDrop
-import rs.dusk.engine.io.file.jackson.YAMLIO
+import rs.dusk.engine.io.file.jackson.yaml.YamlIO
 
-class ItemDefinitionLoader(private val IO: YAMLIO, private val decoder: ItemDecoder) :
+class ItemDefinitionLoader(private val IO: YamlIO<ItemDefinitions>, private val decoder: ItemDecoder) :
     TimedLoader<ItemDefinitions>("item definition") {
 
     private var equipmentCount = 0

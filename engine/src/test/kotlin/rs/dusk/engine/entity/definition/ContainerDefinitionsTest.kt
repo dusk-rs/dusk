@@ -7,7 +7,7 @@ import rs.dusk.cache.config.decoder.ContainerDecoder
 import rs.dusk.engine.TimedLoader
 import rs.dusk.engine.entity.character.contain.StackMode
 import rs.dusk.engine.entity.definition.load.ContainerDefinitionLoader
-import rs.dusk.engine.io.file.jackson.YAMLIO
+import rs.dusk.engine.io.file.jackson.yaml.YamlIO
 
 internal class ContainerDefinitionsTest :
     DefinitionsDecoderTest<ContainerDefinition, ContainerDecoder, ContainerDefinitions>() {
@@ -48,7 +48,7 @@ internal class ContainerDefinitionsTest :
         return ContainerDefinitions(decoder, id, names)
     }
 
-    override fun loader(io: YAMLIO): TimedLoader<ContainerDefinitions> {
+    override fun loader(io: YamlIO): TimedLoader<ContainerDefinitions> {
         return ContainerDefinitionLoader(io, decoder)
     }
 

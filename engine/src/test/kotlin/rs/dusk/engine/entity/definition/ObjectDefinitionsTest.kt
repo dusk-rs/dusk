@@ -6,7 +6,7 @@ import rs.dusk.cache.definition.data.ObjectDefinition
 import rs.dusk.cache.definition.decoder.ObjectDecoder
 import rs.dusk.engine.TimedLoader
 import rs.dusk.engine.entity.definition.load.ObjectDefinitionLoader
-import rs.dusk.engine.io.file.jackson.YAMLIO
+import rs.dusk.engine.io.file.jackson.yaml.YamlIO
 
 internal class ObjectDefinitionsTest : DefinitionsDecoderTest<ObjectDefinition, ObjectDecoder, ObjectDefinitions>() {
 
@@ -32,7 +32,7 @@ internal class ObjectDefinitionsTest : DefinitionsDecoderTest<ObjectDefinition, 
         return ObjectDefinitions(decoder, id, names)
     }
 
-    override fun loader(io: YAMLIO): TimedLoader<ObjectDefinitions> {
+    override fun loader(io: YamlIO): TimedLoader<ObjectDefinitions> {
         return ObjectDefinitionLoader(decoder, io)
     }
 }

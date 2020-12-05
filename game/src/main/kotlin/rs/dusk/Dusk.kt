@@ -17,8 +17,6 @@ import rs.dusk.engine.entity.list.entityListModule
 import rs.dusk.engine.entity.obj.objectFactoryModule
 import rs.dusk.engine.event.EventBus
 import rs.dusk.engine.event.eventModule
-import rs.dusk.engine.io.file.fileIO
-import rs.dusk.engine.io.file.jackson.jacksonIOModule
 import rs.dusk.engine.map.chunk.batchedChunkModule
 import rs.dusk.engine.map.chunk.instanceModule
 import rs.dusk.engine.map.collision.collisionModule
@@ -80,8 +78,6 @@ object Dusk {
 				eventModule,
 				cacheModule,
 				entityListModule,
-				jacksonIOModule,
-				fileIO,
 				playerIO,
 				scriptModule,
 				clientSessionModule,

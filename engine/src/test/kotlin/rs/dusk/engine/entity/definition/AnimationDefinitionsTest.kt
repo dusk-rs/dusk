@@ -6,7 +6,7 @@ import rs.dusk.cache.definition.data.AnimationDefinition
 import rs.dusk.cache.definition.decoder.AnimationDecoder
 import rs.dusk.engine.TimedLoader
 import rs.dusk.engine.entity.definition.load.AnimationDefinitionLoader
-import rs.dusk.engine.io.file.jackson.YAMLIO
+import rs.dusk.engine.io.file.jackson.yaml.YamlIO
 
 internal class AnimationDefinitionsTest :
     DefinitionsDecoderTest<AnimationDefinition, AnimationDecoder, AnimationDefinitions>() {
@@ -33,7 +33,7 @@ internal class AnimationDefinitionsTest :
         return AnimationDefinitions(decoder, id, names)
     }
 
-    override fun loader(io: YAMLIO): TimedLoader<AnimationDefinitions> {
+    override fun loader(io: YamlIO): TimedLoader<AnimationDefinitions> {
         return AnimationDefinitionLoader(io, decoder)
     }
 
