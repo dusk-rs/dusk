@@ -1,6 +1,8 @@
 package rs.dusk.tools.map.process
 
 import rs.dusk.cache.Cache
+import rs.dusk.cache.config.decoder.WorldMapInfoDecoder
+import rs.dusk.cache.definition.decoder.ClientScriptDecoder
 import rs.dusk.cache.definition.decoder.ObjectDecoder
 import rs.dusk.engine.map.region.Region
 import rs.dusk.engine.map.region.obj.GameObjectMapDecoder
@@ -14,7 +16,8 @@ class ObjectProcessor(
     private val objectDecoder: ObjectDecoder,
     private val xteas: Xteas,
     private val cache: Cache,
-    val loader: PreProcessMap.IconLoader
+    private val mapInfoDecoder: WorldMapInfoDecoder,
+    private val scriptDecoder: ClientScriptDecoder
 ) : Pipeline.Modifier<Region> {
     override fun process(region: Region) {
         val mapData = cache.getFile(5, "m${region.x}_${region.y}") ?: return
@@ -28,7 +31,18 @@ class ObjectProcessor(
         }
 
         val objects = mapDecoder.read(region.x, region.y, locationData, tiles)
-        val icons = loader.loadIcons(region.x, region.y, objects)
-        println(icons)
+        objects?.forEach { obj ->
+            val def = objectDecoder.get(obj.id)
+            val mapDefId = def.mapDefinitionId
+            if(mapDefId != -1) {
+                var scriptDef = scriptDecoder.getOrNull(mapDefId)
+                if (scriptDef == null) {
+                    val mapDef = mapInfoDecoder.get(mapDefId)
+                    scriptDef = scriptDecoder.getOrNull(mapDef.clientScript)
+                    println(mapDef)
+                }
+                println("$obj ${mapDefId} ${scriptDef}")
+            }
+        }
     }
 }
