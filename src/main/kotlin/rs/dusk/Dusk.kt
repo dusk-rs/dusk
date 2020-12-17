@@ -3,7 +3,9 @@ package rs.dusk
 import com.github.michaelbull.logging.InlineLogger
 import org.koin.core.context.startKoin
 import org.koin.logger.slf4jLogger
-import rs.dusk.network.networkModule
+import rs.dusk.network.codec.download.downloadCodecModule
+import rs.dusk.network.codec.handshake.handshakeCodecModule
+import rs.dusk.network.gameServerModule
 
 /**
  * @author Tyluur <itstyluur@gmail.com>
@@ -16,8 +18,8 @@ class Dusk {
 	fun start() {
 		startKoin {
 			slf4jLogger()
-			modules(networkModule)
-			fileProperties("./data/game.properties")
+			// network codecs
+			modules(gameServerModule, handshakeCodecModule, downloadCodecModule)
 		}
 		logger.info { "Dusk is live!" }
 	}
