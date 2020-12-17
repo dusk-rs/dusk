@@ -1,17 +1,17 @@
 package rs.dusk.network.codec.download.encode
 
 import rs.dusk.core.network.packet.access.PacketWriter
-import rs.dusk.network.codec.download.DownloadMessageEncoder
+import rs.dusk.network.codec.download.DownloadServiceMessageEncoder
 import rs.dusk.network.codec.download.DownloadServiceResponseCodes.JS5_RESPONSE_OK
-import rs.dusk.network.codec.download.encode.message.DownloadServiceRequest
+import rs.dusk.network.codec.download.encode.message.DownloadServiceResponse
 
 /**
  * @author Tyluur <itstyluur@gmail.com>
  * @since December 17, 2020
  */
-class DownloadServiceVersionEncoder : DownloadMessageEncoder<DownloadServiceRequest>() {
+class DownloadServiceResponseEncoder : DownloadServiceMessageEncoder<DownloadServiceResponse>() {
 	
-	override fun encode(builder : PacketWriter, msg : DownloadServiceRequest) {
+	override fun encode(builder : PacketWriter, msg : DownloadServiceResponse) {
 		builder.writeByte(msg.response)
 		if (msg.response == JS5_RESPONSE_OK) {
 			GRAB_SERVER_KEYS.forEach {

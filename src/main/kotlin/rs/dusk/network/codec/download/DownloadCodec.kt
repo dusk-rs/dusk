@@ -14,39 +14,41 @@ import rs.dusk.core.network.message.MessageHandler
  */
 class DownloadCodec : Codec() {
 	
-	private val logger = InlineLogger()
-	
 	init {
 		register()
 		logger.debug { "Download Codec: ${repository.generateStatistics()}" }
 	}
 	
 	override fun register() {
-		repository.bindDecoders<DownloadMessageDecoder<*>>()
-		repository.bindHandlers<DownloadMessageHandler<*>>()
-		repository.bindEncoders<DownloadMessageEncoder<*>>()
+		repository.bindDecoders<DownloadServiceMessageDecoder<*>>()
+		repository.bindHandlers<DownloadServiceMessageHandler<*>>()
+		repository.bindEncoders<DownloadServiceMessageEncoder<*>>()
+	}
+	
+	companion object {
+		private val logger = InlineLogger()
 	}
 }
 
 interface DownloadServiceMessage : Message
 
 /**
- * @author Tyluur <contact@kiaira.tech>
+ * @author Tyluur <itstyluur@gmail.com>
  * @since February 18, 2020
  */
-abstract class DownloadMessageDecoder<M : DownloadServiceMessage> : MessageDecoder<M>()
+abstract class DownloadServiceMessageDecoder<M : DownloadServiceMessage> : MessageDecoder<M>()
 
 /**
- * @author Tyluur <contact@kiaira.tech>
+ * @author Tyluur <itstyluur@gmail.com>
  * @since February 18, 2020
  */
-abstract class DownloadMessageEncoder<M : DownloadServiceMessage> : MessageEncoder<M>()
+abstract class DownloadServiceMessageEncoder<M : DownloadServiceMessage> : MessageEncoder<M>()
 
 /**
- * @author Tyluur <contact@kiaira.tech>
+ * @author Tyluur <itstyluur@gmail.com>
  * @since February 18, 2020
  */
-abstract class DownloadMessageHandler<M : DownloadServiceMessage> : MessageHandler<M>()
+abstract class DownloadServiceMessageHandler<M : DownloadServiceMessage> : MessageHandler<M>()
 
 val downloadCodecModule = module {
 	single(createdAtStart = true) { DownloadCodec() }

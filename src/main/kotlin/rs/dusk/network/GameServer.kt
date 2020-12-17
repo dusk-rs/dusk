@@ -24,7 +24,7 @@ import rs.dusk.network.codec.handshake.HandshakeCodec
  */
 class GameServer : NetworkServer() {
 	
-	private val logger = InlineLogger()
+	private val handshakeCodec : HandshakeCodec by inject()
 	
 	/**
 	 * The port to connect to
@@ -43,7 +43,6 @@ class GameServer : NetworkServer() {
 		
 		val pipeline = NetworkPipeline {
 			val channel = it.channel()
-			val handshakeCodec : HandshakeCodec by inject()
 			
 			it.addLast("packet.decoder", SimplePacketDecoder())
 			it.addLast("message.decoder", OpcodeMessageDecoder())
@@ -57,6 +56,10 @@ class GameServer : NetworkServer() {
 		configure(pipeline)
 		start(port)
 		logger.info { "Successfully bound to port $port" }
+	}
+	
+	companion object {
+		private val logger = InlineLogger()
 	}
 	
 }

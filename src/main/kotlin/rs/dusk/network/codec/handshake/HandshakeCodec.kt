@@ -14,8 +14,6 @@ import rs.dusk.core.network.message.MessageHandler
  */
 class HandshakeCodec : Codec() {
 	
-	private val logger = InlineLogger()
-	
 	init {
 		register()
 		logger.debug { "Handshake Codec: ${repository.generateStatistics()}" }
@@ -27,6 +25,9 @@ class HandshakeCodec : Codec() {
 		repository.bindEncoders<HandshakeMessageEncoder<*>>()
 	}
 	
+	companion object {
+		private val logger = InlineLogger()
+	}
 }
 
 
