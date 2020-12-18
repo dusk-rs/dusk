@@ -1,4 +1,6 @@
-package rs.dusk.game.model
+package rs.dusk.game.entity
+
+import rs.dusk.game.world.map.Tile
 
 /**
  * An entity is anything that is movable.

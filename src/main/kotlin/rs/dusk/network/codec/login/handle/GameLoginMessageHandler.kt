@@ -8,7 +8,7 @@ import rs.dusk.core.network.message.encode.GenericMessageEncoder
 import rs.dusk.core.network.packet.access.PacketBuilder
 import rs.dusk.core.network.packet.decode.RS2PacketDecoder
 import rs.dusk.core.utility.replace
-import rs.dusk.game.model.Player
+import rs.dusk.game.entity.character.player.Player
 import rs.dusk.network.codec.game.GameCodec
 import rs.dusk.network.codec.game.encode.message.MapRegionMessage
 import rs.dusk.network.codec.login.LoginMessageHandler

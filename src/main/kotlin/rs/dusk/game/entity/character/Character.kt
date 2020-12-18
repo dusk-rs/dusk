@@ -1,4 +1,6 @@
-package rs.dusk.game.model
+package rs.dusk.game.entity.character
+
+import rs.dusk.game.entity.Entity
 
 /**
  * @author Tyluur <itstyluur@gmail.com>
@@ -9,5 +11,5 @@ abstract class Character : Entity() {
 	/**
 	 * The index the character holds
 	 */
-	val index : Int = -1
+	var index : Int = -1
 }

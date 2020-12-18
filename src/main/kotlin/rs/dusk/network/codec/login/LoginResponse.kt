@@ -1,6 +1,6 @@
 package rs.dusk.network.codec.login
 
-import rs.dusk.game.model.Player
+import rs.dusk.game.entity.character.player.Player
 
 /**
  * @author Greg Hibberd <greg@greghibberd.com>

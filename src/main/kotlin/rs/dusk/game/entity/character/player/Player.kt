@@ -1,4 +1,7 @@
-package rs.dusk.game.model
+package rs.dusk.game.entity.character.player
+
+import rs.dusk.game.entity.character.Character
+import rs.dusk.game.world.map.Tile
 
 /**
  * @author Tyluur <itstyluur@gmail.com>

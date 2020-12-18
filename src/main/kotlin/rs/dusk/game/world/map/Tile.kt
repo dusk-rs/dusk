@@ -1,4 +1,4 @@
-package rs.dusk.game.model
+package rs.dusk.game.world.map
 
 /**
  * @author Tyluur <itstyluur@gmail.com>
