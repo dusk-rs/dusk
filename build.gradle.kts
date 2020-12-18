@@ -64,6 +64,7 @@ allprojects {
 		//Utilities
 		implementation("com.google.guava:guava:29.0-jre")
 		implementation("org.apache.commons:commons-lang3:3.10")
+		implementation("com.google.code.gson:gson:2.7")
 		implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
 		implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
 		implementation("com.fasterxml.jackson.core:jackson-core:$jacksonVersion")

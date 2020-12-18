@@ -36,6 +36,9 @@ data class Tile(val x : Int, val y : Int, val plane : Int) {
 	
 	companion object {
 		
-		val DEFAULT = Tile(3333, 3333, 0)
+		fun getId(x : Int, y : Int, plane : Int = 0) =
+			(y and 0x3fff) + ((x and 0x3fff) shl 14) + ((plane and 0x3) shl 28)
+		
+		val DEFAULT = Tile(3092, 3503, 0)
 	}
 }

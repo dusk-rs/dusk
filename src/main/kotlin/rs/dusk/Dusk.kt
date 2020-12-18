@@ -1,15 +1,17 @@
 package rs.dusk
 
 import com.github.michaelbull.logging.InlineLogger
+import com.google.common.base.Stopwatch
 import org.koin.core.context.startKoin
 import org.koin.logger.slf4jLogger
 import rs.dusk.cache.cacheModule
+import rs.dusk.game.world.map.decrypt.xteaLoaderModule
 import rs.dusk.network.codec.download.downloadCodecModule
 import rs.dusk.network.codec.game.gameCodecModule
 import rs.dusk.network.codec.handshake.handshakeCodecModule
 import rs.dusk.network.codec.login.loginCodecModule
 import rs.dusk.network.gameServerModule
-import java.io.File
+import java.util.concurrent.TimeUnit.MILLISECONDS
 
 /**
  * @author Tyluur <itstyluur@gmail.com>
@@ -18,17 +20,19 @@ import java.io.File
 class Dusk {
 	
 	fun start() {
-		val file = File("game.properties")
-		println(file.absolutePath)
+		val stopwatch = Stopwatch.createStarted()
 		startKoin {
 			slf4jLogger()
-			// network codecs
+			
+			// network codec modules
 			modules(gameServerModule, handshakeCodecModule, downloadCodecModule, loginCodecModule, gameCodecModule)
-			// cache module
-			modules(cacheModule)
+			// cache modules
+			modules(cacheModule, xteaLoaderModule)
+			
+			// properties
 			fileProperties("/game.properties")
 		}
-		logger.info { "Dusk is live!" }
+		logger.info { "Dusk is live (${stopwatch.elapsed(MILLISECONDS)} ms)" }
 	}
 	
 	companion object {
