@@ -30,8 +30,6 @@ class LobbyLoginMessageHandler : LoginMessageHandler<LobbyLoginMessage>() {
 		
 		pipeline.replace("message.encoder", GenericMessageEncoder(PacketBuilder(sized = true)))
 		
-		println("issac seed = ${msg.isaacSeed.contentToString()}")
-		
 		pipeline.writeAndFlush(
 			LobbyConfigurationMessage(
 				msg.username,

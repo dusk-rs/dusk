@@ -9,7 +9,8 @@ import rs.dusk.network.codec.login.encode.message.GameLoginDetails
  * @author Tyluur <contact@kiaira.tech>
  * @since February 18, 2020
  */
-class GameLoginDetailsMessageEncoder : LoginMessageEncoder<GameLoginDetails>() {
+class
+GameLoginDetailsMessageEncoder : LoginMessageEncoder<GameLoginDetails>() {
 
     override fun encode(builder: PacketWriter, msg: GameLoginDetails) {
         val (rights, clientIndex, displayName) = msg
@@ -20,7 +21,7 @@ class GameLoginDetailsMessageEncoder : LoginMessageEncoder<GameLoginDetails>() {
             writeByte(0)
             writeByte(0)
             writeByte(0)
-            writeByte(0)//Moves chat box position
+            writeByte(1)//Moves chat box position (prev 0)
             writeShort(clientIndex)
             writeByte(true)
             writeMedium(0)

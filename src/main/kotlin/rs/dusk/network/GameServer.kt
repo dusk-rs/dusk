@@ -2,6 +2,8 @@ package rs.dusk.network
 
 import com.github.michaelbull.logging.InlineLogger
 import inject
+import io.netty.handler.logging.LogLevel
+import io.netty.handler.logging.LoggingHandler
 import org.koin.dsl.module
 import rs.dusk.core.network.NetworkPipeline
 import rs.dusk.core.network.NetworkServer
@@ -49,6 +51,7 @@ class GameServer : NetworkServer() {
 			it.addLast("message.reader", NetworkMessageReader())
 			it.addLast("message.encoder", GenericMessageEncoder())
 			it.addLast("channel.listener", ChannelEventListener(chain))
+			it.addLast(LoggingHandler(LogLevel.DEBUG))
 			
 			channel.setCodec(handshakeCodec)
 			channel.setSession(Session(channel))

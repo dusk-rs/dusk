@@ -5,6 +5,9 @@ import com.google.common.base.Stopwatch
 import org.koin.core.context.startKoin
 import org.koin.logger.slf4jLogger
 import rs.dusk.cache.cacheModule
+import rs.dusk.core.gameWorkerModule
+import rs.dusk.core.render.renderSequenceModule
+import rs.dusk.game.entity.registry.playerRegistryModule
 import rs.dusk.game.world.map.decrypt.xteaLoaderModule
 import rs.dusk.network.codec.download.downloadCodecModule
 import rs.dusk.network.codec.game.gameCodecModule
@@ -28,7 +31,10 @@ class Dusk {
 			modules(gameServerModule, handshakeCodecModule, downloadCodecModule, loginCodecModule, gameCodecModule)
 			// cache modules
 			modules(cacheModule, xteaLoaderModule)
-			
+			// registry
+			modules(playerRegistryModule)
+			// core
+			modules(gameWorkerModule, renderSequenceModule)
 			// properties
 			fileProperties("/game.properties")
 		}

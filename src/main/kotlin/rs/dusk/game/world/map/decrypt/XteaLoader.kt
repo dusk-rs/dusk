@@ -21,7 +21,6 @@ class XteaLoader {
 	}
 	
 	fun load() {
-		
 		val mapper = ObjectMapper()
 		val read = mapper.readValue(File(path), Map::class.java)
 			?: throw IllegalStateException("Unable to read xteas from file")
@@ -32,11 +31,11 @@ class XteaLoader {
 			val key : String = next.key as String
 			val value = next.value as ArrayList<*>
 			val keys = intArrayOf(0, 0, 0, 0)
+			
+			// must convert Map<String, String> to map <Int, IntArray> [jackson limitations]
 			for ((index, v) in value.withIndex()) {
 				if (v is Int) {
 					keys[index] = v as Int
-				} else {
-					println("unknown type for v: ${v.javaClass}")
 				}
 			}
 			val parseInt = Integer.parseInt(key)

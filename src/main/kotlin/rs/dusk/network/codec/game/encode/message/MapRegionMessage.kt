@@ -1,5 +1,6 @@
 package rs.dusk.network.codec.game.encode.message
 
+import rs.dusk.game.entity.character.player.render.PlayerRendering
 import rs.dusk.network.codec.game.GameServiceMessage
 
 /**
@@ -11,9 +12,11 @@ data class MapRegionMessage(
 	val forceReload : Boolean,
 	val chunkX : Int,
 	val chunkY : Int,
-	val xteas : IntArray,
+	val xteas : Array<IntArray>,
 	val clientIndex : Int,
-	val clientTile : Int
+	val clientTile : Int,
+	val sendLswp : Boolean,
+	val render: PlayerRendering
 ) : GameServiceMessage {
 
 
