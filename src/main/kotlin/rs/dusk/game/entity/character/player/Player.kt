@@ -7,6 +7,7 @@ import rs.dusk.client.ui.detail.InterfaceDetails
 import rs.dusk.core.map.Tile
 import rs.dusk.core.network.session.Session
 import rs.dusk.engine.client.ui.InterfaceManager
+import rs.dusk.engine.client.ui.dialogue.Dialogues
 import rs.dusk.engine.entity.character.player.skill.Experience
 import rs.dusk.engine.entity.character.player.skill.Levels
 import rs.dusk.engine.event.EventBus
@@ -35,6 +36,8 @@ data class Player(val username : String, var session : Session, override var til
 	val interfaces = InterfaceManager(interfaceIO, interfaceDetails, gameFrame)
 	
 	var interfaceOptions = InterfaceOptions(this, interfaceDetails, containerDefinitions)
+	
+	val dialogues : Dialogues = Dialogues()
 	
 	val requests : Requests = Requests(this)
 	
