@@ -4,7 +4,7 @@ import rs.dusk.core.network.codec.packet.access.PacketWriter
 import rs.dusk.core.network.model.packet.PacketType
 import rs.dusk.network.rs.codec.game.GameMessageEncoder
 import rs.dusk.network.rs.codec.game.GameOpcodes.INTERFACE_TEXT
-import rs.dusk.network.rs.codec.game.encode.message.InterfaceTextMessage
+import rs.dusk.network.codec.game.encode.message.InterfaceTextMessage
 
 /**
  * @author Greg Hibberd <greg@greghibberd.com>

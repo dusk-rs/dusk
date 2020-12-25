@@ -1,8 +1,9 @@
-package rs.dusk.network.codec.game.encode.message
+package rs.dusk.network.codec.game.encode
 
 import rs.dusk.core.network.packet.PacketType
 import rs.dusk.core.network.packet.access.PacketWriter
 import rs.dusk.network.codec.game.GameMessageEncoder
+import rs.dusk.network.codec.game.encode.message.ContainerItemUpdateMessage
 import rs.dusk.network.rs.codec.game.GameOpcodes.INTERFACE_ITEMS_UPDATE
 
 /**

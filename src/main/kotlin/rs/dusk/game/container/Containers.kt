@@ -7,6 +7,8 @@ import rs.dusk.game.container.Container
 import rs.dusk.game.container.ContainerDefinitions
 import rs.dusk.game.container.StackMode.Normal
 import rs.dusk.game.entity.character.player.Player
+import rs.dusk.network.codec.game.encode.message.ContainerItemUpdateMessage
+import rs.dusk.network.codec.game.encode.message.ContainerItemsMessage
 
 fun Player.sendContainer(name: String, secondary: Boolean = false) {
     val definitions: ContainerDefinitions = get()

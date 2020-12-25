@@ -2,6 +2,7 @@ package rs.dusk.game.entity.character
 
 import rs.dusk.core.action.Action
 import rs.dusk.engine.entity.character.update.Visuals
+import rs.dusk.game.container.Container
 import rs.dusk.game.entity.Entity
 import rs.dusk.game.entity.Size
 import rs.dusk.game.entity.character.move.Movement
@@ -38,7 +39,12 @@ abstract class Character(
 	/**
 	 * The viewport instance
 	 */
-	val viewport : Viewport = Viewport()
+	val viewport : Viewport = Viewport(),
+	
+	/**
+	 * The containers of the character
+	 */
+	val containers : MutableMap<Int, Container> = mutableMapOf()
 
 ) : Entity() {
 	

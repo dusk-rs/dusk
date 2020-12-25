@@ -1,4 +1,4 @@
-package rs.dusk.network.rs.codec.game.encode
+package rs.dusk.network.codec.game.encode
 
 import rs.dusk.core.io.Endian
 import rs.dusk.core.io.Modifier

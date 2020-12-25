@@ -23,3 +23,19 @@ class InterfaceUpdateMessageEncoder : GameMessageEncoder<InterfaceUpdateMessage>
 		}
 	}
 }
+
+/**
+ * @author Greg Hibberd <greg@greghibberd.com>
+ * @since April 18, 2020
+ */
+class InterfaceUpdateMessageEncoder : GameMessageEncoder<InterfaceUpdateMessage>() {
+
+    override fun encode(builder: PacketWriter, msg: InterfaceUpdateMessage) {
+        val (id, type) = msg
+        builder.apply {
+            writeOpcode(INTERFACE_WINDOW, PacketType.FIXED)
+            writeShort(id, Modifier.ADD, Endian.LITTLE)
+            writeByte(type, Modifier.SUBTRACT)
+        }
+    }
+}

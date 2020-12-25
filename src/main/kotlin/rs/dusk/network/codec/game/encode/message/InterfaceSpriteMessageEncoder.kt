@@ -4,7 +4,7 @@ import rs.dusk.core.io.Endian
 import rs.dusk.core.network.codec.packet.access.PacketWriter
 import rs.dusk.network.rs.codec.game.GameMessageEncoder
 import rs.dusk.network.rs.codec.game.GameOpcodes.INTERFACE_SPRITE
-import rs.dusk.network.rs.codec.game.encode.message.InterfaceSpriteMessage
+import rs.dusk.network.codec.game.encode.message.InterfaceSpriteMessage
 
 /**
  * @author Greg Hibberd <greg@greghibberd.com>
