@@ -1,7 +1,7 @@
 package rs.dusk.engine.map.collision
 
 import rs.dusk.engine.entity.Unregistered
-import rs.dusk.engine.entity.character.move.NPCMoved
+import rs.dusk.game.entity.character.move.NPCMoved
 import rs.dusk.engine.entity.character.move.PlayerMoved
 import rs.dusk.engine.entity.character.npc.NPC
 import rs.dusk.engine.entity.character.npc.NPCRegistered

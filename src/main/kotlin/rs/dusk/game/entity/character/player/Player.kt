@@ -9,6 +9,8 @@ import rs.dusk.engine.client.ui.InterfaceManager
 import rs.dusk.engine.event.EventBus
 import rs.dusk.game.entity.character.Character
 import rs.dusk.game.entity.character.player.data.PlayerGameFrame
+import rs.dusk.game.entity.character.player.data.Requests
+import rs.dusk.game.entity.character.player.data.delay.Delays
 
 /**
  * @author Tyluur <itstyluur@gmail.com>
@@ -25,6 +27,10 @@ data class Player(val username : String, var session : Session, override var til
 	private val interfaceIO = PlayerInterfaceIO(this, eventBus)
 	
 	val interfaces = InterfaceManager(interfaceIO, interfaceDetails, gameFrame)
+	
+	val requests: Requests = Requests(this)
+	
+	val delays: Delays = Delays()
 	
 	var removed = false
 	

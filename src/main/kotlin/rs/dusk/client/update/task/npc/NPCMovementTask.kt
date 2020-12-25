@@ -1,7 +1,7 @@
 package rs.dusk.engine.client.update.task.npc
 
 import kotlinx.coroutines.runBlocking
-import rs.dusk.engine.entity.character.move.NPCMoved
+import rs.dusk.game.entity.character.move.NPCMoved
 import rs.dusk.engine.entity.character.npc.NPC
 import rs.dusk.engine.entity.character.npc.NPCMoveType
 import rs.dusk.engine.entity.character.npc.NPCs

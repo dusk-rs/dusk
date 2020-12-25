@@ -11,6 +11,7 @@ import rs.dusk.engine.action.Contexts
 import rs.dusk.engine.action.Suspension
 import rs.dusk.engine.action.Suspension.Tick
 import rs.dusk.engine.task.TaskExecutor
+import rs.dusk.game.entity.character.Character
 import kotlin.coroutines.createCoroutine
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
@@ -19,7 +20,6 @@ import kotlin.coroutines.resumeWithException
  * A suspendable action
  * Also access for suspension methods
  */
-@Suppress("UNCHECKED_CAST")
 class Action {
 
     var continuation: CancellableContinuation<*>? = null

@@ -5,7 +5,7 @@ import rs.dusk.cache.config.data.ContainerDefinition
 import rs.dusk.engine.client.send
 import rs.dusk.game.container.Container
 import rs.dusk.game.container.ContainerDefinitions
-import rs.dusk.game.container.StackMode
+import rs.dusk.game.container.StackMode.Normal
 import rs.dusk.game.entity.character.player.Player
 
 fun Player.sendContainer(name: String, secondary: Boolean = false) {
@@ -33,7 +33,7 @@ fun Player.container(detail: ContainerDefinition, secondary: Boolean = false): C
             definitions = get(),
             capacity = get<ContainerDefinitions>().get(detail.id).length,
             listeners = mutableListOf({ updates -> send(ContainerItemUpdateMessage(detail.id, updates.map { Triple(it.index, it.item, it.amount) }, secondary)) }),
-            stackMode = detail["stack", StackMode.Normal]
+            stackMode = detail["stack", Normal]
         )
     }
 }

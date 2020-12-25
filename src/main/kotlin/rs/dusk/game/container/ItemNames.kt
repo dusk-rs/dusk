@@ -1,7 +1,6 @@
 package rs.dusk.engine.entity.character.contain
 
 import rs.dusk.cache.definition.entity.item.ItemDefinitions
-import rs.dusk.engine.entity.definition.ItemDefinitions
 import rs.dusk.game.container.Container
 import rs.dusk.utility.get
 

@@ -1,18 +1,19 @@
-package rs.dusk.engine.path
+package rs.dusk.core.path
 
 import org.koin.dsl.module
-import rs.dusk.engine.entity.Entity
-import rs.dusk.engine.entity.character.Character
-import rs.dusk.engine.entity.character.player.Player
-import rs.dusk.engine.entity.item.FloorItem
-import rs.dusk.engine.entity.obj.GameObject
-import rs.dusk.engine.map.Tile
+import rs.dusk.core.map.Tile
+import rs.dusk.engine.action.ActionType.FloorItem
+import rs.dusk.engine.path.Finder
+import rs.dusk.engine.path.PathResult
+import rs.dusk.engine.path.PathResult.Success.Complete
+import rs.dusk.engine.path.TargetStrategy
 import rs.dusk.engine.path.find.AxisAlignment
 import rs.dusk.engine.path.find.BreadthFirstSearch
 import rs.dusk.engine.path.find.DirectDiagonalSearch
 import rs.dusk.engine.path.find.DirectSearch
 import rs.dusk.engine.path.strat.EntityTileTargetStrategy
 import rs.dusk.engine.path.strat.TileTargetStrategy
+import rs.dusk.game.entity.character.player.Player
 
 val pathFindModule = module {
     single { DirectSearch() }
@@ -34,24 +35,24 @@ class PathFinder(
     private val bfs: BreadthFirstSearch
 ) {
 
-    fun find(source: Character, tile: Tile, smart: Boolean = true): PathResult {
+    fun find(source: Player, tile: Tile, smart: Boolean = true): PathResult {
         val strategy = getStrategy(tile)
         return find(source, strategy, smart)
     }
 
-    fun find(source: Character, target: Entity, smart: Boolean = true): PathResult {
+    fun find(source: Player, target: Character, smart: Boolean = true): PathResult {
         return find(source, getEntityStrategy(target), smart)
     }
 
-    fun find(source: Character, strategy: TargetStrategy, smart: Boolean = true): PathResult {
+    fun find(source: Player, strategy: TargetStrategy, smart: Boolean = true): PathResult {
         if (strategy.reached(source.tile, source.size)) {
-            return PathResult.Success.Complete(source.tile)
+            return Complete(source.tile)
         }
         val finder = getFinder(source, smart)
         return finder.find(source.tile, source.size, source.movement, strategy, source.movement.traversal)
     }
 
-    fun getFinder(source: Character, smart: Boolean): Finder {
+    fun getFinder(source: Player, smart: Boolean): Finder {
         return if (source is Player) {
             if (smart) bfs else dd
         } else {
@@ -64,17 +65,17 @@ class PathFinder(
         fun getStrategy(any: Any): TargetStrategy {
             return when (any) {
                 is Tile -> TileTargetStrategy(any)
-                is Entity -> getEntityStrategy(any)
+                is Player -> getEntityStrategy(any)
                 else -> throw IllegalArgumentException("No target strategy found for $any")
             }
         }
 
-        fun getEntityStrategy(entity: Entity): TargetStrategy {
+        fun getEntityStrategy(entity: Player): TargetStrategy {
             return when (entity) {
-                is Character -> entity.interactTarget
+              /*  is Character -> entity.interactTarget
                 is GameObject -> entity.interactTarget
-                is FloorItem -> entity.interactTarget
-                else -> EntityTileTargetStrategy(entity)
+                is FloorItem  -> entity.interactTarget*/
+                else          -> EntityTileTargetStrategy(entity)
             }
         }
     }
