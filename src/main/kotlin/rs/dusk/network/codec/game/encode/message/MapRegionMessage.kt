@@ -1,6 +1,5 @@
 package rs.dusk.network.codec.game.encode.message
 
-import rs.dusk.game.entity.character.player.render.PlayerRendering
 import rs.dusk.network.codec.game.GameServiceMessage
 
 /**

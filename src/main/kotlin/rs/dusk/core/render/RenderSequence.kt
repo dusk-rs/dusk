@@ -1,5 +1,6 @@
 package rs.dusk.core.render
 
+import inject
 import org.koin.dsl.module
 import rs.dusk.game.entity.character.CharacterList
 import rs.dusk.game.entity.character.player.Player
@@ -13,8 +14,13 @@ import java.util.concurrent.TimeUnit.MILLISECONDS
  */
 class RenderSequence {
 	
+	/**
+	 * The instance of the world
+	 */
+	private val world : World by inject()
+	
 	fun render() {
-		val players = World.gamePlayers
+		val players = world.gamePlayers
 		
 		run(players)
 		finish(players)

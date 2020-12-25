@@ -1,5 +1,6 @@
 package rs.dusk.game.world
 
+import org.koin.dsl.module
 import rs.dusk.game.entity.character.CharacterList
 import rs.dusk.game.entity.character.player.Player
 
@@ -7,7 +8,7 @@ import rs.dusk.game.entity.character.player.Player
  * @author Tyluur <itstyluur@gmail.com>
  * @since December 17, 2020
  */
-object World {
+class World {
 	
 	/**
 	 * The collection of players in the game.
@@ -38,3 +39,5 @@ object World {
 	}
 	
 }
+
+val worldModule = module { single(createdAtStart = true) { World() } }

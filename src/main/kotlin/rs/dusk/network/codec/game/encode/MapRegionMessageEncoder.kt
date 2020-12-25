@@ -1,5 +1,6 @@
 package rs.dusk.network.codec.game.encode
 
+import inject
 import rs.dusk.core.network.buffer.Endian
 import rs.dusk.core.network.buffer.Modifier
 import rs.dusk.core.network.packet.PacketType
@@ -15,6 +16,12 @@ import rs.dusk.network.rs.codec.game.GameOpcodes.REGION
  */
 class MapRegionMessageEncoder : GameMessageEncoder<MapRegionMessage>() {
 	
+	/**
+	 * The instance of the world to encode, must be passed in the encoder temporarily
+	 * // todo - fix
+	 */
+	private val world : World by inject()
+	
 	override fun encode(builder : PacketWriter, msg : MapRegionMessage) = with(builder) {
 		writeOpcode(REGION, PacketType.SHORT)
 		with(msg) {
@@ -27,7 +34,7 @@ class MapRegionMessageEncoder : GameMessageEncoder<MapRegionMessage>() {
 					if (playerIndex == render.player.index) {
 						continue
 					}
-					val player = World.findPlayerByIndex(playerIndex)
+					val player = world.findPlayerByIndex(playerIndex)
 					writeBits(
 						18,
 						player?.tile?.get18BitsLocationHash()?.also({ render.regionHashes[playerIndex] = it }) ?: 0
