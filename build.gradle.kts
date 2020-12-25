@@ -91,3 +91,6 @@ allprojects {
 	}
 	
 }
+dependencies {
+	implementation(kotlin("script-runtime"))
+}

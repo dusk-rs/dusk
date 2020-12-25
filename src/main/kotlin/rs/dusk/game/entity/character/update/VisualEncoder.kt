@@ -2,6 +2,7 @@ package rs.dusk.game.entity.character.update
 
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
+import rs.dusk.client.update.encode.player.AppearanceEncoder
 import rs.dusk.core.network.buffer.write.Writer
 import rs.dusk.engine.client.update.encode.*
 import rs.dusk.engine.client.update.encode.npc.*

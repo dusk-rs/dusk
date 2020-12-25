@@ -29,7 +29,7 @@ abstract class Character(
 	/**
 	 * The size of the character
 	 */
-	var size : Size = Size.TILE,
+	open var size : Size = Size.TILE,
 	
 	/**
 	 * The visual rendering instance

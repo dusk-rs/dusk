@@ -2,6 +2,7 @@ package rs.dusk.engine.client.ui.dialogue
 
 import kotlinx.coroutines.CancellableContinuation
 import kotlinx.coroutines.CancellationException
+import rs.dusk.client.ui.dialogue.DialogueContext
 import rs.dusk.engine.entity.character.npc.NPC
 import rs.dusk.engine.entity.character.player.Player
 import rs.dusk.engine.entity.definition.NPCDefinitions

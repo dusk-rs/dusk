@@ -1,10 +1,11 @@
-package rs.dusk.engine.client.ui.detail
+package rs.dusk.client.ui.detail
 
-import get
 import inject
 import org.koin.dsl.module
-import rs.dusk.client.ui.detail.InterfaceDetails
 import rs.dusk.core.boot.TimedLoader
+import rs.dusk.engine.client.ui.detail.InterfaceComponentDetail
+import rs.dusk.engine.client.ui.detail.InterfaceData
+import rs.dusk.engine.client.ui.detail.InterfaceDetail
 import rs.dusk.game.entity.character.player.data.PlayerGameFrame.Companion.GAME_FRAME_NAME
 import rs.dusk.game.entity.character.player.data.PlayerGameFrame.Companion.GAME_FRAME_RESIZE_NAME
 import rs.dusk.utility.io.file.FileLoader
@@ -122,7 +123,6 @@ class InterfaceDetailsLoader() : TimedLoader<InterfaceDetails>("interfaces") {
 
 val interfaceModule = module {
 	single(createdAtStart = true) {
-		InterfaceDetailsLoader(get())
-			.run(getProperty("interfacesPath"), getProperty("interfaceTypesPath"))
+		InterfaceDetailsLoader().run(getProperty("interfacesPath"), getProperty("interfaceTypesPath"))
 	}
 }

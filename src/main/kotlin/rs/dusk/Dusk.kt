@@ -12,7 +12,7 @@ import rs.dusk.core.gameWorkerModule
 import rs.dusk.core.path.pathFindModule
 import rs.dusk.core.render.renderSequenceModule
 import rs.dusk.engine.client.clientSessionModule
-import rs.dusk.engine.client.ui.detail.interfaceModule
+import rs.dusk.client.ui.detail.interfaceModule
 import rs.dusk.engine.event.eventModule
 import rs.dusk.game.entity.registry.playerRegistryModule
 import rs.dusk.game.world.map.decrypt.xteaLoaderModule

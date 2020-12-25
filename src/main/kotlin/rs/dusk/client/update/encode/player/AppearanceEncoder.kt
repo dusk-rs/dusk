@@ -1,7 +1,7 @@
-package rs.dusk.engine.client.update.encode.player
+package rs.dusk.client.update.encode.player
 
-import rs.dusk.core.io.Modifier
-import rs.dusk.core.io.write.Writer
+import rs.dusk.core.network.buffer.Modifier
+import rs.dusk.core.network.buffer.write.Writer
 import rs.dusk.game.entity.character.update.VisualEncoder
 import rs.dusk.engine.entity.character.update.visual.player.APPEARANCE_MASK
 import rs.dusk.engine.entity.character.update.visual.player.Appearance
