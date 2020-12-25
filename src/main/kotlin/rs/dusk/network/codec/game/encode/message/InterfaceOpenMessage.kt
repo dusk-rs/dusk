@@ -1,6 +1,6 @@
-package rs.dusk.network.rs.codec.game.encode.message
+package rs.dusk.network.codec.game.encode.message
 
-import rs.dusk.core.network.model.message.Message
+import rs.dusk.network.codec.game.GameMessage
 
 /**
  * Displays a interface onto the client screen
@@ -9,4 +9,5 @@ import rs.dusk.core.network.model.message.Message
  * @param component The index of the component
  * @param id The id of the interface to display
  */
-data class InterfaceOpenMessage(val permanent: Boolean, val parent: Int, val component: Int, val id: Int) : Message
+data class InterfaceOpenMessage(val permanent : Boolean, val parent : Int, val component : Int, val id : Int) :
+	GameMessage

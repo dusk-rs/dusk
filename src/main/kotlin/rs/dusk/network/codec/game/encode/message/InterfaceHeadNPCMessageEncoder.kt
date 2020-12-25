@@ -1,8 +1,9 @@
 package rs.dusk.network.codec.game.encode.message
 
+import rs.dusk.core.network.buffer.Endian
 import rs.dusk.core.network.packet.access.PacketWriter
 import rs.dusk.network.codec.game.GameMessageEncoder
-import rs.dusk.network.rs.codec.game.encode.message.InterfaceHeadNPCMessage
+import rs.dusk.network.rs.codec.game.GameOpcodes.INTERFACE_NPC_HEAD
 
 /**
  * @author Greg Hibberd <greg@greghibberd.com>

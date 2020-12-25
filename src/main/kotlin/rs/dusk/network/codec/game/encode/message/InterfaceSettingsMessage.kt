@@ -1,6 +1,6 @@
-package rs.dusk.network.rs.codec.game.encode.message
+package rs.dusk.network.codec.game.encode.message
 
-import rs.dusk.core.network.model.message.Message
+import rs.dusk.network.codec.game.GameMessage
 
 /**
  * Sends settings to a interface's component(s)
@@ -10,4 +10,10 @@ import rs.dusk.core.network.model.message.Message
  * @param toSlot The end slot index
  * @param settings The settings hash
  */
-data class InterfaceSettingsMessage(val id: Int, val component: Int, val fromSlot: Int, val toSlot: Int, val settings: Int) : Message
+data class InterfaceSettingsMessage(
+	val id : Int,
+	val component : Int,
+	val fromSlot : Int,
+	val toSlot : Int,
+	val settings : Int
+) : GameMessage

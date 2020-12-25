@@ -1,6 +1,6 @@
-package rs.dusk.network.rs.codec.game.encode.message
+package rs.dusk.network.codec.game.encode.message
 
-import rs.dusk.core.network.model.message.Message
+import rs.dusk.network.codec.game.GameMessage
 
 /**
  * Sends an item to display on a interface component
@@ -9,4 +9,4 @@ import rs.dusk.core.network.model.message.Message
  * @param item The item id
  * @param amount The number of the item
  */
-data class InterfaceItemMessage(val id: Int, val component: Int, val item: Int, val amount: Int) : Message
+data class InterfaceItemMessage(val id : Int, val component : Int, val item : Int, val amount : Int) : GameMessage

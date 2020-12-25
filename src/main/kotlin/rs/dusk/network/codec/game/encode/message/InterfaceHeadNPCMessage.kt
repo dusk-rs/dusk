@@ -1,6 +1,5 @@
-package rs.dusk.network.rs.codec.game.encode.message
+package rs.dusk.network.codec.game.encode.message
 
-import rs.dusk.core.network.model.message.Message
 import rs.dusk.network.codec.game.GameMessage
 
 /**

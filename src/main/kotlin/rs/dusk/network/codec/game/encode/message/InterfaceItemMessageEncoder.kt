@@ -5,7 +5,7 @@ import rs.dusk.core.io.Modifier
 import rs.dusk.core.network.codec.packet.access.PacketWriter
 import rs.dusk.network.rs.codec.game.GameMessageEncoder
 import rs.dusk.network.rs.codec.game.GameOpcodes.INTERFACE_ITEM
-import rs.dusk.network.rs.codec.game.encode.message.InterfaceItemMessage
+import rs.dusk.network.codec.game.encode.message.InterfaceItemMessage
 
 /**
  * @author Greg Hibberd <greg@greghibberd.com>
