@@ -2,7 +2,7 @@ package rs.dusk.engine.client.update.encode.player
 
 import rs.dusk.core.io.Modifier
 import rs.dusk.core.io.write.Writer
-import rs.dusk.engine.entity.character.update.VisualEncoder
+import rs.dusk.game.entity.character.update.VisualEncoder
 import rs.dusk.engine.entity.character.update.visual.player.TEMPORARY_MOVE_TYPE_MASK
 import rs.dusk.engine.entity.character.update.visual.player.TemporaryMoveType
 

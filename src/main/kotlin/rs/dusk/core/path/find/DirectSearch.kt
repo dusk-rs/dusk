@@ -2,8 +2,8 @@ package rs.dusk.engine.path.find
 
 import rs.dusk.engine.entity.Direction
 import rs.dusk.engine.entity.Size
-import rs.dusk.engine.entity.character.move.Movement
-import rs.dusk.engine.entity.character.move.Steps
+import rs.dusk.game.entity.character.move.Movement
+import rs.dusk.game.entity.character.move.Steps
 import rs.dusk.engine.map.Tile
 import rs.dusk.engine.path.Finder
 import rs.dusk.engine.path.PathResult
@@ -20,21 +20,21 @@ import rs.dusk.engine.path.TraversalStrategy
 class DirectSearch : Finder {
 
     override fun find(
-        tile: Tile,
-        size: Size,
-        movement: Movement,
-        strategy: TargetStrategy,
-        traversal: TraversalStrategy
+	    tile: Tile,
+	    size: Size,
+	    movement: Movement,
+	    strategy: TargetStrategy,
+	    traversal: TraversalStrategy
     ): PathResult {
         return addHorizontal(movement.steps, tile, size, strategy, traversal)
     }
 
     fun addHorizontal(
-        steps: Steps,
-        tile: Tile,
-        size: Size,
-        strategy: TargetStrategy,
-        traversal: TraversalStrategy
+	    steps: Steps,
+	    tile: Tile,
+	    size: Size,
+	    strategy: TargetStrategy,
+	    traversal: TraversalStrategy
     ): PathResult {
         val delta = tile.delta(strategy.tile)
         var dx = delta.x
@@ -63,11 +63,11 @@ class DirectSearch : Finder {
     }
 
     fun addVertical(
-        steps: Steps,
-        tile: Tile,
-        size: Size,
-        strategy: TargetStrategy,
-        traversal: TraversalStrategy
+	    steps: Steps,
+	    tile: Tile,
+	    size: Size,
+	    strategy: TargetStrategy,
+	    traversal: TraversalStrategy
     ): PathResult {
         val delta = tile.delta(strategy.tile)
         var dy = delta.y

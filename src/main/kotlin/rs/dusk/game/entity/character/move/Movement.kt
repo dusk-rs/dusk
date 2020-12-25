@@ -1,11 +1,19 @@
-package rs.dusk.engine.entity.character.move
+package rs.dusk.game.entity.character.move
 
+import get
+import kotlinx.coroutines.delay
+import rs.dusk.core.action.action
 import rs.dusk.core.map.Tile
+import rs.dusk.engine.action.ActionType
+import rs.dusk.engine.entity.Direction
+import rs.dusk.engine.path.PathFinder
+import rs.dusk.engine.path.PathFinder.Companion.getStrategy
 import rs.dusk.engine.path.PathResult
 import rs.dusk.engine.path.TargetStrategy
 import rs.dusk.engine.path.TraversalStrategy
 import rs.dusk.engine.path.find.BreadthFirstSearch
 import rs.dusk.engine.task.TaskExecutor
+import rs.dusk.engine.task.sync
 import rs.dusk.game.entity.character.player.Player
 import java.util.*
 
@@ -85,4 +93,8 @@ fun Player.walkTo(target: Any, strategy: TargetStrategy = getStrategy(target), a
             movement.clear()
         }
     }
+}
+
+fun action(movement : ActionType.Movement, function : () -> Unit) {
+
 }

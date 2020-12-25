@@ -7,7 +7,6 @@ import rs.dusk.engine.entity.character.npc.NPC
 import rs.dusk.engine.entity.character.player.Player
 import rs.dusk.engine.entity.character.player.Players
 import rs.dusk.engine.entity.character.update.LocalChange
-import rs.dusk.engine.entity.character.update.visual.npc.getTurn
 import rs.dusk.engine.event.Priority.NPC_UPDATE
 import rs.dusk.engine.tick.task.EntityTask
 

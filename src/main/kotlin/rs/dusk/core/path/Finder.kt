@@ -1,7 +1,7 @@
 package rs.dusk.engine.path
 
 import rs.dusk.engine.entity.Size
-import rs.dusk.engine.entity.character.move.Movement
+import rs.dusk.game.entity.character.move.Movement
 import rs.dusk.engine.map.Tile
 
 /**
@@ -16,10 +16,10 @@ interface Finder {
      * @return Success, Partial (movement but not reached target), Failure
      */
     fun find(
-        tile: Tile,
-        size: Size,
-        movement: Movement,
-        strategy: TargetStrategy,
-        traversal: TraversalStrategy
+	    tile: Tile,
+	    size: Size,
+	    movement: Movement,
+	    strategy: TargetStrategy,
+	    traversal: TraversalStrategy
     ): PathResult
 }

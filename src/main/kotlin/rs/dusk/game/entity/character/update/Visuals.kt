@@ -1,16 +1,18 @@
 package rs.dusk.engine.entity.character.update
 
+import rs.dusk.game.entity.character.update.Visual
+
 /**
  * @author Greg Hibberd <greg@greghibberd.com>
  * @since April 25, 2020
  */
 @Suppress("ArrayInDataClass")
 data class Visuals(
-    var flag: Int = 0,
-    var aspects: MutableMap<Int, Visual> = mutableMapOf(),
-    var appearance: ByteArray? = null,
-    var update: ByteArray? = null,
-    var addition: ByteArray? = null
+	var flag: Int = 0,
+	var aspects: MutableMap<Int, Visual> = mutableMapOf(),
+	var appearance: ByteArray? = null,
+	var update: ByteArray? = null,
+	var addition: ByteArray? = null
 ) {
 
     inline fun <reified T : Visual> getOrPut(mask: Int, put: () -> T): T {

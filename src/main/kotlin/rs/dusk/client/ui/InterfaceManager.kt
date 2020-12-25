@@ -3,16 +3,16 @@ package rs.dusk.engine.client.ui
 import rs.dusk.engine.client.ui.detail.InterfaceComponentDetail
 import rs.dusk.engine.client.ui.detail.InterfaceDetail
 import rs.dusk.engine.client.ui.detail.InterfaceDetails
-import rs.dusk.engine.entity.character.player.PlayerGameFrame
+import rs.dusk.game.entity.character.player.data.PlayerGameFrame
 
 /**
  * API for the interacting and tracking of client interfaces
  */
 class InterfaceManager(
-    private val io: InterfaceIO,
-    interfaces: InterfaceDetails,
-    private val gameFrame: PlayerGameFrame,
-    private val openInterfaces: MutableSet<InterfaceDetail> = mutableSetOf()
+	private val io: InterfaceIO,
+	interfaces: InterfaceDetails,
+	private val gameFrame: PlayerGameFrame,
+	private val openInterfaces: MutableSet<InterfaceDetail> = mutableSetOf()
 ) : Interfaces(interfaces) {
 
     override fun open(inter: InterfaceDetail): Boolean {

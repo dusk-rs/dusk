@@ -2,7 +2,7 @@ package rs.dusk.engine.path.find
 
 import rs.dusk.engine.entity.Direction
 import rs.dusk.engine.entity.Size
-import rs.dusk.engine.entity.character.move.Movement
+import rs.dusk.game.entity.character.move.Movement
 import rs.dusk.engine.map.Tile
 import rs.dusk.engine.path.Finder
 import rs.dusk.engine.path.PathResult
@@ -21,11 +21,11 @@ import kotlin.math.min
 class BreadthFirstSearch : Finder {
 
     override fun find(
-        tile: Tile,
-        size: Size,
-        movement: Movement,
-        strategy: TargetStrategy,
-        traversal: TraversalStrategy
+	    tile: Tile,
+	    size: Size,
+	    movement: Movement,
+	    strategy: TargetStrategy,
+	    traversal: TraversalStrategy
     ): PathResult {
         for (x in 0 until GRAPH_SIZE) {
             for (y in 0 until GRAPH_SIZE) {
@@ -50,13 +50,13 @@ class BreadthFirstSearch : Finder {
     }
 
     fun calculate(
-        graphBaseX: Int,
-        graphBaseY: Int,
-        plane: Int,
-        size: Size,
-        movement: Movement,
-        target: TargetStrategy,
-        traversal: TraversalStrategy
+	    graphBaseX: Int,
+	    graphBaseY: Int,
+	    plane: Int,
+	    size: Size,
+	    movement: Movement,
+	    target: TargetStrategy,
+	    traversal: TraversalStrategy
     ): PathResult {
         // Cache fields for jit compiler performance boost
         val directions = movement.directions

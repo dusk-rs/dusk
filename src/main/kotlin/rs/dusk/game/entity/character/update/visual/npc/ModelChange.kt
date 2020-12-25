@@ -1,7 +1,7 @@
 package rs.dusk.engine.entity.character.update.visual.npc
 
 import rs.dusk.engine.entity.character.npc.NPC
-import rs.dusk.engine.entity.character.update.Visual
+import rs.dusk.game.entity.character.update.Visual
 
 /**
  * @author Greg Hibberd <greg@greghibberd.com>

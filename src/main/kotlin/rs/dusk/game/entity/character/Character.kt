@@ -1,7 +1,11 @@
 package rs.dusk.game.entity.character
 
+import rs.dusk.core.action.Action
+import rs.dusk.engine.entity.character.update.Visuals
 import rs.dusk.game.entity.Entity
 import rs.dusk.game.entity.Size
+import rs.dusk.game.entity.character.move.Movement
+import rs.dusk.game.entity.character.player.data.Viewport
 
 /**
  * An entity can be a player or an npc
@@ -19,5 +23,14 @@ abstract class Character : Entity() {
 	/**
 	 * The size of the character
 	 */
-	abstract var size : Size
+	var size : Size = Size.TILE
+	
+	val visuals = Visuals()
+	
+	
+	val viewport : Viewport = Viewport()
+	
+	val movement : Movement = Movement(this)
+	
+	val action : Action = Action()
 }

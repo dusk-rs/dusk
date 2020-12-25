@@ -1,17 +1,16 @@
 package rs.dusk.engine.client.ui
 
-import rs.dusk.engine.client.send
 import rs.dusk.engine.client.ui.detail.InterfaceDetails
 import rs.dusk.engine.entity.character.player.Player
-import rs.dusk.engine.entity.definition.ContainerDefinitions
+import rs.dusk.game.container.ContainerDefinitions
 import rs.dusk.network.rs.codec.game.encode.message.InterfaceSettingsMessage
 import rs.dusk.network.rs.codec.game.encode.message.ScriptMessage
 
 class InterfaceOptions(
-    private val player: Player,
-    private val details: InterfaceDetails,
-    private val containerDefinitions: ContainerDefinitions,
-    private val options: MutableMap<String, Array<String>> = mutableMapOf()
+	private val player: Player,
+	private val details: InterfaceDetails,
+	private val containerDefinitions: ContainerDefinitions,
+	private val options: MutableMap<String, Array<String>> = mutableMapOf()
 ) {
 
     fun get(name: String, component: String, index: Int): String {

@@ -3,8 +3,8 @@ package rs.dusk.engine.client.update.task.player
 import rs.dusk.core.io.write.BufferWriter
 import rs.dusk.core.io.write.Writer
 import rs.dusk.engine.entity.character.player.Player
-import rs.dusk.engine.entity.character.update.Visual
-import rs.dusk.engine.entity.character.update.VisualEncoder
+import rs.dusk.game.entity.character.update.Visual
+import rs.dusk.game.entity.character.update.VisualEncoder
 import rs.dusk.engine.entity.character.update.Visuals
 import rs.dusk.engine.entity.character.update.visual.player.Appearance
 import rs.dusk.engine.entity.list.PooledMapList
@@ -16,9 +16,9 @@ import rs.dusk.engine.tick.task.EntityTask
  * @since April 25, 2020
  */
 class PlayerVisualsTask(
-    override val entities: PooledMapList<Player>,
-    private val encoders: Array<VisualEncoder<Visual>>,
-    addMasks: IntArray // Order of these is important
+	override val entities: PooledMapList<Player>,
+	private val encoders: Array<VisualEncoder<Visual>>,
+	addMasks: IntArray // Order of these is important
 ) : EntityTask<Player>(PLAYER_VISUALS) {
 
     private val addFlag = addMasks.sum()

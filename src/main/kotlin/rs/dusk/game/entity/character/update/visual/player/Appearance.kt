@@ -1,12 +1,8 @@
 package rs.dusk.engine.entity.character.update.visual.player
 
-import rs.dusk.engine.entity.character.contain.equipment
-import rs.dusk.engine.entity.character.player.BodyParts
-import rs.dusk.engine.entity.character.player.Player
-import rs.dusk.engine.entity.character.update.Visual
-import rs.dusk.engine.entity.item.BodyPart
-import rs.dusk.engine.entity.item.EquipSlot
-import rs.dusk.utility.get
+import rs.dusk.cache.definition.entity.item.EquipSlot
+import rs.dusk.game.entity.character.player.Player
+import rs.dusk.game.entity.character.update.Visual
 
 /**
  * @author Greg Hibberd <greg@greghibberd.com>

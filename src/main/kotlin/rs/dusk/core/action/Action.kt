@@ -1,6 +1,9 @@
 package rs.dusk.core.action
 
+import get
 import kotlinx.coroutines.*
+import rs.dusk.core.event.character.NPCEvent
+import rs.dusk.core.event.character.PlayerEvent
 import rs.dusk.engine.action.ActionContinuation
 import rs.dusk.engine.action.ActionType
 import rs.dusk.engine.action.ActionType.Misc

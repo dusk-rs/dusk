@@ -1,11 +1,10 @@
 package rs.dusk.engine.entity.character.update.visual
 
-import rs.dusk.engine.entity.character.Character
 import rs.dusk.engine.entity.character.npc.NPC
-import rs.dusk.engine.entity.character.npc.NPCEvent
+import rs.dusk.core.event.character.NPCEvent
 import rs.dusk.engine.entity.character.player.Player
-import rs.dusk.engine.entity.character.player.PlayerEvent
-import rs.dusk.engine.entity.character.update.Visual
+import rs.dusk.core.event.character.PlayerEvent
+import rs.dusk.game.entity.character.update.Visual
 
 /**
  * @author Greg Hibberd <greg@greghibberd.com>

@@ -9,8 +9,8 @@ import rs.dusk.engine.entity.character.npc.NPCs
 import rs.dusk.engine.entity.character.player.Players
 import rs.dusk.engine.entity.character.update.visual.npc.COMBAT_LEVEL_MASK
 import rs.dusk.game.entity.character.update.visual.npc.NAME_MASK
-import rs.dusk.engine.entity.character.update.visual.npc.TRANSFORM_MASK
-import rs.dusk.engine.entity.character.update.visual.npc.TURN_MASK
+import rs.dusk.game.entity.character.update.visual.npc.TRANSFORM_MASK
+import rs.dusk.game.entity.character.update.visual.npc.TURN_MASK
 import rs.dusk.engine.entity.character.update.visual.player.APPEARANCE_MASK
 import rs.dusk.engine.entity.character.update.visual.player.FACE_DIRECTION_MASK
 import rs.dusk.engine.entity.character.update.visual.player.MOVEMENT_TYPE_MASK

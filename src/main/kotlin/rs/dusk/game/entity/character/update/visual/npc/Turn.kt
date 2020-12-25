@@ -1,9 +1,9 @@
-package rs.dusk.engine.entity.character.update.visual.npc
+package rs.dusk.game.entity.character.update.visual.npc
 
 import rs.dusk.engine.entity.Direction
-import rs.dusk.engine.entity.character.npc.NPC
-import rs.dusk.engine.entity.character.npc.NPCEvent
-import rs.dusk.engine.entity.character.update.Visual
+import rs.dusk.core.event.character.NPCEvent
+import rs.dusk.game.entity.character.update.Visual
+import rs.dusk.game.entity.character.npc.NPC
 import kotlin.math.atan2
 
 /**

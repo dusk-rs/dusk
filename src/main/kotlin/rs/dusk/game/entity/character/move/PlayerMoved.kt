@@ -1,7 +1,7 @@
 package rs.dusk.engine.entity.character.move
 
 import rs.dusk.engine.entity.character.player.Player
-import rs.dusk.engine.entity.character.player.PlayerEvent
+import rs.dusk.core.event.character.PlayerEvent
 import rs.dusk.engine.event.EventCompanion
 import rs.dusk.engine.map.Tile
 

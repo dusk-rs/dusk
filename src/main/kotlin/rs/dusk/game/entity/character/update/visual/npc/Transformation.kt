@@ -1,7 +1,7 @@
-package rs.dusk.engine.entity.character.update.visual.npc
+package rs.dusk.game.entity.character.update.visual.npc
 
-import rs.dusk.engine.entity.character.npc.NPC
-import rs.dusk.engine.entity.character.update.Visual
+import rs.dusk.game.entity.character.npc.NPC
+import rs.dusk.game.entity.character.update.Visual
 
 /**
  * Changes the characteristics to match NPC with [id]
@@ -9,12 +9,12 @@ import rs.dusk.engine.entity.character.update.Visual
  * @since April 25, 2020
  */
 data class Transformation(
-    var id: Int = -1
+	var id : Int = -1
 ) : Visual
 
 const val TRANSFORM_MASK = 0x20
 
 fun NPC.flagTransform() = visuals.flag(TRANSFORM_MASK)
 
-val NPC.transform: Transformation
-    get() = visuals.getOrPut(TRANSFORM_MASK) { Transformation() }
+val NPC.transform : Transformation
+	get() = visuals.getOrPut(TRANSFORM_MASK) { Transformation() }

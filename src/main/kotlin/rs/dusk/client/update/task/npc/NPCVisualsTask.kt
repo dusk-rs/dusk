@@ -3,8 +3,8 @@ package rs.dusk.engine.client.update.task.npc
 import rs.dusk.core.io.write.BufferWriter
 import rs.dusk.core.io.write.Writer
 import rs.dusk.engine.entity.character.npc.NPC
-import rs.dusk.engine.entity.character.update.Visual
-import rs.dusk.engine.entity.character.update.VisualEncoder
+import rs.dusk.game.entity.character.update.Visual
+import rs.dusk.game.entity.character.update.VisualEncoder
 import rs.dusk.engine.entity.character.update.Visuals
 import rs.dusk.engine.entity.list.PooledMapList
 import rs.dusk.engine.event.Priority.NPC_VISUALS
@@ -15,9 +15,9 @@ import rs.dusk.engine.tick.task.EntityTask
  * @since April 25, 2020
  */
 class NPCVisualsTask(
-    override val entities: PooledMapList<NPC>,
-    private val encoders: Array<VisualEncoder<Visual>>,
-    addMasks: IntArray // Order of these is important
+	override val entities: PooledMapList<NPC>,
+	private val encoders: Array<VisualEncoder<Visual>>,
+	addMasks: IntArray // Order of these is important
 ) : EntityTask<NPC>(NPC_VISUALS) {
 
     private val addEncoders = addMasks.map { mask -> encoders.first { it.mask == mask } }
