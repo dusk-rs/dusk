@@ -1,8 +1,9 @@
 package rs.dusk.engine.client.ui
 
+import rs.dusk.client.ui.Interfaces
+import rs.dusk.client.ui.detail.InterfaceDetails
 import rs.dusk.engine.client.ui.detail.InterfaceComponentDetail
 import rs.dusk.engine.client.ui.detail.InterfaceDetail
-import rs.dusk.engine.client.ui.detail.InterfaceDetails
 import rs.dusk.game.entity.character.player.data.PlayerGameFrame
 
 /**

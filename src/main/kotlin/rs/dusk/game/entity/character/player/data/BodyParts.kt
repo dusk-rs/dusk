@@ -2,6 +2,7 @@ package rs.dusk.game.entity.character.player.data
 
 import rs.dusk.cache.definition.entity.item.EquipType
 import rs.dusk.cache.definition.entity.item.ItemDefinitions
+import rs.dusk.game.container.Container
 
 class BodyParts(
 	private val equipment: Container,

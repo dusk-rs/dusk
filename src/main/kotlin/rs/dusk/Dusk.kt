@@ -10,6 +10,7 @@ import rs.dusk.cache.cacheModule
 import rs.dusk.cache.definition.entity.detailsModule
 import rs.dusk.core.gameWorkerModule
 import rs.dusk.core.render.renderSequenceModule
+import rs.dusk.engine.event.eventModule
 import rs.dusk.game.entity.registry.playerRegistryModule
 import rs.dusk.game.world.map.decrypt.xteaLoaderModule
 import rs.dusk.game.world.worldModule
@@ -49,6 +50,9 @@ class Dusk {
 			
 			// world
 			modules(worldModule)
+			
+			// events
+			modules(eventModule)
 			
 			// properties
 			fileProperties("/game.properties")

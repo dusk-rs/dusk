@@ -1,9 +1,9 @@
 package rs.dusk.engine.event
 
+import get
 import kotlinx.coroutines.runBlocking
 import org.koin.dsl.module
 import rs.dusk.core.event.Event
-import rs.dusk.utility.get
 import kotlin.reflect.KClass
 
 val eventModule = module {

@@ -25,12 +25,23 @@ abstract class Character : Entity() {
 	 */
 	var size : Size = Size.TILE
 	
+	/**
+	 * The visual rendering instance
+	 */
 	val visuals = Visuals()
 	
-	
+	/**
+	 * The viewport instance
+	 */
 	val viewport : Viewport = Viewport()
 	
-	val movement : Movement = Movement(this)
+	/**
+	 * The movement instance
+	 */
+	val movement : Movement = Movement(previousTile = tile)
 	
+	/**
+	 * The action system instance
+	 */
 	val action : Action = Action()
 }

@@ -1,6 +1,7 @@
 package rs.dusk.engine.client.ui.detail
 
 import org.koin.dsl.module
+import rs.dusk.client.ui.detail.InterfaceDetails
 import rs.dusk.engine.TimedLoader
 import rs.dusk.engine.data.file.FileLoader
 import rs.dusk.game.entity.character.player.data.PlayerGameFrame.Companion.GAME_FRAME_NAME

@@ -1,10 +1,12 @@
-package rs.dusk.engine.client.ui.detail
+package rs.dusk.client.ui.detail
 
 import rs.dusk.engine.client.ui.InterfaceException
+import rs.dusk.engine.client.ui.detail.InterfaceComponentDetail
+import rs.dusk.engine.client.ui.detail.InterfaceDetail
 
 data class InterfaceDetails(
-    private val interfaces: Map<String, InterfaceDetail>,
-    private val names: Map<Int, String>
+	private val interfaces: Map<String, InterfaceDetail>,
+	private val names: Map<Int, String>
 ) {
 
     fun get(name: String) = interfaces[name] ?: throw IllegalNameException(name)

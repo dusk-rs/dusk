@@ -1,12 +1,12 @@
-package rs.dusk.engine.client.ui
+package rs.dusk.client.ui
 
+import get
+import rs.dusk.client.ui.detail.InterfaceDetails
 import rs.dusk.core.action.Action
 import rs.dusk.engine.action.Suspension
 import rs.dusk.engine.client.ui.detail.InterfaceComponentDetail
 import rs.dusk.engine.client.ui.detail.InterfaceDetail
-import rs.dusk.engine.client.ui.detail.InterfaceDetails
-import rs.dusk.engine.entity.character.player.Player
-import rs.dusk.utility.get
+import rs.dusk.game.entity.character.player.Player
 
 /**
  * Helper functions for integer and string identifiers
