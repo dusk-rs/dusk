@@ -1,10 +1,11 @@
-package rs.dusk.engine.client.ui
+package rs.dusk.client.ui
 
 import rs.dusk.client.ui.detail.InterfaceDetails
-import rs.dusk.engine.entity.character.player.Player
+import rs.dusk.engine.client.send
 import rs.dusk.game.container.ContainerDefinitions
+import rs.dusk.game.entity.character.player.Player
+import rs.dusk.network.codec.game.encode.message.ScriptMessage
 import rs.dusk.network.rs.codec.game.encode.message.InterfaceSettingsMessage
-import rs.dusk.network.rs.codec.game.encode.message.ScriptMessage
 
 class InterfaceOptions(
 	private val player: Player,

@@ -2,7 +2,6 @@ package rs.dusk.core.path
 
 import org.koin.dsl.module
 import rs.dusk.core.map.Tile
-import rs.dusk.engine.action.ActionType.FloorItem
 import rs.dusk.engine.path.Finder
 import rs.dusk.engine.path.PathResult
 import rs.dusk.engine.path.PathResult.Success.Complete
@@ -40,7 +39,7 @@ class PathFinder(
         return find(source, strategy, smart)
     }
 
-    fun find(source: Player, target: Character, smart: Boolean = true): PathResult {
+    fun find(source: Player, target: Player, smart: Boolean = true): PathResult {
         return find(source, getEntityStrategy(target), smart)
     }
 

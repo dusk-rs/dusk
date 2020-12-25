@@ -9,6 +9,8 @@ import rs.dusk.engine.client.ui.event.InterfaceOpened
 import rs.dusk.engine.client.ui.event.InterfaceRefreshed
 import rs.dusk.engine.event.EventBus
 import rs.dusk.game.entity.character.player.Player
+import rs.dusk.network.codec.game.encode.message.InterfaceCloseMessage
+import rs.dusk.network.codec.game.encode.message.InterfaceUpdateMessage
 
 /**
  * Instructions to external systems

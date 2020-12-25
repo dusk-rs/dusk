@@ -22,7 +22,7 @@ data class Player(val username : String, var session : Session, override var til
 	
 	private val interfaceDetails : InterfaceDetails by inject()
 	
-	private val gameFrame = PlayerGameFrame()
+	val gameFrame = PlayerGameFrame()
 	
 	private val interfaceIO = PlayerInterfaceIO(this, eventBus)
 	

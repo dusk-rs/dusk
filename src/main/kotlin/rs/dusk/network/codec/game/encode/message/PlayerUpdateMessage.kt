@@ -1,7 +1,7 @@
 package rs.dusk.network.codec.game.encode.message
 
 import rs.dusk.core.network.buffer.write.BufferWriter
-import rs.dusk.network.codec.game.GameServiceMessage
+import rs.dusk.network.codec.game.GameMessage
 
 /**
  * @author Greg Hibberd <greg@greghibberd.com>
@@ -14,7 +14,7 @@ data class PlayerUpdateMessage(
 	val changes : BufferWriter = BufferWriter(),
 	val updates : BufferWriter = BufferWriter()
 ) :
-	GameServiceMessage {
+	GameMessage {
 	
 	fun release() {
 		changes.buffer.clear()

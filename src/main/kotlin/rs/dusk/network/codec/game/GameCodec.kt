@@ -34,22 +34,22 @@ val gameCodecModule = module {
 	single(createdAtStart = true) { GameCodec() }
 }
 
-interface GameServiceMessage : Message
+interface GameMessage : Message
 
 /**
  * @author Tyluur <contact@kiaira.tech>
  * @since February 18, 2020
  */
-abstract class GameMessageEncoder<M : GameServiceMessage> : MessageEncoder<M>()
+abstract class GameMessageEncoder<M : GameMessage> : MessageEncoder<M>()
 
 /**
  * @author Tyluur <contact@kiaira.tech>
  * @since February 18, 2020
  */
-abstract class GameMessageDecoder<M : GameServiceMessage> : MessageDecoder<M>()
+abstract class GameMessageDecoder<M : GameMessage> : MessageDecoder<M>()
 
 /**
  * @author Tyluur <contact@kiaira.tech>
  * @since February 18, 2020
  */
-abstract class GameMessageHandler<M : GameServiceMessage> : MessageHandler<M>()
+abstract class GameMessageHandler<M : GameMessage> : MessageHandler<M>()

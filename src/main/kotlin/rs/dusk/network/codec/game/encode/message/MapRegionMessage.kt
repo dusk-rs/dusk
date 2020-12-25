@@ -1,6 +1,6 @@
 package rs.dusk.network.codec.game.encode.message
 
-import rs.dusk.network.codec.game.GameServiceMessage
+import rs.dusk.network.codec.game.GameMessage
 
 /**
  * @author Tyluur <itstyluur@gmail.com>
@@ -16,7 +16,7 @@ data class MapRegionMessage(
 	val clientTile : Int,
 	val sendLswp : Boolean,
 	val render: PlayerRendering
-) : GameServiceMessage {
+) : GameMessage {
 
 
 }

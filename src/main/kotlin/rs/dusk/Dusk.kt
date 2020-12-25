@@ -9,9 +9,10 @@ import rs.dusk.cache.cacheDefinitionModule
 import rs.dusk.cache.cacheModule
 import rs.dusk.cache.definition.entity.detailsModule
 import rs.dusk.core.gameWorkerModule
-import rs.dusk.core.render.renderSequenceModule
-import rs.dusk.engine.event.eventModule
 import rs.dusk.core.path.pathFindModule
+import rs.dusk.core.render.renderSequenceModule
+import rs.dusk.engine.client.clientSessionModule
+import rs.dusk.engine.event.eventModule
 import rs.dusk.game.entity.registry.playerRegistryModule
 import rs.dusk.game.world.map.decrypt.xteaLoaderModule
 import rs.dusk.game.world.worldModule
@@ -33,6 +34,9 @@ class Dusk {
 		val stopwatch = Stopwatch.createStarted()
 		startKoin {
 			slf4jLogger()
+			
+			// properties
+			fileProperties("/game.properties")
 			
 			// network codec modules
 			modules(gameServerModule, handshakeCodecModule, downloadCodecModule, loginCodecModule, gameCodecModule)
@@ -58,8 +62,8 @@ class Dusk {
 			// PF
 			modules(pathFindModule)
 			
-			// properties
-			fileProperties("/game.properties")
+			// sessions
+			modules(clientSessionModule)
 		}
 		logger.info { "Dusk is live (${stopwatch.elapsed(MILLISECONDS)} ms)" }
 	}
