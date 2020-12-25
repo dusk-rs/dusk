@@ -1,12 +1,10 @@
-package rs.dusk.engine.client.update
+package rs.dusk.client.update
 
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import rs.dusk.engine.client.update.task.npc.*
 import rs.dusk.engine.client.update.task.player.*
 import rs.dusk.engine.client.update.task.viewport.ViewportUpdating
-import rs.dusk.engine.entity.character.npc.NPCs
-import rs.dusk.engine.entity.character.player.Players
 import rs.dusk.engine.entity.character.update.visual.npc.COMBAT_LEVEL_MASK
 import rs.dusk.game.entity.character.update.visual.npc.NAME_MASK
 import rs.dusk.game.entity.character.update.visual.npc.TRANSFORM_MASK
@@ -15,6 +13,8 @@ import rs.dusk.engine.entity.character.update.visual.player.APPEARANCE_MASK
 import rs.dusk.engine.entity.character.update.visual.player.FACE_DIRECTION_MASK
 import rs.dusk.engine.entity.character.update.visual.player.MOVEMENT_TYPE_MASK
 import rs.dusk.engine.entity.character.update.visual.player.TEMPORARY_MOVE_TYPE_MASK
+import rs.dusk.game.entity.character.npc.NPCs
+import rs.dusk.game.entity.character.player.Players
 
 /**
  * @author Greg Hibberd <greg@greghibberd.com>

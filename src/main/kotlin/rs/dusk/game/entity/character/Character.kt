@@ -17,11 +17,6 @@ import rs.dusk.game.entity.character.player.data.Viewport
 abstract class Character(
 	
 	/**
-	 * The action system instance
-	 */
-	val action : Action = Action(),
-	
-	/**
 	 * The index the character holds
 	 */
 	var index : Int = -1,
@@ -30,6 +25,11 @@ abstract class Character(
 	 * The size of the character
 	 */
 	open var size : Size = Size.TILE,
+	
+	/**
+	 * The action system instance
+	 */
+	val action : Action = Action(),
 	
 	/**
 	 * The visual rendering instance

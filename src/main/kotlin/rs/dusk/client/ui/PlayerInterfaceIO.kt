@@ -4,9 +4,9 @@ import rs.dusk.engine.client.send
 import rs.dusk.engine.client.ui.InterfaceIO
 import rs.dusk.engine.client.ui.detail.InterfaceComponentDetail
 import rs.dusk.engine.client.ui.detail.InterfaceDetail
-import rs.dusk.engine.client.ui.event.InterfaceClosed
-import rs.dusk.engine.client.ui.event.InterfaceOpened
-import rs.dusk.engine.client.ui.event.InterfaceRefreshed
+import rs.dusk.client.ui.event.InterfaceClosed
+import rs.dusk.client.ui.event.InterfaceOpened
+import rs.dusk.client.ui.event.InterfaceRefreshed
 import rs.dusk.engine.event.EventBus
 import rs.dusk.game.entity.character.player.Player
 import rs.dusk.network.codec.game.encode.message.*
