@@ -1,15 +1,17 @@
-package rs.dusk.engine.client.variable
+package rs.dusk.client.variable
 
 import com.github.michaelbull.logging.InlineLogger
 import org.koin.dsl.module
 import rs.dusk.engine.client.send
-import rs.dusk.engine.entity.character.player.Player
-import rs.dusk.engine.entity.character.player.PlayerVariables
-import rs.dusk.network.rs.codec.game.encode.message.VarbitMessage
-import rs.dusk.network.rs.codec.game.encode.message.VarcMessage
-import rs.dusk.network.rs.codec.game.encode.message.VarcStrMessage
-import rs.dusk.network.rs.codec.game.encode.message.VarpMessage
-import rs.dusk.utility.get
+import rs.dusk.engine.client.variable.BitwiseVar
+import rs.dusk.engine.client.variable.BitwiseVariable
+import rs.dusk.engine.client.variable.Variable
+import rs.dusk.engine.client.variable.Variable.Type.*
+import rs.dusk.game.entity.character.player.Player
+import rs.dusk.network.codec.game.encode.message.VarbitMessage
+import rs.dusk.network.codec.game.encode.message.VarcMessage
+import rs.dusk.network.codec.game.encode.message.VarcStrMessage
+import rs.dusk.network.codec.game.encode.message.VarpMessage
 
 val variablesModule = module {
     single { Variables() }
@@ -100,10 +102,10 @@ class Variables {
         val value = store.get(this)
         player.send(
             when (type) {
-                Variable.Type.VARP -> VarpMessage(id, toInt(value))
-                Variable.Type.VARBIT -> VarbitMessage(id, toInt(value))
-                Variable.Type.VARC -> VarcMessage(id, toInt(value))
-                Variable.Type.VARCSTR -> VarcStrMessage(id, value as String)
+                VARP -> VarpMessage(id, toInt(value))
+                VARBIT -> VarbitMessage(id, toInt(value))
+                VARC -> VarcMessage(id, toInt(value))
+                VARCSTR -> VarcStrMessage(id, value as String)
             }
         )
     }

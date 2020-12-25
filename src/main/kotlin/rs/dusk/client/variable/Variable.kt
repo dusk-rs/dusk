@@ -1,5 +1,6 @@
 package rs.dusk.engine.client.variable
 
+import rs.dusk.client.variable.Variables
 import rs.dusk.utility.get
 
 interface Variable<T : Any> {

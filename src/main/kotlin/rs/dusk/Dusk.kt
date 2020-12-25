@@ -8,11 +8,12 @@ import rs.dusk.cache.cacheConfigModule
 import rs.dusk.cache.cacheDefinitionModule
 import rs.dusk.cache.cacheModule
 import rs.dusk.cache.definition.entity.detailsModule
+import rs.dusk.client.ui.detail.interfaceModule
+import rs.dusk.client.variable.variablesModule
 import rs.dusk.core.gameWorkerModule
 import rs.dusk.core.path.pathFindModule
 import rs.dusk.core.render.renderSequenceModule
 import rs.dusk.engine.client.clientSessionModule
-import rs.dusk.client.ui.detail.interfaceModule
 import rs.dusk.engine.event.eventModule
 import rs.dusk.game.entity.registry.playerRegistryModule
 import rs.dusk.game.world.map.decrypt.xteaLoaderModule
@@ -64,7 +65,7 @@ class Dusk {
 			modules(pathFindModule)
 			
 			// interfaces
-			modules(interfaceModule)
+			modules(interfaceModule, variablesModule)
 			
 			// sessions
 			modules(clientSessionModule)

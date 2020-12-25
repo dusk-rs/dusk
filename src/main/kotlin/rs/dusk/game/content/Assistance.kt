@@ -1,6 +1,5 @@
 package rs.dusk.game.content
 
-import rs.dusk.engine.client.variable.getVar
 import rs.dusk.engine.entity.character.player.skill.Skill
 import rs.dusk.game.entity.character.player.Player
 import java.util.concurrent.TimeUnit
