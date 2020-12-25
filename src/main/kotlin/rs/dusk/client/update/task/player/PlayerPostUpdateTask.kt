@@ -3,7 +3,7 @@ package rs.dusk.engine.client.update.task.player
 import rs.dusk.engine.entity.character.player.Player
 import rs.dusk.engine.entity.character.player.Players
 import rs.dusk.engine.event.Priority.PLAYER_UPDATE_FINISHED
-import rs.dusk.engine.tick.task.EntityTask
+import rs.dusk.core.tick.task.EntityTask
 
 /**
  * Resets non-persistent changes

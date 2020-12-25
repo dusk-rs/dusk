@@ -1,7 +1,7 @@
 package rs.dusk.engine.task
 
 import kotlinx.coroutines.runBlocking
-import rs.dusk.engine.action.Contexts
+import rs.dusk.core.action.Contexts
 import rs.dusk.utility.get
 
 /**

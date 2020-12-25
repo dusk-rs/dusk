@@ -1,6 +1,7 @@
 package rs.dusk.client.variable
 
 import com.github.michaelbull.logging.InlineLogger
+import get
 import org.koin.dsl.module
 import rs.dusk.engine.client.send
 import rs.dusk.engine.client.variable.BitwiseVar

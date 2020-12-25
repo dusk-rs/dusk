@@ -1,4 +1,4 @@
-package rs.dusk.engine.action
+package rs.dusk.core.action
 
 import com.github.michaelbull.logging.InlineLogger
 import kotlinx.coroutines.CancellationException

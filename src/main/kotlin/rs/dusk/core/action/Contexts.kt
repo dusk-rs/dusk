@@ -1,4 +1,4 @@
-package rs.dusk.engine.action
+package rs.dusk.core.action
 
 import kotlinx.coroutines.newFixedThreadPoolContext
 import kotlinx.coroutines.newSingleThreadContext

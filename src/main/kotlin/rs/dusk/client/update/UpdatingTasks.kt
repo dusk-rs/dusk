@@ -2,6 +2,7 @@ package rs.dusk.client.update
 
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
+import rs.dusk.client.update.task.npc.NPCChangeTask
 import rs.dusk.engine.client.update.task.npc.*
 import rs.dusk.engine.client.update.task.player.*
 import rs.dusk.engine.client.update.task.viewport.ViewportUpdating

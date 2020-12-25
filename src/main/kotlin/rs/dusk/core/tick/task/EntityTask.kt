@@ -1,12 +1,12 @@
-package rs.dusk.engine.tick.task
+package rs.dusk.core.tick.task
 
 import com.github.michaelbull.logging.InlineLogger
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import rs.dusk.core.tick.task.EngineTask
-import rs.dusk.engine.action.Contexts
-import rs.dusk.engine.entity.list.PooledMapList
+import rs.dusk.core.action.Contexts
+import rs.dusk.game.entity.PooledMapList
+import rs.dusk.game.entity.character.Character
 import kotlin.system.measureTimeMillis
 
 /**
@@ -14,25 +14,25 @@ import kotlin.system.measureTimeMillis
  * @since April 25, 2020
  */
 @Deprecated("Use scripts instead")
-abstract class EntityTask<T : Character>(priority: Int) : EngineTask(priority) {
-    private val logger = InlineLogger()
-
-    abstract val entities: PooledMapList<T>
-
-    abstract fun runAsync(entity: T)
-
-    override fun run() = runBlocking {
-        val took = measureTimeMillis {
-            coroutineScope {
-                entities.forEach {
-                    launch(Contexts.Updating) {
-                        runAsync(it)
-                    }
-                }
-            }
-        }
-        if (took >= 5) {
-            logger.info { "${this@EntityTask::class.simpleName} took ${took}ms" }
-        }
-    }
+abstract class EntityTask<T : Character>(priority : Int) : EngineTask(priority) {
+	private val logger = InlineLogger()
+	
+	abstract val entities : PooledMapList<T>
+	
+	abstract fun runAsync(entity : T)
+	
+	override fun run() = runBlocking {
+		val took = measureTimeMillis {
+			coroutineScope {
+				entities.forEach {
+					launch(Contexts.Updating) {
+						runAsync(it)
+					}
+				}
+			}
+		}
+		if (took >= 5) {
+			logger.info { "${this@EntityTask::class.simpleName} took ${took}ms" }
+		}
+	}
 }

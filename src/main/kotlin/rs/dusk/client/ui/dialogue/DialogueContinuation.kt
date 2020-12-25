@@ -2,7 +2,7 @@ package rs.dusk.engine.client.ui.dialogue
 
 import com.github.michaelbull.logging.InlineLogger
 import kotlinx.coroutines.CancellationException
-import rs.dusk.engine.action.Contexts
+import rs.dusk.core.action.Contexts
 import kotlin.coroutines.Continuation
 
 object DialogueContinuation : Continuation<Any> {

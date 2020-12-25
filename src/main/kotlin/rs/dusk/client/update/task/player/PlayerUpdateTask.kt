@@ -11,7 +11,7 @@ import rs.dusk.engine.entity.character.update.RegionChange
 import rs.dusk.engine.entity.list.MAX_PLAYERS
 import rs.dusk.engine.event.Priority.PLAYER_UPDATE
 import rs.dusk.engine.map.region.RegionPlane
-import rs.dusk.engine.tick.task.EntityTask
+import rs.dusk.core.tick.task.EntityTask
 
 /**
  * @author Greg Hibberd <greg@greghibberd.com>

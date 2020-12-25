@@ -1,10 +1,12 @@
-package rs.dusk.engine.client.update.encode
+package rs.dusk.client.update.encode
 
-import rs.dusk.core.io.Endian
-import rs.dusk.core.io.Modifier
-import rs.dusk.core.io.write.Writer
-import rs.dusk.game.entity.character.update.VisualEncoder
+import rs.dusk.core.network.buffer.Endian
+import rs.dusk.core.network.buffer.Modifier
+import rs.dusk.core.network.buffer.write.Writer
+import rs.dusk.engine.entity.character.update.visual.ForceChat
+import rs.dusk.engine.entity.character.update.visual.ForceMovement
 import rs.dusk.engine.entity.character.update.visual.Watch
+import rs.dusk.game.entity.character.update.VisualEncoder
 
 /**
  * @author Greg Hibberd <greg@greghibberd.com>

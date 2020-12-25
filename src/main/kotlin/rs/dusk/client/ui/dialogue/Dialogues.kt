@@ -1,10 +1,10 @@
-package rs.dusk.engine.client.ui.dialogue
+package rs.dusk.client.ui.dialogue
 
 import get
 import kotlinx.coroutines.CancellableContinuation
 import kotlinx.coroutines.CancellationException
 import rs.dusk.cache.definition.entity.npc.NPCDefinitions
-import rs.dusk.client.ui.dialogue.DialogueContext
+import rs.dusk.engine.client.ui.dialogue.DialogueContinuation
 import rs.dusk.game.entity.character.npc.NPC
 import rs.dusk.game.entity.character.player.Player
 import java.util.*

@@ -9,7 +9,7 @@ import rs.dusk.engine.entity.character.update.Visuals
 import rs.dusk.engine.entity.character.update.visual.player.Appearance
 import rs.dusk.engine.entity.list.PooledMapList
 import rs.dusk.engine.event.Priority.PLAYER_VISUALS
-import rs.dusk.engine.tick.task.EntityTask
+import rs.dusk.core.tick.task.EntityTask
 
 /**
  * @author Greg Hibberd <greg@greghibberd.com>

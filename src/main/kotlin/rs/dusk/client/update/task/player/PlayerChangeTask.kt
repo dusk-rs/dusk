@@ -6,7 +6,7 @@ import rs.dusk.engine.entity.character.player.Player
 import rs.dusk.engine.entity.character.player.Players
 import rs.dusk.engine.entity.character.update.LocalChange
 import rs.dusk.engine.event.Priority.PLAYER_CHANGE
-import rs.dusk.engine.tick.task.EntityTask
+import rs.dusk.core.tick.task.EntityTask
 import kotlin.math.abs
 
 /**

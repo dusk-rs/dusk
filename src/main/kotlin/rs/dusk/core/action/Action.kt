@@ -4,14 +4,8 @@ import get
 import kotlinx.coroutines.*
 import rs.dusk.core.event.character.NPCEvent
 import rs.dusk.core.event.character.PlayerEvent
-import rs.dusk.engine.action.ActionContinuation
-import rs.dusk.engine.action.ActionType
-import rs.dusk.engine.action.ActionType.Misc
-import rs.dusk.engine.action.Contexts
-import rs.dusk.engine.action.Suspension
-import rs.dusk.engine.action.Suspension.Tick
 import rs.dusk.engine.task.TaskExecutor
-import rs.dusk.game.entity.character.Character
+import rs.dusk.engine.task.delay
 import kotlin.coroutines.createCoroutine
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
@@ -20,6 +14,7 @@ import kotlin.coroutines.resumeWithException
  * A suspendable action
  * Also access for suspension methods
  */
+@Suppress("UNCHECKED_CAST")
 class Action {
 
     var continuation: CancellableContinuation<*>? = null
@@ -27,7 +22,7 @@ class Action {
 
     val isActive: Boolean
         get() = continuation?.isActive ?: true
-    var type: ActionType = Misc
+    var type: ActionType = ActionType.Misc
 
     /**
      * Whether there is currently an action which is paused
@@ -72,7 +67,7 @@ class Action {
      * @param type For the current action to decide whether to finish or cancel early
      * @param action The suspendable action function
      */
-    fun run(type: ActionType = Misc, action: suspend Action.() -> Unit) {
+    fun run(type: ActionType = ActionType.Misc, action: suspend Action.() -> Unit) {
         this.type = type
         this@Action.cancel(type)
         val coroutine = action.createCoroutine(this@Action, ActionContinuation)
@@ -99,10 +94,10 @@ class Action {
     suspend fun delay(ticks: Int = 1): Boolean {
         val executor: TaskExecutor = get()
         suspendCancellableCoroutine<Unit> { continuation ->
-            suspension = Tick
+            suspension = Suspension.Tick
             this.continuation = continuation
             executor.delay(ticks) {
-                if(suspension == Tick) {
+                if(suspension == Suspension.Tick) {
                     resume()
                 }
             }
@@ -117,9 +112,9 @@ class Action {
 
 fun NPCEvent.action(type: ActionType = ActionType.Misc, action: suspend Action.() -> Unit) = npc.action(type, action)
 
+private fun rs.dusk.game.entity.character.Character.action(type : ActionType, action : suspend Action.() -> Unit) : Any {
+	return this.action.run(type, action)
+}
+
 fun PlayerEvent.action(type: ActionType = ActionType.Misc, action: suspend Action.() -> Unit) =
     player.action(type, action)
-
-fun Character.action(type: ActionType = Misc, action: suspend Action.() -> Unit) {
-    this.action.run(type, action)
-}

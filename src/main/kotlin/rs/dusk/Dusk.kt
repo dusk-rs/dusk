@@ -11,6 +11,7 @@ import rs.dusk.cache.definition.entity.detailsModule
 import rs.dusk.client.ui.detail.interfaceModule
 import rs.dusk.client.update.updatingTasksModule
 import rs.dusk.client.variable.variablesModule
+import rs.dusk.core.action.schedulerModule
 import rs.dusk.core.gameWorkerModule
 import rs.dusk.core.path.pathFindModule
 import rs.dusk.core.render.renderSequenceModule
@@ -67,6 +68,9 @@ class Dusk {
 			
 			// interfaces
 			modules(interfaceModule, variablesModule)
+			
+			// scheduler
+			modules(schedulerModule)
 			
 			// player updating
 			modules(updatingTasksModule)

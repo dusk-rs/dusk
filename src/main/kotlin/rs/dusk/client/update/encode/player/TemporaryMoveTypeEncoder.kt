@@ -1,19 +1,19 @@
-package rs.dusk.engine.client.update.encode.player
+package rs.dusk.client.update.encode.player
 
-import rs.dusk.core.io.Modifier
-import rs.dusk.core.io.write.Writer
-import rs.dusk.game.entity.character.update.VisualEncoder
+import rs.dusk.core.network.buffer.Modifier
+import rs.dusk.core.network.buffer.write.Writer
 import rs.dusk.engine.entity.character.update.visual.player.TEMPORARY_MOVE_TYPE_MASK
 import rs.dusk.engine.entity.character.update.visual.player.TemporaryMoveType
+import rs.dusk.game.entity.character.update.VisualEncoder
 
 /**
  * @author Greg Hibberd <greg@greghibberd.com>
  * @since April 25, 2020
  */
 class TemporaryMoveTypeEncoder : VisualEncoder<TemporaryMoveType>(TEMPORARY_MOVE_TYPE_MASK) {
-
-    override fun encode(writer: Writer, visual: TemporaryMoveType) {
-        writer.writeByte(visual.type.id, Modifier.SUBTRACT)
-    }
-
+	
+	override fun encode(writer : Writer, visual : TemporaryMoveType) {
+		writer.writeByte(visual.type.id, Modifier.SUBTRACT)
+	}
+	
 }

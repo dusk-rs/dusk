@@ -1,10 +1,10 @@
-package rs.dusk.engine.client.update.encode.player
+package rs.dusk.client.update.encode.player
 
-import rs.dusk.core.io.write.Writer
-import rs.dusk.game.entity.character.update.VisualEncoder
+import rs.dusk.core.network.buffer.write.Writer
 import rs.dusk.engine.entity.character.update.visual.player.FACE_DIRECTION_MASK
 import rs.dusk.engine.entity.character.update.visual.player.Face
-import kotlin.math.atan2
+import rs.dusk.game.entity.character.update.VisualEncoder
+import java.lang.Math.atan2
 
 /**
  * @author Greg Hibberd <greg@greghibberd.com>

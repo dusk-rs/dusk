@@ -2,12 +2,17 @@ package rs.dusk.game.entity.character.update
 
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
+import rs.dusk.client.update.encode.AnimationEncoder
+import rs.dusk.client.update.encode.ColourOverlayEncoder
+import rs.dusk.client.update.encode.ForceChatEncoder
+import rs.dusk.client.update.encode.npc.CombatLevelEncoder
 import rs.dusk.client.update.encode.player.AppearanceEncoder
 import rs.dusk.core.network.buffer.write.Writer
 import rs.dusk.engine.client.update.encode.*
 import rs.dusk.engine.client.update.encode.npc.*
 import rs.dusk.engine.client.update.encode.player.*
 import rs.dusk.engine.entity.character.update.visual.*
+import rs.dusk.game.entity.character.update.visual.*
 
 /**
  * @author Greg Hibberd <greg@greghibberd.com>

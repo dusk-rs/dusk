@@ -1,5 +1,5 @@
 import com.github.michaelbull.logging.InlineLogger
-import rs.dusk.engine.action.ActionType
+import rs.dusk.core.action.ActionType
 import rs.dusk.engine.client.variable.IntVariable
 import rs.dusk.engine.client.variable.Variable
 import rs.dusk.engine.entity.character.update.visual.player.name

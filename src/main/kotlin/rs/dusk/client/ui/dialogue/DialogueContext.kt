@@ -3,7 +3,6 @@ package rs.dusk.client.ui.dialogue
 import kotlinx.coroutines.CancellableContinuation
 import kotlinx.coroutines.suspendCancellableCoroutine
 import rs.dusk.client.ui.closeType
-import rs.dusk.engine.client.ui.dialogue.Dialogues
 import rs.dusk.game.entity.character.npc.NPC
 import rs.dusk.game.entity.character.player.Player
 

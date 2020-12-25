@@ -44,9 +44,14 @@ abstract class Character(
 	/**
 	 * The containers of the character
 	 */
-	val containers : MutableMap<Int, Container> = mutableMapOf()
+	val containers : MutableMap<Int, Container> = mutableMapOf(),
+	
+	val variables : MutableMap<Int, Any> = mutableMapOf()
 
 ) : Entity() {
+	
+	var walkDirection : Int = -1
+	var runDirection : Int = -1
 	
 	/**
 	 * The movement instance

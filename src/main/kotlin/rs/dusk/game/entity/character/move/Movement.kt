@@ -6,7 +6,7 @@ import rs.dusk.core.action.action
 import rs.dusk.core.map.Tile
 import rs.dusk.core.path.PathFinder
 import rs.dusk.core.path.PathFinder.Companion.getStrategy
-import rs.dusk.engine.action.ActionType
+import rs.dusk.core.action.ActionType
 import rs.dusk.engine.entity.Direction
 import rs.dusk.engine.path.PathResult
 import rs.dusk.engine.path.TargetStrategy

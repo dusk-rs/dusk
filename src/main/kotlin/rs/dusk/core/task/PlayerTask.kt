@@ -1,6 +1,6 @@
 package rs.dusk.engine.task
 
-import rs.dusk.engine.action.ActionType
+import rs.dusk.core.action.ActionType
 import rs.dusk.engine.entity.character.player.Player
 
 /**
