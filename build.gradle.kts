@@ -22,102 +22,111 @@ val exposedVersion = "0.24.1"
 val jacksonVersion = "2.11.0"
 val duskCoreVersion = "1.0.0"
 
-allprojects {
-	apply(plugin = "kotlin")
-	apply(plugin = "idea")
-	apply(plugin = "org.jetbrains.kotlin.jvm")
-	
-	group = "rs.dusk"
-	version = "1.0.0"
-	
-	java.sourceCompatibility = JavaVersion.VERSION_1_8
-	
-	repositories {
-		mavenCentral()
-		mavenLocal()
-		jcenter()
-		maven(url = "https://repo.maven.apache.org/maven2")
-		maven(url = "https://jitpack.io")
-		maven(url = "https://dl.bintray.com/michaelbull/maven")
-	}
-	
-	dependencies {
-		//Main
-		implementation(group = "rs.dusk.core", name = "network", version = duskCoreVersion)
-		implementation(group = "rs.dusk.core", name = "utility", version = duskCoreVersion)
-		
-		implementation(kotlin("stdlib-jdk8"))
-		implementation(kotlin("reflect"))
-		implementation("io.netty:netty-all:4.1.44.Final")
-		implementation(group = "com.displee", name = "rs-cache-library", version = "6.7")
-		implementation(group = "org.yaml", name = "snakeyaml", version = "1.26")
-		implementation(group = "io.github.classgraph", name = "classgraph", version = "4.8.78")
-		implementation(
-			group = "com.michael-bull.kotlin-inline-logger",
-			name = "kotlin-inline-logger-jvm",
-			version = "1.0.2"
-		)
-		implementation(group = "org.koin", name = "koin-core", version = koinVersion)
-		implementation(group = "org.koin", name = "koin-logger-slf4j", version = koinVersion)
-		implementation(group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version = "1.3.7")
-		
-		//Logging
-		implementation("org.slf4j:slf4j-api:1.7.30")
-		implementation("ch.qos.logback:logback-classic:1.2.3")
-		
-		//Utilities
-		implementation("com.google.guava:guava:29.0-jre")
-		implementation("org.apache.commons:commons-lang3:3.10")
-		implementation("com.google.code.gson:gson:2.7")
-		implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
-		implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
-		implementation("com.fasterxml.jackson.core:jackson-core:$jacksonVersion")
-		implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
-		implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:$jacksonVersion")
-		implementation("org.postgresql:postgresql:42.2.12")
-		implementation("com.zaxxer:HikariCP:3.4.5")
-		implementation("it.unimi.dsi:fastutil:8.3.1")
-		
-		//Testing
-		testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
-		testImplementation("org.junit.jupiter:junit-jupiter-params:$junitVersion")
-		testImplementation(group = "org.koin", name = "koin-test", version = koinVersion)
-		testImplementation(group = "io.mockk", name = "mockk", version = "1.10.0")
-	}
-	
-	tasks {
-		compileKotlin {
-			kotlinOptions.jvmTarget = "1.8"
-		}
-		compileTestKotlin {
-			kotlinOptions.jvmTarget = "1.8"
-		}
-	}
-	
-	
-	apply(plugin = "maven-publish")
-	val sourcesJar by tasks.registering(Jar::class) {
-		archiveClassifier.set("sources")
-		from(sourceSets.getByName("main").java.srcDirs)
-	}
-	
-	artifacts {
-		archives(sourcesJar.get())
-	}
-	
-	publishing {
-		repositories {
-			mavenLocal()
-		}
-		publications {
-			register("mavenJava", MavenPublication::class) {
-				from(components["java"])
-				artifact(sourcesJar.get())
-			}
-		}
-	}
-	
+group = "rs.dusk"
+version = "1.0.0"
+
+apply(plugin = "kotlin")
+apply(plugin = "idea")
+apply(plugin = "org.jetbrains.kotlin.jvm")
+
+java.sourceCompatibility = JavaVersion.VERSION_1_8
+
+repositories {
+	mavenCentral()
+	mavenLocal()
+	jcenter()
+	maven(url = "https://repo.maven.apache.org/maven2")
+	maven(url = "https://jitpack.io")
+	maven(url = "https://dl.bintray.com/michaelbull/maven")
 }
+
+dependencies {
+	//Main
+	implementation(group = "rs.dusk.core", name = "network", version = duskCoreVersion)
+	implementation(group = "rs.dusk.core", name = "utility", version = duskCoreVersion)
+	implementation(group = "com.github.User", name = "Repo:Tag")
+	
+	implementation(kotlin("stdlib-jdk8"))
+	implementation(kotlin("reflect"))
+	implementation("io.netty:netty-all:4.1.44.Final")
+	implementation(group = "com.displee", name = "rs-cache-library", version = "6.7")
+	implementation(group = "org.yaml", name = "snakeyaml", version = "1.26")
+	implementation(group = "io.github.classgraph", name = "classgraph", version = "4.8.78")
+	implementation(
+		group = "com.michael-bull.kotlin-inline-logger",
+		name = "kotlin-inline-logger-jvm",
+		version = "1.0.2"
+	)
+	implementation(group = "org.koin", name = "koin-core", version = koinVersion)
+	implementation(group = "org.koin", name = "koin-logger-slf4j", version = koinVersion)
+	implementation(group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version = "1.3.7")
+	
+	//Logging
+	implementation("org.slf4j:slf4j-api:1.7.30")
+	implementation("ch.qos.logback:logback-classic:1.2.3")
+	
+	//Utilities
+	implementation("com.google.guava:guava:29.0-jre")
+	implementation("org.apache.commons:commons-lang3:3.10")
+	implementation("com.google.code.gson:gson:2.7")
+	implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
+	implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
+	implementation("com.fasterxml.jackson.core:jackson-core:$jacksonVersion")
+	implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
+	implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:$jacksonVersion")
+	implementation("org.postgresql:postgresql:42.2.12")
+	implementation("com.zaxxer:HikariCP:3.4.5")
+	implementation("it.unimi.dsi:fastutil:8.3.1")
+	
+	//Testing
+	testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
+	testImplementation("org.junit.jupiter:junit-jupiter-params:$junitVersion")
+	testImplementation(group = "org.koin", name = "koin-test", version = koinVersion)
+	testImplementation(group = "io.mockk", name = "mockk", version = "1.10.0")
+}
+
+
+allprojects {
+	repositories {
+		maven {
+			url("https://jitpack.io")
+			credentials({ username authToken })
+		}
+	}
+}
+
+tasks {
+	compileKotlin {
+		kotlinOptions.jvmTarget = "1.8"
+	}
+	compileTestKotlin {
+		kotlinOptions.jvmTarget = "1.8"
+	}
+}
+
+
+apply(plugin = "maven-publish")
+val sourcesJar by tasks.registering(Jar::class) {
+	archiveClassifier.set("sources")
+	from(sourceSets.getByName("main").java.srcDirs)
+}
+
+artifacts {
+	archives(sourcesJar.get())
+}
+
+publishing {
+	repositories {
+		mavenLocal()
+	}
+	publications {
+		register("mavenJava", MavenPublication::class) {
+			from(components["java"])
+			artifact(sourcesJar.get())
+		}
+	}
+}
+
 dependencies {
 	implementation(kotlin("script-runtime"))
 }
