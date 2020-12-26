@@ -1,12 +1,12 @@
-package rs.dusk.engine.entity.character.update.visual
+package rs.dusk.game.entity.character.update.visual
 
-import rs.dusk.engine.entity.character.npc.NPC
+import get
+import rs.dusk.cache.definition.entity.anim.AnimationDefinitions
 import rs.dusk.core.event.character.NPCEvent
-import rs.dusk.engine.entity.character.player.Player
 import rs.dusk.core.event.character.PlayerEvent
+import rs.dusk.game.entity.character.npc.NPC
+import rs.dusk.game.entity.character.player.Player
 import rs.dusk.game.entity.character.update.Visual
-import rs.dusk.engine.entity.definition.AnimationDefinitions
-import rs.dusk.utility.get
 
 /**
  * @author Greg Hibberd <greg@greghibberd.com>

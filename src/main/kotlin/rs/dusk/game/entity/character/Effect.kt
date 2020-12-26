@@ -3,26 +3,27 @@ package rs.dusk.game.entity.character
 import get
 import rs.dusk.engine.task.Task
 import rs.dusk.engine.task.TaskExecutor
+import rs.dusk.engine.task.delay
 
-abstract class Effect(val effectType : String) {
+abstract class Effect(val effectType: String) {
 	
-	private var task : Task? = null
+	private var task: Task? = null
 	
-	fun removeSelf(character : Character, ticks : Int) {
-		val executor : TaskExecutor = get()
-		task = rs.dusk.core.task.delay(ticks) {
+	fun removeSelf(character: Character, ticks: Int) {
+		val executor: TaskExecutor = get()
+		task = executor.delay(ticks) {
 			character.effects.remove(this)
 		}
 	}
 	
-	open fun immune(character : Character) : Boolean {
+	open fun immune(character: Character): Boolean {
 		return false
 	}
 	
-	open fun onStart(character : Character) {
+	open fun onStart(character: Character) {
 	}
 	
-	open fun onFinish(character : Character) {
+	open fun onFinish(character: Character) {
 		task?.cancel()
 	}
 }

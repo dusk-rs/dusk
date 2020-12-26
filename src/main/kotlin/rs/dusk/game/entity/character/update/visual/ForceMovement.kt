@@ -1,21 +1,21 @@
-package rs.dusk.engine.entity.character.update.visual
+package rs.dusk.game.entity.character.update.visual
 
+import rs.dusk.core.map.Tile
 import rs.dusk.engine.entity.Direction
-import rs.dusk.engine.entity.character.npc.NPC
-import rs.dusk.engine.entity.character.player.Player
+import rs.dusk.game.entity.character.npc.NPC
+import rs.dusk.game.entity.character.player.Player
 import rs.dusk.game.entity.character.update.Visual
-import rs.dusk.engine.map.Tile
 
 /**
  * @author Greg Hibberd <greg@greghibberd.com>
  * @since April 25, 2020
  */
 data class ForceMovement(
-    var start: Tile = Tile.EMPTY,
-    var startDelay: Int = 0,
-    var end: Tile = Tile.EMPTY,
-    var endDelay: Int = 0,
-    var direction: Direction = Direction.NONE
+	var start: Tile = Tile.EMPTY,
+	var startDelay: Int = 0,
+	var end: Tile = Tile.EMPTY,
+	var endDelay: Int = 0,
+	var direction: Direction = Direction.NONE
 ) : Visual
 
 const val PLAYER_FORCE_MOVEMENT_MASK = 0x1000
@@ -60,12 +60,12 @@ fun NPC.setForceMovement(
 }
 
 private fun setForceMovement(
-    move: ForceMovement,
-    start: Tile,
-    startDelay: Int,
-    end: Tile,
-    endDelay: Int,
-    direction: Direction
+	move: ForceMovement,
+	start: Tile,
+	startDelay: Int,
+	end: Tile,
+	endDelay: Int,
+	direction: Direction
 ) {
     check(endDelay > startDelay) { "End delay ($endDelay) must be after start delay ($startDelay)." }
     move.start = start

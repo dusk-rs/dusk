@@ -1,12 +1,13 @@
-package rs.dusk.engine.client.update.task.player
+package rs.dusk.client.update.task.player
 
+import rs.dusk.core.map.Tile
+import rs.dusk.core.tick.task.EntityTask
 import rs.dusk.engine.client.update.task.viewport.ViewportUpdating.Companion.VIEW_RADIUS
 import rs.dusk.engine.entity.Direction
-import rs.dusk.engine.entity.character.player.Player
-import rs.dusk.engine.entity.character.player.Players
 import rs.dusk.engine.entity.character.update.LocalChange
 import rs.dusk.engine.event.Priority.PLAYER_CHANGE
-import rs.dusk.core.tick.task.EntityTask
+import rs.dusk.game.entity.character.player.Player
+import rs.dusk.game.entity.character.player.Players
 import kotlin.math.abs
 
 /**

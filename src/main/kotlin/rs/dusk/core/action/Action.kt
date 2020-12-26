@@ -112,9 +112,9 @@ class Action {
 
 fun NPCEvent.action(type: ActionType = ActionType.Misc, action: suspend Action.() -> Unit) = npc.action(type, action)
 
-private fun rs.dusk.game.entity.character.Character.action(type : ActionType, action : suspend Action.() -> Unit) : Any {
-	return this.action.run(type, action)
-}
-
 fun PlayerEvent.action(type: ActionType = ActionType.Misc, action: suspend Action.() -> Unit) =
     player.action(type, action)
+
+fun Character.action(type: ActionType = ActionType.Misc, action: suspend Action.() -> Unit) {
+    this.action.run(type, action)
+}

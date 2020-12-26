@@ -26,7 +26,7 @@ allprojects {
 	group = "rs.dusk"
 	version = "0.0.1"
 	
-	java.sourceCompatibility = JavaVersion.VERSION_1_8
+	java.sourceCompatibility = JavaVersion.VERSION_17
 	
 	repositories {
 		mavenCentral()

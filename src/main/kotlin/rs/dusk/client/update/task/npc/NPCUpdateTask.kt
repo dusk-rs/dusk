@@ -1,14 +1,17 @@
-package rs.dusk.engine.client.update.task.npc
+package rs.dusk.client.update.task.npc
 
-import rs.dusk.core.io.write.Writer
+import rs.dusk.core.network.buffer.write.Writer
+import rs.dusk.core.tick.task.EntityTask
 import rs.dusk.engine.client.Sessions
-import rs.dusk.game.entity.character.CharacterTrackingSet
-import rs.dusk.engine.entity.character.npc.NPC
-import rs.dusk.engine.entity.character.player.Player
-import rs.dusk.engine.entity.character.player.Players
+import rs.dusk.engine.client.send
 import rs.dusk.engine.entity.character.update.LocalChange
 import rs.dusk.engine.event.Priority.NPC_UPDATE
-import rs.dusk.core.tick.task.EntityTask
+import rs.dusk.game.entity.character.CharacterTrackingSet
+import rs.dusk.game.entity.character.npc.NPC
+import rs.dusk.game.entity.character.npc.teleporting
+import rs.dusk.game.entity.character.player.Player
+import rs.dusk.game.entity.character.player.Players
+import rs.dusk.game.entity.character.update.visual.npc.getTurn
 
 /**
  * @author Greg Hibberd <greg@greghibberd.com>
@@ -35,9 +38,9 @@ class NPCUpdateTask(override val entities: Players, val sessions: Sessions) : En
     }
 
     fun processLocals(
-        sync: Writer,
-        updates: Writer,
-        set: CharacterTrackingSet<NPC>
+	    sync: Writer,
+	    updates: Writer,
+	    set: CharacterTrackingSet<NPC>
     ) {
         sync.startBitAccess()
         sync.writeBits(8, set.current.size)

@@ -1,9 +1,10 @@
-package rs.dusk.engine.entity.character.update.visual.player
+package rs.dusk.game.entity.character.update.visual.player
 
-import rs.dusk.engine.entity.character.player.Player
-import rs.dusk.engine.entity.character.player.PlayerMoveType
+import rs.dusk.core.action.ActionType
+import rs.dusk.core.map.Tile
+import rs.dusk.game.entity.character.player.Player
+import rs.dusk.game.entity.character.player.data.PlayerMoveType
 import rs.dusk.game.entity.character.update.Visual
-import rs.dusk.engine.map.Tile
 
 /**
  * @author Greg Hibberd <greg@greghibberd.com>

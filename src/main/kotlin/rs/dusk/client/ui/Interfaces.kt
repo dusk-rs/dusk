@@ -3,7 +3,7 @@ package rs.dusk.client.ui
 import get
 import rs.dusk.client.ui.detail.InterfaceDetails
 import rs.dusk.core.action.Action
-import rs.dusk.engine.action.Suspension
+import rs.dusk.core.action.Suspension
 import rs.dusk.engine.client.ui.detail.InterfaceComponentDetail
 import rs.dusk.engine.client.ui.detail.InterfaceDetail
 import rs.dusk.game.entity.character.player.Player

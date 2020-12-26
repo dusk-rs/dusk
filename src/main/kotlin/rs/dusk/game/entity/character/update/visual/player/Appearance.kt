@@ -1,7 +1,11 @@
-package rs.dusk.engine.entity.character.update.visual.player
+package rs.dusk.game.entity.character.update.visual.player
 
+import get
 import rs.dusk.cache.definition.entity.item.EquipSlot
+import rs.dusk.engine.entity.character.contain.equipment
 import rs.dusk.game.entity.character.player.Player
+import rs.dusk.game.entity.character.player.data.BodyPart
+import rs.dusk.game.entity.character.player.data.BodyParts
 import rs.dusk.game.entity.character.update.Visual
 
 /**
@@ -9,27 +13,27 @@ import rs.dusk.game.entity.character.update.Visual
  * @since April 25, 2020
  */
 data class Appearance(
-    var male: Boolean = true,
-    var skillLevel: Int = -1,
-    var size: Int = 1,
-    var trimTitle: Boolean = false,
-    var title: Int = -1,
-    var prefix: String = "",
-    var skull: Int = -1,
-    var headIcon: Int = -1,
-    var hidden: Boolean = false,
-    var transform: Int = -1,
-    val body: BodyParts,
-    val colours: IntArray = IntArray(10),
-    var emote: Int = 1426,
-    var displayName: String = "",
-    var combatLevel: Int = 3,
-    var summoningCombatLevel: Int = 0,
-    var idleSound: Int = -1,
-    var crawlSound: Int = -1,
-    var walkSound: Int = -1,
-    var runSound: Int = -1,
-    var soundDistance: Int = 0
+	var male: Boolean = true,
+	var skillLevel: Int = -1,
+	var size: Int = 1,
+	var trimTitle: Boolean = false,
+	var title: Int = -1,
+	var prefix: String = "",
+	var skull: Int = -1,
+	var headIcon: Int = -1,
+	var hidden: Boolean = false,
+	var transform: Int = -1,
+	val body: BodyParts,
+	val colours: IntArray = IntArray(10),
+	var emote: Int = 1426,
+	var displayName: String = "",
+	var combatLevel: Int = 3,
+	var summoningCombatLevel: Int = 0,
+	var idleSound: Int = -1,
+	var crawlSound: Int = -1,
+	var walkSound: Int = -1,
+	var runSound: Int = -1,
+	var soundDistance: Int = 0
 ) : Visual {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

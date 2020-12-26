@@ -1,19 +1,19 @@
-package rs.dusk.engine.entity.character.update.visual
+package rs.dusk.game.entity.character.update.visual
 
-import rs.dusk.engine.entity.character.npc.NPC
 import rs.dusk.core.event.character.NPCEvent
-import rs.dusk.engine.entity.character.player.Player
 import rs.dusk.core.event.character.PlayerEvent
+import rs.dusk.game.entity.character.npc.NPC
+import rs.dusk.game.entity.character.player.Player
 import rs.dusk.game.entity.character.update.Visual
 
 /**
  * @author Greg Hibberd <greg@greghibberd.com>
  * @since April 25, 2020
  */
-data class ForceChat(var text: String = "") : Visual {
-    override fun reset(character: Character) {
-        text = ""
-    }
+data class ForceChat(var text : String = "") : Visual {
+	override fun reset(character : Character) {
+		text = ""
+	}
 }
 
 const val PLAYER_FORCE_CHAT_MASK = 0x4000
@@ -28,24 +28,24 @@ fun Player.getForceChat() = visuals.getOrPut(PLAYER_FORCE_CHAT_MASK) { ForceChat
 
 fun NPC.getForceChat() = visuals.getOrPut(NPC_FORCE_CHAT_MASK) { ForceChat() }
 
-fun PlayerEvent.force(chatText: String) {
-    player.forceChat = chatText
+fun PlayerEvent.force(chatText : String) {
+	player.forceChat = chatText
 }
 
-fun NPCEvent.force(chatText: String) {
-    npc.forceChat = chatText
+fun NPCEvent.force(chatText : String) {
+	npc.forceChat = chatText
 }
 
-var Player.forceChat: String
-    get() = getForceChat().text
-    set(value) {
-        getForceChat().text = value
-        flagForceChat()
-    }
+var Player.forceChat : String
+	get() = getForceChat().text
+	set(value) {
+		getForceChat().text = value
+		flagForceChat()
+	}
 
-var NPC.forceChat: String
-    get() = getForceChat().text
-    set(value) {
-        getForceChat().text = value
-        flagForceChat()
-    }
+var NPC.forceChat : String
+	get() = getForceChat().text
+	set(value) {
+		getForceChat().text = value
+		flagForceChat()
+	}

@@ -1,14 +1,14 @@
-package rs.dusk.engine.client.update.task.npc
+package rs.dusk.client.update.task.npc
 
-import rs.dusk.core.io.write.BufferWriter
-import rs.dusk.core.io.write.Writer
-import rs.dusk.engine.entity.character.npc.NPC
+import rs.dusk.core.network.buffer.write.BufferWriter
+import rs.dusk.core.network.buffer.write.Writer
+import rs.dusk.core.tick.task.EntityTask
+import rs.dusk.engine.entity.character.update.Visuals
+import rs.dusk.engine.event.Priority.NPC_VISUALS
+import rs.dusk.game.entity.PooledMapList
+import rs.dusk.game.entity.character.npc.NPC
 import rs.dusk.game.entity.character.update.Visual
 import rs.dusk.game.entity.character.update.VisualEncoder
-import rs.dusk.engine.entity.character.update.Visuals
-import rs.dusk.engine.entity.list.PooledMapList
-import rs.dusk.engine.event.Priority.NPC_VISUALS
-import rs.dusk.core.tick.task.EntityTask
 
 /**
  * @author Greg Hibberd <greg@greghibberd.com>

@@ -1,6 +1,7 @@
 package rs.dusk.game.entity.character
 
 import rs.dusk.core.action.Action
+import rs.dusk.engine.entity.character.update.LocalChange
 import rs.dusk.engine.entity.character.update.Visuals
 import rs.dusk.game.container.Container
 import rs.dusk.game.entity.Entity
@@ -29,7 +30,7 @@ abstract class Character(
 	/**
 	 * The action system instance
 	 */
-	val action : Action = Action(),
+	open val action : Action,
 	
 	/**
 	 * The visual rendering instance
@@ -46,12 +47,25 @@ abstract class Character(
 	 */
 	val containers : MutableMap<Int, Container> = mutableMapOf(),
 	
+	val effects : CharacterEffects,
+	
+	val values: CharacterValues,
+	
 	val variables : MutableMap<Int, Any> = mutableMapOf()
 
 ) : Entity() {
 	
+	fun remove(key : String) : Boolean? {
+		TODO("Not yet implemented")
+	}
+	
 	var walkDirection : Int = -1
+	
 	var runDirection : Int = -1
+	
+	var change : LocalChange? = null
+	
+	var changeValue : Int = -1
 	
 	/**
 	 * The movement instance

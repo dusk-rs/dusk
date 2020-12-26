@@ -5,6 +5,7 @@ import rs.dusk.client.ui.InterfaceOptions
 import rs.dusk.client.ui.PlayerInterfaceIO
 import rs.dusk.client.ui.detail.InterfaceDetails
 import rs.dusk.client.ui.dialogue.Dialogues
+import rs.dusk.core.action.Action
 import rs.dusk.core.map.Tile
 import rs.dusk.core.network.session.Session
 import rs.dusk.engine.client.ui.InterfaceManager
@@ -21,7 +22,20 @@ import rs.dusk.game.entity.character.player.data.delay.Delays
  * @author Tyluur <itstyluur@gmail.com>
  * @since December 17, 2020
  */
-data class Player(val username : String, var session : Session, override var tile : Tile) : Character() {
+data class Player(
+	val username : String,
+	
+	var session : Session,
+	
+	override var tile : Tile,
+	
+	override val action : Action = Action()
+
+) : Character(action = action) {
+	
+	operator fun set(s : String, value : Boolean) {
+		TODO("Not yet implemented")
+	}
 	
 	private val eventBus : EventBus by inject()
 	

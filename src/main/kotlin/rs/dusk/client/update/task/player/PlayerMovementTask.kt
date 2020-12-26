@@ -1,12 +1,15 @@
-package rs.dusk.engine.client.update.task.player
+package rs.dusk.client.update.task.player
 
+import rs.dusk.core.map.Tile
+import rs.dusk.core.tick.task.EngineTask
 import rs.dusk.engine.entity.character.move.PlayerMoved
-import rs.dusk.engine.entity.character.player.Player
-import rs.dusk.engine.entity.character.player.PlayerMoveType
-import rs.dusk.engine.entity.character.player.Players
 import rs.dusk.engine.event.EventBus
 import rs.dusk.engine.event.Priority.PLAYER_MOVEMENT
-import rs.dusk.core.tick.task.EngineTask
+import rs.dusk.game.entity.character.player.Player
+import rs.dusk.game.entity.character.player.Players
+import rs.dusk.game.entity.character.player.data.PlayerMoveType
+import rs.dusk.game.entity.character.update.visual.player.movementType
+import rs.dusk.game.entity.character.update.visual.player.temporaryMoveType
 
 /**
  * Changes the tile players are located on based on [Movement.delta] and [Movement.steps]

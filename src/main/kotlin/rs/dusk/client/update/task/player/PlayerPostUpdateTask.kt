@@ -1,9 +1,9 @@
-package rs.dusk.engine.client.update.task.player
+package rs.dusk.client.update.task.player
 
-import rs.dusk.engine.entity.character.player.Player
-import rs.dusk.engine.entity.character.player.Players
-import rs.dusk.engine.event.Priority.PLAYER_UPDATE_FINISHED
 import rs.dusk.core.tick.task.EntityTask
+import rs.dusk.engine.event.Priority.PLAYER_UPDATE_FINISHED
+import rs.dusk.game.entity.character.player.Player
+import rs.dusk.game.entity.character.player.Players
 
 /**
  * Resets non-persistent changes

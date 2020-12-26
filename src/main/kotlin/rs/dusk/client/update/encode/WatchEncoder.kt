@@ -3,8 +3,6 @@ package rs.dusk.client.update.encode
 import rs.dusk.core.network.buffer.Endian
 import rs.dusk.core.network.buffer.Modifier
 import rs.dusk.core.network.buffer.write.Writer
-import rs.dusk.engine.entity.character.update.visual.ForceChat
-import rs.dusk.engine.entity.character.update.visual.ForceMovement
 import rs.dusk.engine.entity.character.update.visual.Watch
 import rs.dusk.game.entity.character.update.VisualEncoder
 

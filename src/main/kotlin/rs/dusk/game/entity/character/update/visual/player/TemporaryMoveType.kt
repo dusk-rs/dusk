@@ -1,7 +1,7 @@
-package rs.dusk.engine.entity.character.update.visual.player
+package rs.dusk.game.entity.character.update.visual.player
 
-import rs.dusk.engine.entity.character.player.Player
-import rs.dusk.engine.entity.character.player.PlayerMoveType
+import rs.dusk.game.entity.character.player.Player
+import rs.dusk.game.entity.character.player.data.PlayerMoveType
 import rs.dusk.game.entity.character.update.Visual
 
 /**

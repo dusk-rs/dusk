@@ -2,8 +2,8 @@ package rs.dusk.client.update.encode.player
 
 import rs.dusk.core.network.buffer.Modifier
 import rs.dusk.core.network.buffer.write.Writer
-import rs.dusk.engine.entity.character.update.visual.player.CLANMATE_MASK
-import rs.dusk.engine.entity.character.update.visual.player.Clanmate
+import rs.dusk.game.entity.character.update.visual.player.CLANMATE_MASK
+import rs.dusk.game.entity.character.update.visual.player.Clanmate
 import rs.dusk.game.entity.character.update.VisualEncoder
 
 /**
