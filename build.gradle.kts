@@ -42,42 +42,59 @@ repositories {
 		val snapshotsRepoUrl = uri("$buildDir/repos/snapshots")
 		url = if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl
 	}
+	
 }
 
 dependencies {
-	//Main
-	implementation(group = "dusk.rs", name = "core", version = duskCoreVersion)
+	// Core
+	implementation("dusk.rs", "core", version = duskCoreVersion)
 	
+	// Jvm
 	implementation(kotlin("stdlib-jdk8"))
-	implementation(kotlin("reflect"))
-	implementation("io.netty:netty-all:4.1.44.Final")
-	implementation(group = "com.displee", name = "rs-cache-library", version = "6.4")
-	implementation(group = "org.yaml", name = "snakeyaml", version = "1.26")
-	implementation(group = "io.github.classgraph", name = "classgraph", version = "4.8.78")
-	implementation(
-		group = "com.michael-bull.kotlin-inline-logger",
-		name = "kotlin-inline-logger-jvm",
-		version = "1.0.2"
-	)
-	implementation(group = "org.koin", name = "koin-core", version = koinVersion)
-	implementation(group = "org.koin", name = "koin-logger-slf4j", version = koinVersion)
-	implementation(group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version = "1.3.7")
+	
+	// Kotlin
+	implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.5")
+	
+	// Dependency Injection
+	implementation("org.koin", "koin-core", version = koinVersion)
+	implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-core", version = "1.3.7")
 	
 	//Logging
 	implementation("org.slf4j:slf4j-api:1.7.30")
 	implementation("ch.qos.logback:logback-classic:1.2.3")
+	implementation("org.koin", "koin-logger-slf4j", version = koinVersion)
+	implementation(
+		"com.michael-bull.kotlin-inline-logger",
+		"kotlin-inline-logger-jvm",
+		"1.0.2"
+	)
 	
-	//Utilities
+	// Reflection
+	implementation(kotlin("reflect"))
+	implementation("io.github.classgraph", "classgraph", version = "4.8.78")
+	implementation("it.unimi.dsi:fastutil:8.3.1")
+	
+	// Utilities
 	implementation("com.google.guava:guava:29.0-jre")
 	implementation("org.apache.commons:commons-lang3:3.10")
-	implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
-	implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
+	implementation("org.yaml", "snakeyaml", version = "1.26")
+	
+	// Cache
+	implementation("com.displee", "rs-cache-library", version = "6.4")
+	
+	// I/O
 	implementation("com.fasterxml.jackson.core:jackson-core:$jacksonVersion")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
 	implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:$jacksonVersion")
+	
+	// Network
+	implementation("io.netty:netty-all:4.1.44.Final")
+	
+	// DB
+	implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
+	implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
 	implementation("org.postgresql:postgresql:42.2.12")
 	implementation("com.zaxxer:HikariCP:3.4.5")
-	implementation("it.unimi.dsi:fastutil:8.3.1")
 	
 	//Testing
 	testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
