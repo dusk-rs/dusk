@@ -11,6 +11,15 @@ A highly functioning runescape private server using the #667 client build.
 Merry Christmas, everyone! Long live RuneScape, noobs. 
 Come get rekt.
 
+# Tutorial
+
+* Open terminal in intellij 
+* Use command "https://github.com/dusk-rs/dusk.git"
+* Use command "gradle build"
+* Use command "gradle run"
+
+Make sure you have ssh keys set up with your github account, as well as 2FA if you wish to help contribute.
+
 # Contributors
 * Tyluur
 * Greg <3
