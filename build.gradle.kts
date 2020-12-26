@@ -3,8 +3,8 @@ import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinMultiplatformPluginWrapper
 
-val ossrhUsername: String? by ext
-val ossrhPassword: String? by ext
+val ossrhUsername : String? by ext
+val ossrhPassword : String? by ext
 
 description = "A Result monad for modelling success or failure operations."
 
@@ -25,7 +25,6 @@ tasks.withType<DependencyUpdatesTask> {
 		}
 	}
 }
-
 allprojects {
 	repositories {
 		mavenCentral()
