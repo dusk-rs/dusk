@@ -33,7 +33,7 @@ class GameLoginMessageHandler : LoginMessageHandler<GameLoginMessage>() {
 		pipeline.replace("message.encoder", GenericMessageEncoder(PacketBuilder(sized = true)))
 		
 		// login details must be sent in the login codec
-		pipeline.writeAndFlush(GameLoginDetails(2, 1, msg.username))
+		pipeline.writeAndFlush(GameLoginDetails(2, 1, msg.username))sourceCompatibility
 		
 		// swap to game codec to start game
 		ctx.channel().setCodec(gameCodec)
