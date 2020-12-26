@@ -1,7 +1,7 @@
 # Dusk
 A highly functioning runescape private server using the #667 client build. 
 
-[![Maven Central](https://img.shields.io/maven-central/v/dusk-rs/dusk/maven-central.svg)](https://search.maven.org/search?q=g:dusk-rs/dusk)
+[![Maven Central](https://img.shields.io/maven-central/v/dusk-rs/dusk/maven-central.svg)](https://search.maven.org/search?q=dusk-rs)
 [![CI Status](https://github.com/dusk-rs/dusk/workflows/ci/badge.svg)](https://github.com/dusk-rs/dusk/actions?query=workflow) 
 [![License](https://img.shields.io/github/license/michaelbull/kotlin-inline-logger.svg)](https://github.com/dusk-rs/dusk/blob/master/LICENSE)
 
