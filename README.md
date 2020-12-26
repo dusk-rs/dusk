@@ -16,7 +16,7 @@ Cache: https://displee.com/archive/rs2/667/
 # Tutorial
 
 * Open terminal in intellij 
-* Use command "https://github.com/dusk-rs/dusk.git"
+* Use command "git clone https://github.com/dusk-rs/dusk.git"
 * Use command "gradle build"
 * Use command "gradle run"
 
