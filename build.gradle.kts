@@ -1,5 +1,5 @@
 version = "1"
-group = "dusk.rs"
+group = "dusk-rs"
 description = "#1 rsps. no noobs allowed"
 
 val duskCoreVersion = "1.0"
