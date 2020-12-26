@@ -2,8 +2,11 @@ rootProject.name = "dusk"
 
 pluginManagement {
 	repositories {
-		maven("https://dl.bintray.com/kotlin/kotlinx")
+		google()
+		jcenter()
+		mavenCentral()
 		gradlePluginPortal()
+		maven("https://dl.bintray.com/kotlin/kotlinx")
 	}
 	resolutionStrategy {
 		eachPlugin {
@@ -13,12 +16,3 @@ pluginManagement {
 		}
 	}
 }
-/*enable here when you need other plugins.
-pluginManagement {
-	repositories {
-		google()
-		jcenter()
-		mavenCentral()
-		gradlePluginPortal()
-	}
-}*/
