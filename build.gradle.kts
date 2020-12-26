@@ -16,7 +16,7 @@ val koinVersion = "2.1.5"
 val junitVersion = "5.6.2"
 val exposedVersion = "0.24.1"
 val jacksonVersion = "2.11.0"
-val duskCoreVersion = "0.1.5"
+val duskCoreVersion = "1.0.0"
 
 allprojects {
 	apply(plugin = "kotlin")
