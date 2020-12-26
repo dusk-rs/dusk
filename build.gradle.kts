@@ -47,12 +47,12 @@ publishing {
 				}
 			}
 			pom {
-				name.set("My Library")
+				name.set("Dusk")
 				description.set("A concise description of my library")
-				url.set("http://www.example.com/library")
+				url.set("http://www.dusk.rs")
 				properties.set(mapOf(
-					"myProp" to "value",
-					"prop.with.dots" to "anotherValue"
+					"1337" to "true",
+					"u" to "noob"
 				))
 				licenses {
 					license {
@@ -62,15 +62,14 @@ publishing {
 				}
 				developers {
 					developer {
-						id.set("johnd")
-						name.set("John Doe")
-						email.set("john.doe@example.com")
+						id.set("tyluur")
+						email.set("itstyluur@violated.rs")
 					}
 				}
 				scm {
-					connection.set("scm:git:git://example.com/my-library.git")
-					developerConnection.set("scm:git:ssh://example.com/my-library.git")
-					url.set("http://example.com/my-library/")
+					connection.set("scm:git:git://dusk.rs/dusk.git.git")
+					developerConnection.set("scm:git:ssh://github.com/dusk-rs/dusk.git")
+					url.set("http://github.com/dusk-rs/dusk")
 				}
 			}
 		}
