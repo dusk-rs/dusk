@@ -1,42 +1,27 @@
-# cache
-*.idx*
-*.dylib
-*.dll
-*.dat*
-*.jct
+# Hidden files
+.*
 
-# class files
-*.class
-/bin
-/bin/*
-/out
-**/out/
+# Temporary files
+*~
 
-# error logs
-hs_err_pid*
-data/logs/error.log
+# Git
+!.git*
 
-# ide files
-/target
+# GitHub
+!/.github
+
+# EditorConfig
+!.editorconfig
+
+# IntelliJ Idea
+out/
 *.iml
-*.project
-*.classpath
-.idea/*
-build/*
-build
-rebel.xml
-rebel-remote.xml
+*.ipr
+*.iws
 
-### Gradle ###
-.gradle
-/build/
+# Gradle
+build/
 
-# Ignore Gradle GUI config
-gradle-app.setting
-
-# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
-!gradle-wrapper.jar
-
-# Cache of project
-.gradletasknamecache
-*.lock
+# JVM error logs
+hs_err_pid*.log
+replay_pid*.log

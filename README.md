@@ -1,14 +1,29 @@
-# kotlin-inline-logger
+# Dusk
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.michael-bull.kotlin-inline-logger/kotlin-inline-logger.svg)](https://search.maven.org/search?q=g:com.michael-bull.kotlin-inline-logger) [![CI Status](https://github.com/michaelbull/kotlin-inline-logger/workflows/ci/badge.svg)](https://github.com/michaelbull/kotlin-inline-logger/actions?query=workflow%3Aci) [![License](https://img.shields.io/github/license/michaelbull/kotlin-inline-logger.svg)](https://github.com/michaelbull/kotlin-inline-logger/blob/master/LICENSE)
+[![Maven Central](https://img.shields.io/maven-central/v/dusk-rs/dusk/maven-central.svg)](https://search.maven.org/search?q=g:dusk-rs/dusk)
+[![CI Status](https://github.com/dusk-rs/dusk/workflows/ci/badge.svg)](https://github.com/dusk-rs/dusk/actions?query=workflow%3Aci) [![License](https://img.shields.io/github/license/michaelbull/kotlin-inline-logger.svg)](https://github.com/dusk-rs/dusk/blob/master/LICENSE)
 
 # Dusk
 
 A highly functioning runescape private server using the #667 client build. 
 
-### Development
+----
+Merry Christmas, everyone! Long live RuneScape, noobs. 
+Come get rekt.
 
-#### Contributors
+# Contributors
 * Tyluur
-* Greg
+* Greg <3
+
+# Credits
+* Graham Edgecombe
+* Scu11
+* Blake Beaupain
+* Cjay0091
+* Dragonkk
+* Kris
+* Omar 
+* Mikan
+* Blitz
+* Rune-Server
 
