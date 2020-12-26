@@ -28,11 +28,6 @@ abstract class Character(
 	open var size : Size = Size.TILE,
 	
 	/**
-	 * The action system instance
-	 */
-	open val action : Action,
-	
-	/**
 	 * The visual rendering instance
 	 */
 	val visuals : Visuals = Visuals(),
@@ -47,10 +42,6 @@ abstract class Character(
 	 */
 	val containers : MutableMap<Int, Container> = mutableMapOf(),
 	
-	val effects : CharacterEffects,
-	
-	val values: CharacterValues,
-	
 	val variables : MutableMap<Int, Any> = mutableMapOf()
 
 ) : Entity() {
@@ -58,6 +49,13 @@ abstract class Character(
 	fun remove(key : String) : Boolean? {
 		TODO("Not yet implemented")
 	}
+	
+	val effects = CharacterEffects(this)
+	
+	/**
+	 * The action system instance
+	 */
+	val action = Action()
 	
 	var walkDirection : Int = -1
 	

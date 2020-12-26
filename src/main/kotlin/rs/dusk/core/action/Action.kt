@@ -6,6 +6,8 @@ import rs.dusk.core.event.character.NPCEvent
 import rs.dusk.core.event.character.PlayerEvent
 import rs.dusk.engine.task.TaskExecutor
 import rs.dusk.engine.task.delay
+import rs.dusk.game.entity.character.npc.NPC
+import rs.dusk.game.entity.character.player.Player
 import kotlin.coroutines.createCoroutine
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
@@ -112,9 +114,21 @@ class Action {
 
 fun NPCEvent.action(type: ActionType = ActionType.Misc, action: suspend Action.() -> Unit) = npc.action(type, action)
 
+fun NPC.action(type : ActionType, action : suspend Action.() -> Unit) : Any {
+	return this.action.run(type, action)
+}
+
+operator fun Player.set(s : String, value : Boolean) {
+	TODO("Not yet implemented")
+}
+
+fun Player.action(type : ActionType, action : suspend Action.() -> Unit) : Any {
+	return this.action.run(type, action)
+}
+
 fun PlayerEvent.action(type: ActionType = ActionType.Misc, action: suspend Action.() -> Unit) =
     player.action(type, action)
 
-fun Character.action(type: ActionType = ActionType.Misc, action: suspend Action.() -> Unit) {
-    this.action.run(type, action)
+private fun Unit.run(block : ActionType, action : suspend Action.() -> Unit) {
+	TODO("Not yet implemented")
 }
