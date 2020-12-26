@@ -1,15 +1,17 @@
-description = "The best RuneScape Private Server of All Time."
+import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
+import org.jetbrains.dokka.gradle.DokkaTask
+import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
+import org.jetbrains.kotlin.gradle.plugin.KotlinMultiplatformPluginWrapper
 
-val kotlinVersion = "1.3.5"
-val jdkVersion = "1.8"
-val koinVersion = "2.1.5"
-val junitVersion = "5.6.2"
-val exposedVersion = "0.24.1"
-val jacksonVersion = "2.11.0"
-val duskCoreVersion = "1.0.0"
+val ossrhUsername: String? by ext
+val ossrhPassword: String? by ext
+
+description = "A Result monad for modelling success or failure operations."
 
 plugins {
 	base
+	id("com.github.ben-manes.versions") version Versions.versionsPlugin
+	
 	kotlin("multiplatform") version Versions.kotlin apply false
 	id("kotlinx.benchmark") version Versions.kotlinBenchmark apply false
 	id("org.jetbrains.dokka") version Versions.dokka apply false
@@ -24,82 +26,19 @@ tasks.withType<DependencyUpdatesTask> {
 	}
 }
 
-subprojects {
+allprojects {
 	repositories {
 		mavenCentral()
 		jcenter()
 		maven("https://dl.bintray.com/kotlin/kotlinx")
 	}
-	
-	apply(plugin = "kotlin")
-	apply(plugin = "idea")
-	apply(plugin = "org.jetbrains.kotlin.jvm")
-	
-	"rs.dusk"
-	"1.0.0"
-	
-	apply {
-		plugin("org.jetbrains.kotlin.jvm")
-	}
-	
-	repositories {
-		mavenCentral()
-	}
-	
-	val implementation by configurations
-	
-	dependencies {
-		implementation(kotlin("stdlib-jdk8"))
-		implementation("rs.dusk.core", "network", duskCoreVersion)
-		implementation("rs.dusk.core", "utility", duskCoreVersion)
-		
-		implementation(kotlin("stdlib-jdk8"))
-		implementation(kotlin("reflect"))
-		implementation("io.netty:netty-all:4.1.44.Final")
-		implementation("com.displee", "rs-cache-library", "6.7")
-		implementation("org.yaml", "snakeyaml", "1.26")
-		implementation("io.github.classgraph", "classgraph", "4.8.78")
-		implementation(
-			"com.michael-bull.kotlin-inline-logger",
-			"kotlin-inline-logger-jvm",
-			"1.0.2"
-		)
-		implementation("org.koin", "koin-core", koinVersion)
-		implementation("org.koin", "koin-logger-slf4j", koinVersion)
-		implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-core", "1.3.7")
-		
-		//Logging
-		implementation("org.slf4j:slf4j-api:1.7.30")
-		implementation("ch.qos.logback:logback-classic:1.2.3")
-		
-		//Utilities
-		implementation("com.google.guava:guava:29.0-jre")
-		implementation("org.apache.commons:commons-lang3:3.10")
-		implementation("com.google.code.gson:gson:2.7")
-		implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
-		implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
-		implementation("com.fasterxml.jackson.core:jackson-core:$jacksonVersion")
-		implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
-		implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:$jacksonVersion")
-		implementation("org.postgresql:postgresql:42.2.12")
-		implementation("com.zaxxer:HikariCP:3.4.5")
-		implementation("it.unimi.dsi:fastutil:8.3.1")
-		
-		//Testing
-		testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
-		testImplementation("org.junit.jupiter:junit-jupiter-params:$junitVersion")
-		testImplementation("org.koin", "koin-test", koinVersion)
-		testImplementation("io.mockk", "mockk", "1.10.0")
-	}
-	
-	tasks.withType<KotlinCompile> {
-		kotlinOptions.jvmTarget = jdkVersion
-	}
-	
+}
+
+subprojects {
 	plugins.withType<MavenPublishPlugin> {
 		apply(plugin = "org.gradle.signing")
 		
-		plugins.withType<org.jetbrains.kotlin.gradle.plugin.KotlinMultiplatformPluginWrapper> {
+		plugins.withType<KotlinMultiplatformPluginWrapper> {
 			apply(plugin = "org.jetbrains.dokka")
 			
 			val dokka by tasks.existing(DokkaTask::class) {
@@ -108,7 +47,7 @@ subprojects {
 			}
 			
 			val javadocJar by tasks.registering(Jar::class) {
-				LifecycleBasePlugin.BUILD_GROUP
+				group = LifecycleBasePlugin.BUILD_GROUP
 				description = "Assembles a jar archive containing the Javadoc API documentation."
 				archiveClassifier.set("javadoc")
 				dependsOn(dokka)
@@ -141,7 +80,7 @@ subprojects {
 					}
 					
 					credentials {
-						userossrhUsername
+						username = ossrhUsername
 						password = ossrhPassword
 					}
 				}
@@ -165,6 +104,13 @@ subprojects {
 							name.set("Tyluur")
 							url.set("https://www.dusk.rs/tyluur")
 						}
+					}
+					
+					contributors {
+						contributor {
+							name.set("Tyluur")
+						}
+						
 					}
 					
 					scm {
@@ -192,6 +138,3 @@ subprojects {
 		}
 	}
 }
-
-val ossrhUsername : String? by ext
-val ossrhPassword : String? by ext
