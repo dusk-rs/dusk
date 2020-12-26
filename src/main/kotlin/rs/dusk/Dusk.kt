@@ -32,7 +32,7 @@ import java.util.concurrent.TimeUnit.MILLISECONDS
  * @author Tyluur <itstyluur@gmail.com>
  * @since December 17, 2020
  */
-class Dusk {
+object Dusk {
 	
 	fun start() {
 		val stopwatch = Stopwatch.createStarted()
