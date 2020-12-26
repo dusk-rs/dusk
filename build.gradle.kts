@@ -1,38 +1,24 @@
-import jdk.nashorn.internal.runtime.Debug.id
-
 group = "dusk.rs"
 description = "#1 rsps. no noobs allowed"
 
-val ossrhUsername : String? by ext
-val ossrhPassword : String? by ext
-
 plugins {
-	base
-	id("com.github.ben-manes.versions") version "0.36.0"
+	`java-library`
+	`maven-publish`
+	signing
 	
-	jdk.nashorn.internal.runtime.Debug.id("kotlinx.benchmark")
-	id("org.jetbrains.dokka") version "0.11.0-dev-59"
-	classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
-	classpath("org.jetbrains.kotlin:kotlin-serialization:$kotlin_version")
+/*	base
+	id("com.github.ben-manes.versions") version "0.36.0"
+	id("kotlinx.benchmark")
+	id("kotlinx.benchmark")
+	id("org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.5")
+	id("org.jetbrains.kotlin:kotlin-serialization:$1.3.5")*/
 }
 
 buildscript {
-	ext.kotlin_version = '1.3.71'
-	
 	repositories {
 		mavenCentral()
 		google()
 		jcenter()
-	}
-	dependencies {
-		id("java")
-		id("com.github.ben-manes.versions") version "0.24.0"
-		
-		id("kotlinx.benchmark") apply true
-		id("org.jetbrains.dokka") apply true
-		id("org.jetbrains.kotlin.plugin.allopen") version "1.3.5" apply true
-		classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
-		classpath("org.jetbrains.kotlin:kotlin-serialization:$kotlin_version")
 	}
 }
 
@@ -42,109 +28,69 @@ repositories {
 	maven("https://dl.bintray.com/kotlin/kotlinx")
 }
 
-dependencies {
-	compile("com.squareup.okio:okio:2.3.0")
+java {
+	withJavadocJar()
+	withSourcesJar()
 }
 
-plugins.withType<MavenPublishPlugin> {
-	apply(plugin = "org.gradle.signing")
-	
-	plugins.withType<KotlinMultiplatformPluginWrapper> {
-		apply(plugin = "org.jetbrains.dokka")
-		
-		val dokka by tasks.existing(DokkaTask::class) {
-			outputFormat = "javadoc"
-			outputDirectory = "$buildDir/docs/javadoc"
-		}
-		
-		val javadocJar by tasks.registering(Jar::class) {
-			group = LifecycleBasePlugin.BUILD_GROUP
-			description = "Assembles a jar archive containing the Javadoc API documentation."
-			archiveClassifier.set("javadoc")
-			dependsOn(dokka)
-			from(dokka.get().outputDirectory)
-		}
-		
-		configure<KotlinMultiplatformExtension> {
-			explicitApi()
-			
-			jvm {
-				mavenPublication {
-					artifact(javadocJar.get())
+publishing {
+	publications {
+		create<MavenPublication>("mavenJava") {
+			artifactId = "my-library"
+			from(components["java"])
+			versionMapping {
+				usage("java-api") {
+					fromResolutionOf("runtimeClasspath")
+				}
+				usage("java-runtime") {
+					fromResolutionResult()
 				}
 			}
-			
-			js {
-				browser()
-				nodejs()
+			pom {
+				name.set("My Library")
+				description.set("A concise description of my library")
+				url.set("http://www.example.com/library")
+				properties.set(mapOf(
+					"myProp" to "value",
+					"prop.with.dots" to "anotherValue"
+				))
+				licenses {
+					license {
+						name.set("The Apache License, Version 2.0")
+						url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+					}
+				}
+				developers {
+					developer {
+						id.set("johnd")
+						name.set("John Doe")
+						email.set("john.doe@example.com")
+					}
+				}
+				scm {
+					connection.set("scm:git:git://example.com/my-library.git")
+					developerConnection.set("scm:git:ssh://example.com/my-library.git")
+					url.set("http://example.com/my-library/")
+				}
 			}
 		}
 	}
-	
-	configure<PublishingExtension> {
-		repositories {
-			maven {
-				if (project.version.toString().endsWith("SNAPSHOT")) {
-					setUrl("https://oss.sonatype.org/content/repositories/snapshots")
-				} else {
-					setUrl("https://oss.sonatype.org/service/local/staging/deploy/maven2")
-				}
-				
-				credentials {
-					username = ossrhUsername
-					password = ossrhPassword
-				}
-			}
+	repositories {
+		maven {
+			// change URLs to point to your repos, e.g. http://my.org/repo
+			val releasesRepoUrl = uri("$buildDir/repos/releases")
+			val snapshotsRepoUrl = uri("$buildDir/repos/snapshots")
+			url = if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl
 		}
-		
-		publications.withType<MavenPublication> {
-			pom {
-				name.set(project.name)
-				url.set("https://github.com/dusk-rs/dusk")
-				inceptionYear.set("2020")
-				
-				licenses {
-					license {
-						name.set("ISC License")
-						url.set("https://opensource.org/licenses/isc-license.txt")
-					}
-				}
-				
-				developers {
-					developer {
-						name.set("Tyluur")
-						url.set("https://www.dusk.rs/tyluur")
-					}
-				}
-				
-				contributors {
-					contributor {
-						name.set("Tyluur")
-					}
-					
-				}
-				
-				scm {
-					connection.set("scm:git:https://github.com/dusk-rs/dusk")
-					developerConnection.set("scm:git:git@github.com:dusk-rs/dusk.git")
-					url.set("https://github.com/dusk-rs/dusk")
-				}
-				
-				issueManagement {
-					system.set("GitHub")
-					url.set("https://github.com/dusk-rs/dusk/issues")
-				}
-				
-				ciManagement {
-					system.set("GitHub")
-					url.set("https://github.com/dusk-rs/dusk/actions?query=workflow%3Aci")
-				}
-			}
-		}
-		
-		configure<SigningExtension> {
-			useGpgCmd()
-			sign(publications)
-		}
+	}
+}
+
+signing {
+	sign(publishing.publications["mavenJava"])
+}
+
+tasks.javadoc {
+	if (JavaVersion.current().isJava9Compatible) {
+		(options as StandardJavadocDocletOptions).addBooleanOption("html5", true)
 	}
 }
