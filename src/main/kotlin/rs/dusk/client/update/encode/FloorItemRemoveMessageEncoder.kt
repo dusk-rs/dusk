@@ -1,7 +1,7 @@
-package rs.dusk.network.rs.codec.game.encode
+package rs.dusk.client.update.encode
 
-import rs.dusk.core.network.codec.packet.access.PacketWriter
-import rs.dusk.network.rs.codec.game.GameMessageEncoder
+import rs.dusk.core.network.packet.access.PacketWriter
+import rs.dusk.network.codec.game.GameMessageEncoder
 import rs.dusk.network.rs.codec.game.GameOpcodes.FLOOR_ITEM_REMOVE
 import rs.dusk.network.rs.codec.game.encode.message.FloorItemRemoveMessage
 
@@ -10,13 +10,13 @@ import rs.dusk.network.rs.codec.game.encode.message.FloorItemRemoveMessage
  * @since June 19, 2020
  */
 class FloorItemRemoveMessageEncoder : GameMessageEncoder<FloorItemRemoveMessage>() {
-
-    override fun encode(builder: PacketWriter, msg: FloorItemRemoveMessage) {
-        val (tile, id) = msg
-        builder.apply {
-            writeOpcode(FLOOR_ITEM_REMOVE)
-            writeShort(id)
-            writeByte(tile)
-        }
-    }
+	
+	override fun encode(builder : PacketWriter, msg : FloorItemRemoveMessage) {
+		val (tile, id) = msg
+		builder.apply {
+			writeOpcode(FLOOR_ITEM_REMOVE)
+			writeShort(id)
+			writeByte(tile)
+		}
+	}
 }

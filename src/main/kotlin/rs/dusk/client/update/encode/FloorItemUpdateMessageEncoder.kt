@@ -1,9 +1,9 @@
-package rs.dusk.network.rs.codec.game.encode
+package rs.dusk.client.update.encode
 
-import rs.dusk.core.network.codec.packet.access.PacketWriter
-import rs.dusk.network.rs.codec.game.GameMessageEncoder
+import rs.dusk.core.network.packet.access.PacketWriter
+import rs.dusk.network.codec.game.GameMessageEncoder
+import rs.dusk.network.codec.game.encode.message.FloorItemUpdateMessage
 import rs.dusk.network.rs.codec.game.GameOpcodes.FLOOR_ITEM_UPDATE
-import rs.dusk.network.rs.codec.game.encode.message.FloorItemUpdateMessage
 
 /**
  * @author Greg Hibberd <greg@greghibberd.com>
