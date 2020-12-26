@@ -85,8 +85,11 @@ publishing {
 	}
 }
 
-signing {
-	sign(publishing.publications["mavenJava"])
+if (project.hasProperty("signing.keyId")) {
+	apply("plugin: 'signing'")
+	signing {
+		sign(publishing.publications["mavenJava"])
+	}
 }
 
 tasks.javadoc {
