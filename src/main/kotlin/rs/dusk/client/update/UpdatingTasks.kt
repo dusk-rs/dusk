@@ -10,7 +10,7 @@ import rs.dusk.client.update.task.player.PlayerChangeTask
 import rs.dusk.client.update.task.player.PlayerMovementTask
 import rs.dusk.client.update.task.player.PlayerPostUpdateTask
 import rs.dusk.engine.client.update.task.npc.NPCMovementTask
-import rs.dusk.engine.client.update.task.player.PlayerUpdateTask
+import rs.dusk.client.update.task.player.PlayerUpdateTask
 import rs.dusk.engine.client.update.task.player.PlayerVisualsTask
 import rs.dusk.engine.client.update.task.viewport.ViewportUpdating
 import rs.dusk.engine.entity.character.update.visual.npc.COMBAT_LEVEL_MASK

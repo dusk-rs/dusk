@@ -26,7 +26,7 @@ data class Player(
 	
 	var session : Session,
 	
-	override val tile : Tile = Tile.HOME
+	override var tile : Tile = Tile.HOME
 
 ) : Character() {
 	

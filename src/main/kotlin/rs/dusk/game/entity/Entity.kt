@@ -13,6 +13,6 @@ abstract class Entity {
 	/**
 	 * The tile the entity is on
 	 */
-	open val tile : Tile = Tile.EMPTY
+	open var tile : Tile = Tile.EMPTY
 	
 }
