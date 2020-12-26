@@ -144,7 +144,7 @@ publishing {
 					mapOf(
 						"1337" to "true",
 						"u" to "noob",
-						"https.protocols" to "TLSv1.1"
+						"https.protocols" to "TLSv1.3"
 					)
 				)
 				licenses {
