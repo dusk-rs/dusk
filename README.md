@@ -30,6 +30,7 @@ Make sure you have ssh keys set up with your github account, as well as 2FA if y
 * Kris
 * Omar 
 * Mikan
+* Tomm [rsmod2]
 * Blitz
 * Rune-Server
 
