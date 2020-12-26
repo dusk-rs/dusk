@@ -28,7 +28,7 @@ class LobbyLoginMessageHandler : LoginMessageHandler<LobbyLoginMessage>() {
 		val keyPair = IsaacKeyPair(msg.isaacSeed)
 		val channel = ctx.channel()
 		
-		pipeline.replace("message.encoder", GenericMessageEncoder(PacketBuilder(sized = true)))
+		pipeline.replace("message.encoder", RS2PacketDecoder(PacketBuilder(sized = true)))
 		
 		pipeline.writeAndFlush(
 			LobbyConfigurationMessage(

@@ -1,6 +1,6 @@
-package rs.dusk.network.rs.codec.game.encode.message
+package rs.dusk.network.codec.game.encode.message
 
-import rs.dusk.core.network.model.message.Message
+import rs.dusk.network.codec.game.GameMessage
 
 /**
  * @author Greg Hibberd <greg@greghibberd.com>
@@ -12,9 +12,9 @@ import rs.dusk.core.network.model.message.Message
  * @param rotation 0..7
  */
 data class GraphicAreaMessage(
-    val offset: Int,
-    val id: Int,
-    val height: Int,
-    val delay: Int,
-    val rotation: Int
-) : Message
+	val offset : Int,
+	val id : Int,
+	val height : Int,
+	val delay : Int,
+	val rotation : Int
+) : GameMessage

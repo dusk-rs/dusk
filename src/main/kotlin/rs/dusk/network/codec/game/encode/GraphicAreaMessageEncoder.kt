@@ -4,7 +4,7 @@ import rs.dusk.core.io.Modifier
 import rs.dusk.core.network.codec.packet.access.PacketWriter
 import rs.dusk.network.rs.codec.game.GameMessageEncoder
 import rs.dusk.network.rs.codec.game.GameOpcodes.GRAPHIC_AREA
-import rs.dusk.network.rs.codec.game.encode.message.GraphicAreaMessage
+import rs.dusk.network.codec.game.encode.message.GraphicAreaMessage
 
 /**
  * @author Greg Hibberd <greg@greghibberd.com>

@@ -5,8 +5,6 @@ import rs.dusk.client.ui.InterfaceOptions
 import rs.dusk.client.ui.PlayerInterfaceIO
 import rs.dusk.client.ui.detail.InterfaceDetails
 import rs.dusk.client.ui.dialogue.Dialogues
-import rs.dusk.core.action.Action
-import rs.dusk.core.action.ActionType
 import rs.dusk.core.map.Tile
 import rs.dusk.core.network.session.Session
 import rs.dusk.engine.client.ui.InterfaceManager
@@ -28,11 +26,9 @@ data class Player(
 	
 	var session : Session,
 	
-	override var tile : Tile,
-	
-	override val action : Action = Action()
+	override val tile : Tile = Tile.HOME
 
-) : Character(action = action) {
+) : Character() {
 	
 	private val eventBus : EventBus by inject()
 	

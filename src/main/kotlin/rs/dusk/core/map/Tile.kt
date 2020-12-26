@@ -35,7 +35,8 @@ data class Tile(override val x: Int, override val y: Int, override val plane: In
             Tile(x and 0x3fff, y and 0x3fff, plane and 0x3)
 
         fun getId(x: Int, y: Int, plane: Int = 0) = (y and 0x3fff) + ((x and 0x3fff) shl 14) + ((plane and 0x3) shl 28)
-
-        val EMPTY = Tile(0)
+	
+	    val HOME : Tile = Tile(3333, 3333)
+	    val EMPTY = Tile(0)
     }
 }
