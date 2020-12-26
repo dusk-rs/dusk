@@ -1,15 +1,6 @@
 package rs.dusk.network.codec.login.handle
 
-import inject
 import io.netty.channel.ChannelHandlerContext
-import rs.dusk.core.network.buffer.cipher.isaac.IsaacKeyPair
-import rs.dusk.core.network.channel.setCodec
-import rs.dusk.core.network.message.decode.OpcodeMessageDecoder
-import rs.dusk.core.network.message.encode.GenericMessageEncoder
-import rs.dusk.core.network.packet.access.PacketBuilder
-import rs.dusk.core.network.packet.decode.RS2PacketDecoder
-import rs.dusk.core.network.session.getSession
-import rs.dusk.core.utility.replace
 import rs.dusk.network.codec.game.GameCodec
 import rs.dusk.network.codec.login.LoginMessageHandler
 import rs.dusk.network.codec.login.decode.message.LobbyLoginMessage

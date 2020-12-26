@@ -10,6 +10,10 @@ buildscript {
 
 plugins {
 	kotlin("jvm") version "1.3.72"
+	`maven-publish`
+	maven
+	idea
+	java
 }
 
 val koinVersion = "2.1.5"
@@ -26,7 +30,7 @@ allprojects {
 	group = "rs.dusk"
 	version = "1.0.0"
 	
-	java.sourceCompatibility = JavaVersion.VERSION_17
+	java.sourceCompatibility = JavaVersion.VERSION_1_8
 	
 	repositories {
 		mavenCentral()
@@ -87,6 +91,29 @@ allprojects {
 		}
 		compileTestKotlin {
 			kotlinOptions.jvmTarget = "1.8"
+		}
+	}
+	
+	
+	apply(plugin = "maven-publish")
+	val sourcesJar by tasks.registering(Jar::class) {
+		archiveClassifier.set("sources")
+		from(sourceSets.getByName("main").java.srcDirs)
+	}
+	
+	artifacts {
+		archives(sourcesJar.get())
+	}
+	
+	publishing {
+		repositories {
+			mavenLocal()
+		}
+		publications {
+			register("mavenJava", MavenPublication::class) {
+				from(components["java"])
+				artifact(sourcesJar.get())
+			}
 		}
 	}
 	
