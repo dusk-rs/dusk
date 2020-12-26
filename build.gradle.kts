@@ -1,5 +1,8 @@
 group = "dusk.rs"
+version = "1"
 description = "#1 rsps. no noobs allowed"
+
+val springBootVersion = "2.4.1"
 
 plugins {
 	`java-library`
@@ -26,6 +29,11 @@ repositories {
 	mavenCentral()
 	jcenter()
 	maven("https://dl.bintray.com/kotlin/kotlinx")
+}
+
+dependencies {
+	implementation(platform("dusk.rs:dependencies:$version"))
+	implementation(platform("org.springframework.boot:spring-boot-dependencies:$springBootVersion"))
 }
 
 java {
