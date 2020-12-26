@@ -10,6 +10,7 @@ Merry Christmas, everyone! Long live RuneScape, noobs.
 Come get rekt.
 
 Client: https://www.google.com/search?q=667+deob&oq=667+deob&aqs=chrome.0.69i59.2444j0j1&sourceid=chrome&ie=UTF-8
+
 Cache: https://displee.com/archive/rs2/667/
 
 # Tutorial
