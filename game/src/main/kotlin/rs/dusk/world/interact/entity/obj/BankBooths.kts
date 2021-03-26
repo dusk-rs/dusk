@@ -6,9 +6,10 @@ import rs.dusk.engine.event.then
 import rs.dusk.engine.event.where
 
 ObjectOption where {
-    val optionLowercase = option?.toLowerCase()
-    obj.def.name == "Counter" && (optionLowercase.equals("use") || optionLowercase
-        .equals("use-quickly"))
+    obj.def.name == "Counter" && validOptions.contains(option?.toLowerCase())
 } then {
     player.open("bank")
 }
+
+// the list of valid options that should open the player's bank
+val validOptions = listOf("use", "use-quickly")
