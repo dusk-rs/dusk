@@ -20,6 +20,8 @@ class PublicMessageHandler : GameMessageHandler<PublicMessage>() {
         val player = sessions.get(session) ?: return
         val (message, effects) = msg
 
+        // TODO: send to all local players
+
         player.send(PublicChatMessage(player.index, effects, 2, message.capitalize()))
     }
 
