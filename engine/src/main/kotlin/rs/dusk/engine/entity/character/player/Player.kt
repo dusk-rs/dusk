@@ -10,6 +10,7 @@ import rs.dusk.engine.entity.character.CharacterEffects
 import rs.dusk.engine.entity.character.CharacterValues
 import rs.dusk.engine.entity.character.contain.Container
 import rs.dusk.engine.entity.character.move.Movement
+import rs.dusk.engine.entity.character.player.chat.message
 import rs.dusk.engine.entity.character.player.delay.Delays
 import rs.dusk.engine.entity.character.player.req.Requests
 import rs.dusk.engine.entity.character.player.skill.Experience
@@ -19,6 +20,7 @@ import rs.dusk.engine.entity.character.update.Visuals
 import rs.dusk.engine.entity.character.update.visual.player.appearance
 import rs.dusk.engine.map.Tile
 import rs.dusk.engine.path.TargetStrategy
+import rs.dusk.network.server.GameServer
 
 /**
  * A player controlled by client or bot
@@ -73,6 +75,7 @@ class Player(
     var changeValue: Int = -1
 
     fun start() {
+        message("Welcome to ${GameServer.name}.")
         options.set(2, "Follow")
         options.set(4, "Trade with")
         options.set(7, "Req Assist")
