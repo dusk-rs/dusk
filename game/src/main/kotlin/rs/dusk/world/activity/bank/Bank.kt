@@ -24,7 +24,7 @@ object Bank {
                 return tab
             }
         }
-        return if(slot <= max) mainTab else -1
+        return if (slot <= max) mainTab else -1
     }
 
     fun getIndexOfTab(player: Player, tab: Int): Int {

@@ -32,7 +32,7 @@ class ObjectOptionMessageHandler : GameMessageHandler<ObjectOptionMessage>() {
         val (objectId, x, y, run, option) = msg
         val tile = player.tile.copy(x = x, y = y)
         val target = objects[tile, objectId]
-        if(target == null) {
+        if (target == null) {
             logger.warn { "Invalid object $objectId $x $y" }
             return
         }

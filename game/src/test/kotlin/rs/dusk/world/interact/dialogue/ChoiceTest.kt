@@ -37,7 +37,7 @@ internal class ChoiceTest : DialogueTest() {
             runBlocking(Contexts.Game) {
                 verify {
                     player.open(expected)
-                    for((index, line) in text.trimIndent().lines().withIndex()) {
+                    for ((index, line) in text.trimIndent().lines().withIndex()) {
                         interfaces.sendText(expected, "line${index + 1}", line)
                     }
                 }
@@ -137,10 +137,12 @@ internal class ChoiceTest : DialogueTest() {
     @Test
     fun `Send multiline title`() {
         manager.start(context) {
-            choice(text = "Yes\nNo", title = """
+            choice(
+                text = "Yes\nNo", title = """
                 A long title that exceeds
                 maximum width but is split
-            """)
+            """
+            )
         }
         runBlocking(Contexts.Game) {
             verify {
@@ -154,10 +156,12 @@ internal class ChoiceTest : DialogueTest() {
     @Test
     fun `Send wide multiline title`() {
         manager.start(context) {
-            choice(text = "Yes\nNo", title = """
+            choice(
+                text = "Yes\nNo", title = """
                 A long title that exceeds maximum
                 and is on two lines
-            """)
+            """
+            )
         }
         runBlocking(Contexts.Game) {
             verify {

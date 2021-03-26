@@ -24,7 +24,7 @@ class ScreenChangeMessageHandler : GameMessageHandler<ScreenChangeMessage>() {
         player.gameFrame.width = width
         player.gameFrame.height = height
 
-        if(player.gameFrame.displayMode == mode || !player.isOpen("graphics_options")) {
+        if (player.gameFrame.displayMode == mode || !player.isOpen("graphics_options")) {
             return
         }
         player.setDisplayMode(mode)

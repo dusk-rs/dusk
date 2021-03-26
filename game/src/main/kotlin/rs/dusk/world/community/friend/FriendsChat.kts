@@ -12,7 +12,7 @@ on(InterfaceOption) {
         name == "friends_chat" && component == "settings" && option == "Open Settings"
     }
     then {
-        if(player.hasOpen("main_screen")) {
+        if (player.hasOpen("main_screen")) {
             player.message("Please close the interface you have open before using Friends Chat setup.")
             return@then
         }

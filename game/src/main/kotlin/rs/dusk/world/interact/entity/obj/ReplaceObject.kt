@@ -24,7 +24,14 @@ data class ReplaceObject(
     companion object : EventCompanion<ReplaceObject>
 }
 
-fun GameObject.replace(id: Int, tile: Tile = this.tile, type: Int = this.type, rotation: Int = this.rotation, ticks: Int = -1, owner: String? = null) {
+fun GameObject.replace(
+    id: Int,
+    tile: Tile = this.tile,
+    type: Int = this.type,
+    rotation: Int = this.rotation,
+    ticks: Int = -1,
+    owner: String? = null
+) {
     get<EventBus>().emit(ReplaceObject(this, id, tile, type, rotation, ticks, owner))
 }
 

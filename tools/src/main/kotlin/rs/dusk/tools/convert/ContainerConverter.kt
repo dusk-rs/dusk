@@ -38,17 +38,22 @@ object ContainerConverter {
         for (i in 0 until decoder.size) {
             val def = decoder.getOrNull(i)
             val cont = containers[i]
-            if(def == null || cont == null) {
+            if (def == null || cont == null) {
                 continue
             }
 
-            if(def.length != cont.length) {
+            if (def.length != cont.length) {
 //                println("Length changed $i")
             }
 
-            if(cont.ids != null) {
+            if (cont.ids != null) {
                 counter++
-                println("$i ${cont.ids!!.mapIndexed { index, it -> "${itemDecoder.getOrNull(it)?.name} ${cont.amounts!![index]}" }.joinToString(separator = ", ")}")
+                println(
+                    "$i ${
+                        cont.ids!!.mapIndexed { index, it -> "${itemDecoder.getOrNull(it)?.name} ${cont.amounts!![index]}" }
+                            .joinToString(separator = ", ")
+                    }"
+                )
             }
 //            println(def)
 //            println(cont)

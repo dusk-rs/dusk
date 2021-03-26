@@ -10,13 +10,15 @@ import rs.dusk.engine.event.where
 
 IntVariable(101, Variable.Type.VARP, true, 0).register("quest_points")
 
-StringMapVariable(281, Variable.Type.VARP, true, defaultValue = "complete", values = mapOf(
-    "unstarted" to 0,
-    "incomplete" to 1,
-    "complete" to 1000
-)).register("unstable_foundations")
+StringMapVariable(
+    281, Variable.Type.VARP, true, defaultValue = "complete", values = mapOf(
+        "unstarted" to 0,
+        "incomplete" to 1,
+        "complete" to 1000
+    )
+).register("unstable_foundations")
 
-InterfaceOpened where { name == "quest_journals"} then {
+InterfaceOpened where { name == "quest_journals" } then {
     player.sendVar("quest_points")
     player.sendVar("unstable_foundations")
 }

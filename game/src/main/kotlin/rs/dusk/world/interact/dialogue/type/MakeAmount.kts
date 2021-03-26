@@ -8,25 +8,27 @@ import rs.dusk.world.interact.entity.player.display.InterfaceOption
 IntVariable(8094, Variable.Type.VARBIT, false, 1).register("skill_creation_maximum")
 IntVariable(8095, Variable.Type.VARBIT, true, 1).register("skill_creation_amount")
 
-ListVariable(754, Variable.Type.VARC, values = listOf(
-    "Make",
-    "Make sets",//No "all"
-    "Cook",
-    "Roast",
-    "Offer",
-    "Sell",
-    "Bake",
-    "Cut",
-    "Deposit",
-    "Make2",//No "all"
-    "Teleport",
-    "Select",
-    "Make sets2",//No "all"
-    "Take",
-    "Return",
-    "Heat",
-    "Add"
-)).register("skill_creation_type")
+ListVariable(
+    754, Variable.Type.VARC, values = listOf(
+        "Make",
+        "Make sets",//No "all"
+        "Cook",
+        "Roast",
+        "Offer",
+        "Sell",
+        "Bake",
+        "Cut",
+        "Deposit",
+        "Make2",//No "all"
+        "Teleport",
+        "Select",
+        "Make sets2",//No "all"
+        "Take",
+        "Return",
+        "Heat",
+        "Add"
+    )
+).register("skill_creation_type")
 
 IntVariable(755, Variable.Type.VARC, defaultValue = -1).register("skill_creation_item_0")
 IntVariable(756, Variable.Type.VARC, defaultValue = -1).register("skill_creation_item_1")
@@ -71,7 +73,7 @@ InterfaceOption where { name == "skill_creation_amount" && component == "increme
     var current = player.getVar("skill_creation_amount", 0)
     val maximum = player.getVar("skill_creation_maximum", 1)
     current++
-    if(current > maximum) {
+    if (current > maximum) {
         current = maximum
     }
     player.setVar("skill_creation_amount", current)
@@ -80,7 +82,7 @@ InterfaceOption where { name == "skill_creation_amount" && component == "increme
 InterfaceOption where { name == "skill_creation_amount" && component == "decrement" } then {
     var current = player.getVar("skill_creation_amount", 0)
     current--
-    if(current < 0) {
+    if (current < 0) {
         current = 0
     }
     player.setVar("skill_creation_amount", current)

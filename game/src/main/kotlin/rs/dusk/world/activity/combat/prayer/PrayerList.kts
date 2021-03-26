@@ -9,10 +9,12 @@ import rs.dusk.world.activity.combat.prayer.PrayerConfigs.PRAYER_POINTS
 import rs.dusk.world.activity.combat.prayer.PrayerConfigs.SELECTING_QUICK_PRAYERS
 import rs.dusk.world.activity.combat.prayer.PrayerConfigs.USING_QUICK_PRAYERS
 
-ListVariable(1584, Variable.Type.VARP, true, listOf(
-    "normal",
-    "curses"
-)).register(PRAYERS)
+ListVariable(
+    1584, Variable.Type.VARP, true, listOf(
+        "normal",
+        "curses"
+    )
+).register(PRAYERS)
 
 BooleanVariable(181, Variable.Type.VARC).register(SELECTING_QUICK_PRAYERS)
 BooleanVariable(182, Variable.Type.VARC).register(USING_QUICK_PRAYERS)
@@ -29,7 +31,7 @@ InterfaceOpened where { name == "prayer_list" } then {
     player.sendVar(PRAYERS)
     player.sendVar(PRAYER_POINTS)
     val quickPrayers = player.getVar(SELECTING_QUICK_PRAYERS, false)
-    if(quickPrayers) {
+    if (quickPrayers) {
         player.interfaceOptions.unlockAll(name, "quick_prayers", 0..29)
     } else {
         player.interfaceOptions.unlockAll(name, "regular_prayers", 0..29)

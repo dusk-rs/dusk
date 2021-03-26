@@ -93,8 +93,9 @@ fun despawn(gameObject: GameObject) {
 
 fun spawnCustom(gameObject: GameObject) {
     if (gameObject.id == -1) {
-        val removal = objects[gameObject.tile].firstOrNull { it.tile == gameObject.tile && it.type == gameObject.type && it.rotation == gameObject.rotation }
-        if(removal == null) {
+        val removal =
+            objects[gameObject.tile].firstOrNull { it.tile == gameObject.tile && it.type == gameObject.type && it.rotation == gameObject.rotation }
+        if (removal == null) {
             logger.debug { "Cannot find object to despawn $gameObject" }
         } else {
             despawn(removal)

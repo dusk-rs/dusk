@@ -15,12 +15,13 @@ object ItemInfoBoxDumper {
 
         val items = mutableMapOf<String, String>()
 
-        val wiki = Wiki.load("${System.getProperty("user.home")}\\Downloads\\runescapewiki-latest-pages-articles-2011-08-14.xml")
+        val wiki =
+            Wiki.load("${System.getProperty("user.home")}\\Downloads\\runescapewiki-latest-pages-articles-2011-08-14.xml")
 
         var stop = false
         val names = mutableListOf<String>()
         wiki.pages.filter { it.namespace.key == 0 }.forEach { page ->
-            if(stop) {
+            if (stop) {
                 return@forEach
             }
             val text = page.revision.text

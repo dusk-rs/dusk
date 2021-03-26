@@ -27,7 +27,8 @@ object NPCDefinitionPipeline {
 
     @JvmStatic
     fun main(args: Array<String>) {
-        val rs2Wiki = Wiki.load("${System.getProperty("user.home")}\\Downloads\\runescapewiki-latest-pages-articles-2011-08-14.xml")
+        val rs2Wiki =
+            Wiki.load("${System.getProperty("user.home")}\\Downloads\\runescapewiki-latest-pages-articles-2011-08-14.xml")
         val start = System.currentTimeMillis()
         val koin = startKoin {
             fileProperties("/tool.properties")
@@ -40,7 +41,8 @@ object NPCDefinitionPipeline {
         val loader = FileLoader(true)
         val file = File("npc-definition-extras.yml")
         loader.save(file, map)
-        val contents = "# Don't edit; apply changes to the NPCDefinitionPipeline tool's NPCManualChanges class instead.\n${file.readText()}"
+        val contents =
+            "# Don't edit; apply changes to the NPCDefinitionPipeline tool's NPCManualChanges class instead.\n${file.readText()}"
         file.writeText(contents)
         println("${output.size} npc definitions written to ${file.path} in ${TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - start)}s")
     }
@@ -85,7 +87,7 @@ object NPCDefinitionPipeline {
         val incomplete = mutableListOf<PageCollector>()
 
         repeat(decoder.size) { id ->
-            if(debugId >= 0 && id != debugId) {
+            if (debugId >= 0 && id != debugId) {
                 return@repeat
             }
             val def = decoder.getOrNull(id) ?: return@repeat

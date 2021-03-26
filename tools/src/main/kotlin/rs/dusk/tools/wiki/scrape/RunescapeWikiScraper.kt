@@ -87,7 +87,11 @@ internal object RunescapeWikiScraper {
         }
     }
 
-    fun dumpCategoryItems(map: MutableMap<String, MutableMap<String, Map<String, Map<String, String>>>>, url: String, count: Int): String? {
+    fun dumpCategoryItems(
+        map: MutableMap<String, MutableMap<String, Map<String, Map<String, String>>>>,
+        url: String,
+        count: Int
+    ): String? {
         val doc = Jsoup.connect("https://runescape.wiki$url").get()
         println("Dumping page $count $url")
         val element = doc.select("#mw-pages")

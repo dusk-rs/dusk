@@ -94,7 +94,7 @@ class InterfaceOptionMessageHandler : GameMessageHandler<InterfaceOptionMessage>
                 return
             }
         }
-        if(options == null) {
+        if (options == null) {
             options = player.interfaceOptions.get(name, componentName)
         }
 

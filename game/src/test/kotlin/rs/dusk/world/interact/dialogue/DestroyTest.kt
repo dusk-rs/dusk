@@ -45,10 +45,12 @@ internal class DestroyTest : KoinMock() {
     @Test
     fun `Send item destroy`() {
         manager.start(context) {
-            destroy("""
+            destroy(
+                """
                 question
                 lines
-            """, 1234)
+            """, 1234
+            )
         }
         runBlocking(Contexts.Game) {
             verify {

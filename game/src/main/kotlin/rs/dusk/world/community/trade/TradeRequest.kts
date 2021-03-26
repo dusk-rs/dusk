@@ -113,7 +113,7 @@ fun tradeItems(player: Player, other: Player) {
 fun loanItem(player: Player, other: Player) {
     val loanItem = player.otherLoan.getItem(0)
     val duration = other.getVar("lend_time", -1)
-    if(loanItem == -1 || duration == -1) {
+    if (loanItem == -1 || duration == -1) {
         return
     }
     lendItem(player, other, loanItem, duration)
@@ -204,7 +204,7 @@ fun modified(player: Player, other: Player, warned: Boolean) {
 fun updateOffer(player: Player, other: Player): (List<ContainerModification>) -> Unit = { updates ->
     applyUpdates(other.otherOffer, updates)
     val warn = player["accepted_trade", false] && removedAnyItems(updates)
-    if(warn) {
+    if (warn) {
         highlightRemovedSlots(player, other, updates)
     }
     modified(player, other, warn)
@@ -213,7 +213,7 @@ fun updateOffer(player: Player, other: Player): (List<ContainerModification>) ->
 
 fun highlightRemovedSlots(player: Player, other: Player, updates: List<ContainerModification>) {
     for ((index, _, oldAmount, _, amount) in updates) {
-        if(amount < oldAmount) {
+        if (amount < oldAmount) {
             player.warn("trade_main", "offer_warning", index)
             other.warn("trade_main", "other_warning", index)
         }
@@ -225,7 +225,16 @@ fun Player.warn(name: String, component: String, slot: Int) {
     val containerDefinitions: ContainerDefinitions = rs.dusk.utility.get()
     val comp = details.getComponent(name, component)
     val container = containerDefinitions.get(comp.container)
-    println(listOf(comp.parent, comp.id, (comp.parent shl 16) or comp.id, container["width", 0.0], container["height", 0.0], slot))
+    println(
+        listOf(
+            comp.parent,
+            comp.id,
+            (comp.parent shl 16) or comp.id,
+            container["width", 0.0],
+            container["height", 0.0],
+            slot
+        )
+    )
     send(ScriptMessage(143, (comp.parent shl 16) or comp.id, container["width", 0.0], container["height", 0.0], slot))
 }
 

@@ -58,7 +58,7 @@ class MapGraph(
 
         val portals = getPortals(objs)
         println("${portals.size} portals found")
-        for(portal in portals) {
+        for (portal in portals) {
             all.add(portal.first)
             all.add(portal.second)
             links.add(Triple(portal.first, portal.second, 1))
@@ -232,7 +232,7 @@ class MapGraph(
             val target = link.second
             val targetTargets = map[target] ?: continue
             val intersect = sourceTargets.intersect(targetTargets)
-            if(intersect.isNotEmpty()) {
+            if (intersect.isNotEmpty()) {
                 duplicates.add(link)
                 sourceTargets.remove(target)
                 targetTargets.remove(source)

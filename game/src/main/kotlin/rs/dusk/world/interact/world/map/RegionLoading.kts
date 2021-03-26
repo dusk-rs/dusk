@@ -92,7 +92,8 @@ ReloadChunk then {
     }
 }
 
-fun needsRegionChange(player: Player) = !inViewOfChunk(player, player.viewport.lastLoadChunk) || crossedDynamicBoarder(player)
+fun needsRegionChange(player: Player) =
+    !inViewOfChunk(player, player.viewport.lastLoadChunk) || crossedDynamicBoarder(player)
 
 fun inViewOfChunk(player: Player, chunk: Chunk): Boolean {
     val viewport = player.viewport
@@ -103,7 +104,8 @@ fun inViewOfChunk(player: Player, chunk: Chunk): Boolean {
 
 fun crossedDynamicBoarder(player: Player) = player.viewport.dynamic != inDynamicView(player)
 
-fun inDynamicView(player: Player) = player.tile.chunk.area(calculateVisibleRadius(player.viewport)).any { dynamicChunks.chunks.containsKey(it.id) }
+fun inDynamicView(player: Player) =
+    player.tile.chunk.area(calculateVisibleRadius(player.viewport)).any { dynamicChunks.chunks.containsKey(it.id) }
 
 fun calculateVisibleRadius(viewport: Viewport) = calculateChunkUpdateRadius(viewport) / 2 + 1
 
@@ -166,7 +168,7 @@ fun updateDynamic(player: Player, initial: Boolean, force: Boolean) {
     val chunks = mutableListOf<Int?>()
     val mapTileSize = calculateChunkRadius(player.viewport)
 
-    for(chunk in player.tile.chunk.copy(plane = 0).area(mapTileSize, 4)) {
+    for (chunk in player.tile.chunk.copy(plane = 0).area(mapTileSize, 4)) {
         val mapChunk = dynamicChunks.chunks[chunk.id]
         if (mapChunk != null) {
             chunks.add(mapChunk)

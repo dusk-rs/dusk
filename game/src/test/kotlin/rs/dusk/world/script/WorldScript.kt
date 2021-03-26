@@ -41,7 +41,8 @@ import java.util.concurrent.Executors
 
 abstract class WorldScript : KoinMock() {
 
-    override val modules = listOf(codecRepositoryModule,
+    override val modules = listOf(
+        codecRepositoryModule,
         eventModule,
         cacheModule,
         fileLoaderModule,
@@ -71,7 +72,8 @@ abstract class WorldScript : KoinMock() {
         instancePoolModule,
         detailsModule,
         logoutModule,
-        objectFactoryModule)
+        objectFactoryModule
+    )
 
     override val propertyPaths = listOf("/game.properties", "/private.properties")
 

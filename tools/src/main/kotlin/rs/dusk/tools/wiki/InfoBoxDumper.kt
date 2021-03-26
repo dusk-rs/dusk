@@ -6,7 +6,8 @@ object InfoBoxDumper {
 
     @JvmStatic
     fun main(args: Array<String>) {
-        val wiki = Wiki.load("${System.getProperty("user.home")}\\Downloads\\runescapewiki-latest-pages-articles-2011-08-14.xml")
+        val wiki =
+            Wiki.load("${System.getProperty("user.home")}\\Downloads\\runescapewiki-latest-pages-articles-2011-08-14.xml")
 
         val monsters = mutableMapOf<String, Any>()
         val items = mutableMapOf<String, Any>()
@@ -25,7 +26,12 @@ object InfoBoxDumper {
                 monsterCount++
             }
             if (text.contains("infobox item", true)) {
-                val template = page.templates.firstOrNull { it.first.equals("infobox item", true) || it.first == "Template:Infobox item" }
+                val template = page.templates.firstOrNull {
+                    it.first.equals(
+                        "infobox item",
+                        true
+                    ) || it.first == "Template:Infobox item"
+                }
                 if (template != null) {
                     items[page.title] = template.second
                     itemCount++
@@ -37,7 +43,8 @@ object InfoBoxDumper {
         wiki.pages.filter { it.namespace.key == 112 }.forEach { page ->
             val text = page.revision.text
             if (text.contains("exchangeitem", true)) {
-                val template = page.templates.first { it.first.equals("exchangeitem", true) || it.first == "ExchangeItemNat" }
+                val template =
+                    page.templates.first { it.first.equals("exchangeitem", true) || it.first == "ExchangeItemNat" }
                 exchangables[page.title] = template.second
                 exchangeCount++
             }

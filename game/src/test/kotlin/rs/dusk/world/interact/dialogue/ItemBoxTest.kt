@@ -15,10 +15,12 @@ internal class ItemBoxTest : DialogueTest() {
     @Test
     fun `Send item box`() {
         manager.start(context) {
-            item("""
+            item(
+                """
                 An item
                 description
-            """, 9009, 650, 10)
+            """, 9009, 650, 10
+            )
         }
         runBlocking(Contexts.Game) {
             assertEquals("item", manager.currentType())

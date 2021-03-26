@@ -21,7 +21,10 @@ class QuickChatOptionDecoder(cache: Cache) : DefinitionDecoder<QuickChatOptionDe
         get() {
             val lastArchive = cache.lastArchiveId(index)
             val lastArchive2 = cache.lastArchiveId(QUICK_CHAT_MENUS)
-            return lastArchive * 256 + cache.lastFileId(index, lastArchive) + (lastArchive2 * 256 + cache.lastFileId(index, lastArchive2))
+            return lastArchive * 256 + cache.lastFileId(index, lastArchive) + (lastArchive2 * 256 + cache.lastFileId(
+                index,
+                lastArchive2
+            ))
         }
 
     override fun getData(archive: Int, file: Int): ByteArray? {

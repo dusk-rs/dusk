@@ -22,7 +22,7 @@ IntVariable(743, Variable.Type.VARBIT).register("seven")
 IntVariable(744, Variable.Type.VARBIT).register("eight")
 
 Command where { prefix == "test" } then {
-    for(i in 0 until 55) {
+    for (i in 0 until 55) {
         player.send(InterfaceTextMessage(667, i, i.toString()))
     }
 //    player.setVar("one", -1)
@@ -46,10 +46,10 @@ Command where { prefix == "sendItems" } then {
 }
 
 Command where { prefix == "obj" } then {
-    if(content.isNotBlank()) {
+    if (content.isNotBlank()) {
         val parts = content.split(" ")
         val id = parts.getOrNull(0)?.toIntOrNull()
-        if(id != null) {
+        if (id != null) {
             val rotation = parts.getOrNull(1)?.toIntOrNull() ?: 0
             spawnObject(id, player.tile, 10, rotation, 10, null)
         } else {

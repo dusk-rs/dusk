@@ -12,7 +12,8 @@ import org.koin.dsl.KoinAppDeclaration
  * @author Greg Hibberd <greg@greghibberd.com>
  * @since March 28, 2020
  */
-class KoinTestExtension private constructor(private val appDeclaration: KoinAppDeclaration) : BeforeEachCallback, AfterEachCallback {
+class KoinTestExtension private constructor(private val appDeclaration: KoinAppDeclaration) : BeforeEachCallback,
+    AfterEachCallback {
 
     var _koin: Koin? = null
     val koin: Koin

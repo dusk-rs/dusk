@@ -11,7 +11,7 @@ import rs.dusk.world.interact.dialogue.event.StringEntered
 val logger = InlineLogger()
 
 fun isActiveDialogueType(player: Player, type: String): Boolean {
-    if(player.dialogues.currentType() != type) {
+    if (player.dialogues.currentType() != type) {
         logger.debug { "Invalid dialogue type ${player.dialogues.currentType()} for $type." }
         return false
     }
@@ -19,44 +19,44 @@ fun isActiveDialogueType(player: Player, type: String): Boolean {
 }
 
 ContinueDialogue where { name.contains("chat") && component == "continue" } then {
-    if(isActiveDialogueType(player, "chat")) {
+    if (isActiveDialogueType(player, "chat")) {
         player.dialogues.resume()
     }
 }
 
 ContinueDialogue where { name.contains("message") && component == "continue" } then {
-    if(isActiveDialogueType(player, "statement")) {
+    if (isActiveDialogueType(player, "statement")) {
         player.dialogues.resume()
     }
 }
 
 ContinueDialogue where { name == "level_up_dialog" && component == "continue" } then {
-    if(isActiveDialogueType(player, "level")) {
+    if (isActiveDialogueType(player, "level")) {
         player.dialogues.resume()
     }
 }
 
 ContinueDialogue where { name == "obj_box" && component == "continue" } then {
-    if(isActiveDialogueType(player, "item")) {
+    if (isActiveDialogueType(player, "item")) {
         player.dialogues.resume()
     }
 }
 
 ContinueDialogue where { name.contains("multi") && component.startsWith("line") } then {
-    if(isActiveDialogueType(player, "choice")) {
+    if (isActiveDialogueType(player, "choice")) {
         val choice = component.substringAfter("line").toIntOrNull() ?: -1
         player.dialogues.resume(choice)
     }
 }
 
 IntEntered then {
-    if(isActiveDialogueType(player, "int")) {
+    if (isActiveDialogueType(player, "int")) {
         player.dialogues.resume(value)
     }
 }
 
 StringEntered then {
-    if(isActiveDialogueType(player, "string")) {
+    if (isActiveDialogueType(player, "string")) {
         player.dialogues.resume(value)
     }
 }

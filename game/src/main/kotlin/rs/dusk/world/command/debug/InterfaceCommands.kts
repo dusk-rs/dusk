@@ -52,7 +52,15 @@ Command where { prefix == "setting" } then {
     val parts = content.split(" ")
     val remainder = parts.subList(4, parts.size).map { it.toIntOrNull() }.requireNoNulls().toIntArray()
     player.message("Settings sent ${remainder.toList()}", ChatType.Console)
-    player.send(InterfaceSettingsMessage(parts[0].toInt(), parts[1].toInt(), parts[2].toInt(), parts[3].toInt(), getHash(*remainder)))
+    player.send(
+        InterfaceSettingsMessage(
+            parts[0].toInt(),
+            parts[1].toInt(),
+            parts[2].toInt(),
+            parts[3].toInt(),
+            getHash(*remainder)
+        )
+    )
 }
 
 Command where { prefix == "script" } then {
@@ -65,7 +73,7 @@ Command where { prefix == "sendItems" } then {
     repeat(1200) {
         player.send(ContainerItemsMessage(it, intArrayOf(), intArrayOf(), false))
     }
-    for(it in 0 until 1200) {
+    for (it in 0 until 1200) {
         player.send(ContainerItemsMessage(it, IntArray(1) { 995 }, IntArray(1) { 100 }, false))
     }
 }

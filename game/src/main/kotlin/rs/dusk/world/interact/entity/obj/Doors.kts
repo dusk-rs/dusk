@@ -32,8 +32,8 @@ val fences: Map<Int, Int> = loader.load<Map<String, Int>>(getProperty("fencesPat
 
 ObjectOption where { obj.def.isDoor() && option == "Close" } then {
     // Prevent players from trapping one another
-    if(player.delayed(Delay.DoorSlam)) {
-        if(player.inc("doorSlamCount") > doorStuckCount) {
+    if (player.delayed(Delay.DoorSlam)) {
+        if (player.inc("doorSlamCount") > doorStuckCount) {
             player.message("The door seems to be stuck.")
             return@then
         }

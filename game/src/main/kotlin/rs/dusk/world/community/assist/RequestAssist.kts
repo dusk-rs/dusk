@@ -78,7 +78,10 @@ fun requestingTooQuickly(player: Player): Boolean {
     if (player.delayed(Delay.RequestAssist)) {
         val time = ticksToSeconds(player.remaining(Delay.RequestAssist)).toInt()
         player.message("You have only just made an assistance request", ChatType.GameAssist)
-        player.message("You have to wait $time ${"second".plural(time)} before making a new request.", ChatType.GameAssist)
+        player.message(
+            "You have to wait $time ${"second".plural(time)} before making a new request.",
+            ChatType.GameAssist
+        )
         return true
     }
     return false
@@ -88,7 +91,10 @@ fun refuseRequest(target: Player, player: Player): Boolean {
     if (hasEarnedMaximumExperience(target)) {
         val hours = getHoursRemaining(target)
         player.message("${target.name} is unable to assist at the moment.", ChatType.GameAssist)
-        target.message("An assist request has been refused. You can assist again in $hours ${"hour".plural(hours)}.", ChatType.GameAssist)
+        target.message(
+            "An assist request has been refused. You can assist again in $hours ${"hour".plural(hours)}.",
+            ChatType.GameAssist
+        )
         return true
     }
     return false

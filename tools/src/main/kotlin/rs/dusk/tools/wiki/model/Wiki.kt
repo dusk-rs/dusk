@@ -30,7 +30,8 @@ class Wiki(private val doc: Document) {
 
     fun getPageOrNull(name: String): WikiPage? {
         val pages = pages
-        val page = pages.firstOrNull { it.title == name } ?: pages.firstOrNull { it.title.equals(name, true) } ?: return null
+        val page =
+            pages.firstOrNull { it.title == name } ?: pages.firstOrNull { it.title.equals(name, true) } ?: return null
         if (page.redirect.isNotBlank() && page.title.equals(page.redirect, true)) {
             return try {
                 getPageOrNull(page.redirect)

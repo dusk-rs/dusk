@@ -35,7 +35,7 @@ object AnimationNames {
         repeat(decoder.size) { id ->
             val def = decoder.getOrNull(id) ?: return@repeat
             val render = renders[id]
-            if(render != null) {
+            if (render != null) {
                 map.getOrPut(render) { mutableListOf() }.add(id)
             }
             if (def.leftHand != -1) {
@@ -48,7 +48,8 @@ object AnimationNames {
 
         val path = "./animation-details.yml"
         val sorted = map.flatMap {
-            it.value.sortedBy { it }.mapIndexed { index, i -> (if(index > 0) "${it.key}_${index + 1}" else it.key) to Ids(i) }
+            it.value.sortedBy { it }
+                .mapIndexed { index, i -> (if (index > 0) "${it.key}_${index + 1}" else it.key) to Ids(i) }
         }.sortedBy { it.second.id }.toMap()
         loader.save(path, sorted)
         println("${sorted.size} animation identifiers dumped to $path.")
@@ -74,7 +75,7 @@ object AnimationNames {
     }
 
     private fun MutableMap<Int, String>.add(id: Int, name: String, suffix: String) {
-        if(id != -1 && name != "" && name != "null") {
+        if (id != -1 && name != "" && name != "null") {
             set(id, "${name}${suffix}")
         }
     }

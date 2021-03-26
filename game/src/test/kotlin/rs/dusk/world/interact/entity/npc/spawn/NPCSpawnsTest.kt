@@ -40,7 +40,13 @@ internal class NPCSpawnsTest : ScriptMock() {
     @BeforeEach
     override fun setup() {
         bus = spyk(EventBus())
-        loadModules(cacheDefinitionModule, entityListModule, module { single { bus }}, collisionModule, fileLoaderModule)
+        loadModules(
+            cacheDefinitionModule,
+            entityListModule,
+            module { single { bus } },
+            collisionModule,
+            fileLoaderModule
+        )
         super.setup()
         spawnHandler = bus.get(NPCSpawn::class)!!
     }

@@ -25,6 +25,7 @@ enum class Hatchet(val index: Int) {
     Sacred_Clay_Hatchet(6),
     Volatile_Clay_Hatchet(6),
     Inferno_Adze(7),
+
     // Dungeoneering hatchet indices made up
     Novite_Hatchet(0),
     Bathus_Hatchet(1),
@@ -84,7 +85,8 @@ enum class Hatchet(val index: Int) {
          * @param treeHatchetDifferences The min and max increase chance between each hatchet
          * @return chance of success
          */
-        private fun calculateHatchetChance(hatchet: Int, treeHatchetDifferences: IntRange) = if (hatchet % 4 < 2) treeHatchetDifferences.last else treeHatchetDifferences.first
+        private fun calculateHatchetChance(hatchet: Int, treeHatchetDifferences: IntRange) =
+            if (hatchet % 4 < 2) treeHatchetDifferences.last else treeHatchetDifferences.first
 
     }
 }

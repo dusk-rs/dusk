@@ -34,16 +34,20 @@ ContainerAction where { container == "inventory" && option == "Discard" } then {
     }
     val def = decoder.get(id)
     player.dialogue {
-        item("""
+        item(
+            """
                 <col=00007f>~ Loan expires ${getExpiryMessage(player)} ~</col>
                 If you discard this item, it will disappear.
                 You won't be able to pick it up again.
-            """, def.lendId, 900)
+            """, def.lendId, 900
+        )
 
-        val discard = choice("""
+        val discard = choice(
+            """
                 Yes, discard it. I won't need it again.
                 No, I'll keep hold of it.
-            """, "Really discard item?", saySelection = false)
+            """, "Really discard item?", saySelection = false
+        )
 
         if (discard == 1) {
             player.message("The item has been returned to it's owner.")

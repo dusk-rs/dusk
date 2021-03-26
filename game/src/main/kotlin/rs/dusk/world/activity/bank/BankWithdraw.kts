@@ -52,7 +52,7 @@ fun withdraw(player: Player, item: Int, slot: Int, amount: Int) {
     }
 
     var itemId = item
-    if(player.getVar("bank_notes", false)) {
+    if (player.getVar("bank_notes", false)) {
         val def = decoder.get(item)
         if (def.noteId != -1) {
             itemId = def.noteId

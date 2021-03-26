@@ -20,7 +20,7 @@ object Trade {
 
     fun getPartner(player: Player): Player? {
         val partner: Player? = player["trade_partner"]
-        if(partner == null) {
+        if (partner == null) {
             player.action.cancel(ActionType.Trade)
         }
         return partner

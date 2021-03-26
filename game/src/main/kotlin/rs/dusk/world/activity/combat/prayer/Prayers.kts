@@ -62,7 +62,15 @@ val prayerGroups = setOf(
     setOf("Rigour", "Sharp Eye", "Hawk Eye", "Eagle Eye"),
     setOf("Mystic Will", "Mystic Might", "Mystic Lore", "Augury"),
     setOf("Rapid Renewal", "Rapid Heal"),
-    setOf("Smite", "Protect from Missiles", "Protect Item", "Protect from Melee", "Redemption", "Protect from Magic", "Retribution"),
+    setOf(
+        "Smite",
+        "Protect from Missiles",
+        "Protect Item",
+        "Protect from Melee",
+        "Redemption",
+        "Protect from Magic",
+        "Retribution"
+    ),
     setOf("Redemption", "Retribution", "Smite", "Protect from Summoning")
 )
 
@@ -125,7 +133,7 @@ InterfaceOption where { name == "prayer_orb" && component == "orb" && option == 
     } else if (player.has(TEMP_QUICK_PRAYERS)) {
         player.saveQuickPrayers()
     }
-    if(selecting) {
+    if (selecting) {
         player.interfaceOptions.unlockAll(name, "quick_prayers", 0..29)
     } else {
         player.interfaceOptions.unlockAll(name, "regular_prayers", 0..29)

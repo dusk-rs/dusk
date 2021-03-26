@@ -20,7 +20,11 @@ IntVariable(5070, Variable.Type.VARBIT).register("other_lend_time")
 
 InterfaceOption where { name == "trade_main" && component == "loan_time" && option == "Specify" } then {
     player.dialogue {
-        val hours = intEntry("Set the loan duration in hours: (1 - 72)<br>(Enter <col=7f0000>0</col> for 'Just until logout'.)").coerceIn(0, 72)
+        val hours =
+            intEntry("Set the loan duration in hours: (1 - 72)<br>(Enter <col=7f0000>0</col> for 'Just until logout'.)").coerceIn(
+                0,
+                72
+            )
         setLend(player, hours)
     }
 }

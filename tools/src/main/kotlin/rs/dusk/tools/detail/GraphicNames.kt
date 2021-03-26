@@ -36,7 +36,7 @@ object GraphicNames {
         val map = mutableMapOf<Int, MutableList<String>>()
         repeat(decoder.size) { id ->
             val def = decoder.getOrNull(id) ?: return@repeat
-            if(def.modelId != 0) {
+            if (def.modelId != 0) {
                 val name = models[def.modelId]?.firstOrNull() ?: return@repeat
                 map.getOrPut(id) { mutableListOf() }.add(toIdentifier(name))
             }
@@ -85,7 +85,7 @@ object GraphicNames {
     }
 
     private fun MutableMap<Int, MutableList<String>>.add(id: Int, name: String) {
-        if(id != -1 && name != "" && name != "null") {
+        if (id != -1 && name != "" && name != "null") {
             getOrPut(id) { mutableListOf() }.add(name)
         }
     }

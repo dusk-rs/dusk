@@ -45,7 +45,8 @@ fun decay(ag: AreaGraphic) {
     }
 }
 
-fun AreaGraphic.toMessage() = GraphicAreaMessage(tile.offset(), graphic.id, graphic.height, graphic.delay, graphic.rotation)
+fun AreaGraphic.toMessage() =
+    GraphicAreaMessage(tile.offset(), graphic.id, graphic.height, graphic.delay, graphic.rotation)
 
 batcher.addInitial { player, chunk, messages ->
     graphics[chunk].forEach {
