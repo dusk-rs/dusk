@@ -6,7 +6,7 @@ import rs.dusk.network.rs.codec.update.UpdateMessageEncoder
 import rs.dusk.network.rs.codec.update.encode.message.UpdateVersionMessage
 
 /**
- * @author Tyluur <contact@kiaira.tech>
+ * @author Tyluur <itstyluur@icloud.com>
  * @since February 18, 2020
  */
 class UpdateVersionMessageEncoder : UpdateMessageEncoder<UpdateVersionMessage>() {

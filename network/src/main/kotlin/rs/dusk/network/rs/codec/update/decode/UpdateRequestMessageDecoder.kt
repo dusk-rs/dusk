@@ -9,7 +9,7 @@ import rs.dusk.network.rs.codec.update.UpdateMessageDecoder
 import rs.dusk.network.rs.codec.update.decode.message.UpdateRequestMessage
 
 /**
- * @author Tyluur <contact@kiaira.tech>
+ * @author Tyluur <itstyluur@icloud.com>
  * @since February 18, 2020
  */
 @PacketMetaData(opcodes = [FILE_REQUEST, PRIORITY_FILE_REQUEST], length = 3)

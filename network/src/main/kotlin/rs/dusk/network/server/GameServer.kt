@@ -25,7 +25,7 @@ import rs.dusk.utility.*
 import java.util.concurrent.TimeUnit
 
 /**
- * @author Tyluur <contact@kiaira.tech>
+ * @author Tyluur <itstyluur@icloud.com>
  * @since April 13, 2020
  */
 class GameServer(

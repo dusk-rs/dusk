@@ -1,7 +1,7 @@
 package rs.dusk.network.server
 
 /**
- * @author Tyluur <contact@kiaira.tech>
+ * @author Tyluur <itstyluur@icloud.com>
  * @since 2020-02-02
  */
 data class World(

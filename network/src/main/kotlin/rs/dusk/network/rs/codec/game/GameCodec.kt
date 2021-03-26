@@ -7,7 +7,7 @@ import rs.dusk.core.network.codec.message.MessageHandler
 import rs.dusk.core.network.model.message.Message
 
 /**
- * @author Tyluur <contact@kiaira.tech>
+ * @author Tyluur <itstyluur@icloud.com>
  * @since February 18, 2020
  */
 class GameCodec : Codec() {
@@ -20,19 +20,19 @@ class GameCodec : Codec() {
 }
 
 /**
- * @author Tyluur <contact@kiaira.tech>
+ * @author Tyluur <itstyluur@icloud.com>
  * @since February 18, 2020
  */
 abstract class GameMessageEncoder<M : Message> : MessageEncoder<M>()
 
 /**
- * @author Tyluur <contact@kiaira.tech>
+ * @author Tyluur <itstyluur@icloud.com>
  * @since February 18, 2020
  */
 abstract class GameMessageDecoder<M : Message> : MessageDecoder<M>()
 
 /**
- * @author Tyluur <contact@kiaira.tech>
+ * @author Tyluur <itstyluur@icloud.com>
  * @since February 18, 2020
  */
 abstract class GameMessageHandler<M : Message> : MessageHandler<M>()

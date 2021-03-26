@@ -10,7 +10,7 @@ import rs.dusk.network.rs.codec.login.encode.message.GameLoginConnectionResponse
  * This class encodes the login response code to the client after a game connection request is received.
  * The opcode is always 0.
  *
- * @author Tyluur <contact@kiaira.tech>
+ * @author Tyluur <itstyluur@icloud.com>
  * @since February 18, 2020
  */
 class GameLoginConnectionResponseMessageEncoder : LoginMessageEncoder<GameLoginConnectionResponseMessage>() {

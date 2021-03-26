@@ -7,7 +7,7 @@ import rs.dusk.network.rs.codec.service.ServiceOpcodes.GAME_CONNECTION
 import rs.dusk.network.rs.codec.service.decode.message.GameConnectionHandshakeMessage
 
 /**
- * @author Tyluur <contact@kiaira.tech>
+ * @author Tyluur <itstyluur@icloud.com>
  * @since February 18, 2020
  */
 @PacketMetaData(opcodes = [GAME_CONNECTION], length = 0)

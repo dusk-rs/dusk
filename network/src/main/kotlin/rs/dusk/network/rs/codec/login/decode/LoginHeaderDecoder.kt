@@ -11,7 +11,7 @@ import rs.dusk.utility.getProperty
 import java.math.BigInteger
 
 /**
- * @author Tyluur <contact@kiaira.tech>
+ * @author Tyluur <itstyluur@icloud.com>
  * @since February 18, 2020
  */
 object LoginHeaderDecoder {

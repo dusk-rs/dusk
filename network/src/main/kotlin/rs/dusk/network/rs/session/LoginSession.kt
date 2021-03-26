@@ -4,7 +4,7 @@ import io.netty.channel.Channel
 import rs.dusk.core.network.model.session.Session
 
 /**
- * @author Tyluur <contact@kiaira.tech>
+ * @author Tyluur <itstyluur@icloud.com>
  * @since April 09, 2020
  */
 class LoginSession(channel: Channel) : Session(channel)

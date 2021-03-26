@@ -1,7 +1,7 @@
 package rs.dusk.network.rs.codec.update
 
 /**
- * @author Tyluur <contact@kiaira.tech>
+ * @author Tyluur <itstyluur@icloud.com>
  * @since February 18, 2020
  */
 object FileServerOpcodes {

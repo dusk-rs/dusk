@@ -4,7 +4,7 @@ import rs.dusk.core.network.model.message.Message
 import rs.dusk.network.rs.codec.LoginResponseCode
 
 /**
- * @author Tyluur <contact@kiaira.tech>
+ * @author Tyluur <itstyluur@icloud.com>
  * @since February 18, 2020
  */
 data class UpdateRegistryResponse(val opcode: Int) : Message {

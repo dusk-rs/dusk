@@ -6,7 +6,7 @@ import com.github.michaelbull.logging.InlineLogger
 import java.math.BigInteger
 
 /**
- * @author Tyluur <contact@kiaira.tech>
+ * @author Tyluur <itstyluur@icloud.com>
  * @author Greg Hibberd <greg@greghibberd.com>
  * @since January 01, 2020
  */

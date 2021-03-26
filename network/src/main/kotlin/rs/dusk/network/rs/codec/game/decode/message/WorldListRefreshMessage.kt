@@ -4,7 +4,7 @@ import rs.dusk.core.network.model.message.Message
 import rs.dusk.network.rs.codec.game.MessageCompanion
 
 /**
- * @author Tyluur <contact@kiaira.tech>
+ * @author Tyluur <itstyluur@icloud.com>
  * @since February 19, 2020
  */
 data class WorldListRefreshMessage(val crc: Int) : Message {

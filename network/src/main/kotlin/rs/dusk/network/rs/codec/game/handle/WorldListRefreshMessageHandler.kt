@@ -6,7 +6,7 @@ import rs.dusk.network.rs.codec.game.decode.message.WorldListRefreshMessage
 import rs.dusk.network.rs.codec.game.encode.message.WorldListResponseMessage
 
 /**
- * @author Tyluur <contact@kiaira.tech>
+ * @author Tyluur <itstyluur@icloud.com>
  * @since February 22, 2020
  */
 class WorldListRefreshMessageHandler : GameMessageHandler<WorldListRefreshMessage>() {

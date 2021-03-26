@@ -7,7 +7,7 @@ import rs.dusk.network.rs.codec.login.LoginMessageEncoder
 import rs.dusk.network.rs.codec.login.encode.message.GameLoginDetails
 
 /**
- * @author Tyluur <contact@kiaira.tech>
+ * @author Tyluur <itstyluur@icloud.com>
  * @since February 18, 2020
  */
 class GameLoginDetailsMessageEncoder : LoginMessageEncoder<GameLoginDetails>() {

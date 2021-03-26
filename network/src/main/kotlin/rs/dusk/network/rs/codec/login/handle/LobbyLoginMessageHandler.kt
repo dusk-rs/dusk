@@ -19,7 +19,7 @@ import rs.dusk.network.rs.codec.login.encode.message.LobbyConfigurationMessage
 import rs.dusk.utility.inject
 
 /**
- * @author Tyluur <contact@kiaira.tech>
+ * @author Tyluur <itstyluur@icloud.com>
  * @since February 18, 2020
  */
 class LobbyLoginMessageHandler : LoginMessageHandler<LobbyLoginMessage>() {

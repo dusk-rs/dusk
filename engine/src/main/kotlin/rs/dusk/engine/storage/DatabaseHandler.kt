@@ -11,7 +11,7 @@ import rs.dusk.utility.inject
 import java.sql.Connection
 
 /**
- * @author Tyluur <contact@kiaira.tech>
+ * @author Tyluur <itstyluur@icloud.com>
  * @since August 12, 2020
  */
 class DatabaseHandler {

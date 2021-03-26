@@ -8,7 +8,7 @@ import rs.dusk.core.network.codec.message.MessageHandler
 import rs.dusk.core.network.model.message.Message
 
 /**
- * @author Tyluur <contact@kiaira.tech>
+ * @author Tyluur <itstyluur@icloud.com>
  * @since February 18, 2020
  */
 class LoginCodec : Codec() {
@@ -24,19 +24,19 @@ class LoginCodec : Codec() {
 }
 
 /**
- * @author Tyluur <contact@kiaira.tech>
+ * @author Tyluur <itstyluur@icloud.com>
  * @since February 18, 2020
  */
 abstract class LoginMessageDecoder<M : Message> : MessageDecoder<M>()
 
 /**
- * @author Tyluur <contact@kiaira.tech>
+ * @author Tyluur <itstyluur@icloud.com>
  * @since February 18, 2020
  */
 abstract class LoginMessageHandler<M : Message> : MessageHandler<M>()
 
 /**
- * @author Tyluur <contact@kiaira.tech>
+ * @author Tyluur <itstyluur@icloud.com>
  * @since February 18, 2020
  */
 abstract class LoginMessageEncoder<M : Message> : MessageEncoder<M>()

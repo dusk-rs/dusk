@@ -10,7 +10,7 @@ import rs.dusk.network.rs.codec.service.ServiceOpcodes.LOBBY_LOGIN
 import rs.dusk.utility.inject
 
 /**
- * @author Tyluur <contact@kiaira.tech>
+ * @author Tyluur <itstyluur@icloud.com>
  * @since February 18, 2020
  */
 @PacketMetaData(opcodes = [LOBBY_LOGIN], length = VARIABLE_LENGTH_SHORT)

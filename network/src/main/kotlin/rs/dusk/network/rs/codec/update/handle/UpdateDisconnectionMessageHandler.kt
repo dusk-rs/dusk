@@ -6,7 +6,7 @@ import rs.dusk.network.rs.codec.update.UpdateMessageHandler
 import rs.dusk.network.rs.codec.update.decode.message.UpdateDisconnectionMessage
 
 /**
- * @author Tyluur <contact@kiaira.tech>
+ * @author Tyluur <itstyluur@icloud.com>
  * @since February 18, 2020
  */
 class UpdateDisconnectionMessageHandler : UpdateMessageHandler<UpdateDisconnectionMessage>() {

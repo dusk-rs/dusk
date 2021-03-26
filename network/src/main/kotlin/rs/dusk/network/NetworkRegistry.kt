@@ -8,7 +8,7 @@ import rs.dusk.utility.inject
 import java.util.concurrent.TimeUnit
 
 /**
- * @author Tyluur <contact@kiaira.tech>
+ * @author Tyluur <itstyluur@icloud.com>
  * @since March 31, 2020
  */
 class NetworkRegistry {

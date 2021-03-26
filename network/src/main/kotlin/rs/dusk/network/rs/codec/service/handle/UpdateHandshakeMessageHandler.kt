@@ -17,7 +17,7 @@ import rs.dusk.utility.getIntProperty
 import rs.dusk.utility.inject
 
 /**
- * @author Tyluur <contact@kiaira.tech>
+ * @author Tyluur <itstyluur@icloud.com>
  * @since February 18, 2020
  */
 class UpdateHandshakeMessageHandler : ServiceMessageHandler<UpdateHandshakeMessage>() {

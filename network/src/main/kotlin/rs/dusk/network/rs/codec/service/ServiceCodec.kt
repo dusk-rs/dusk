@@ -8,7 +8,7 @@ import rs.dusk.core.network.codec.message.MessageHandler
 import rs.dusk.core.network.model.message.Message
 
 /**
- * @author Tyluur <contact@kiaira.tech>
+ * @author Tyluur <itstyluur@icloud.com>
  * @since February 18, 2020
  */
 class ServiceCodec : Codec() {
@@ -24,19 +24,19 @@ class ServiceCodec : Codec() {
 }
 
 /**
- * @author Tyluur <contact@kiaira.tech>
+ * @author Tyluur <itstyluur@icloud.com>
  * @since February 18, 2020
  */
 abstract class ServiceMessageHandler<M : Message> : MessageHandler<M>()
 
 /**
- * @author Tyluur <contact@kiaira.tech>
+ * @author Tyluur <itstyluur@icloud.com>
  * @since February 18, 2020
  */
 abstract class ServiceMessageEncoder<M: Message> : MessageEncoder<M>()
 
 /**
- * @author Tyluur <contact@kiaira.tech>
+ * @author Tyluur <itstyluur@icloud.com>
  * @since February 18, 2020
  */
 abstract class ServiceMessageDecoder<M : Message> : MessageDecoder<M>()

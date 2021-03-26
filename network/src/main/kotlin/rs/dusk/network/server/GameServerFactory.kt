@@ -10,7 +10,7 @@ import rs.dusk.core.network.connection.event.type.ChannelActiveEvent
 import rs.dusk.core.network.connection.event.type.ChannelInactiveEvent
 
 /**
- * @author Tyluur <contact@kiaira.tech>
+ * @author Tyluur <itstyluur@icloud.com>
  * @since May 27, 2020
  */
 class GameServerFactory : ConnectionFactory() {

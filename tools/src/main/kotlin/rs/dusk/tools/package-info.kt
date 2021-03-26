@@ -1,6 +1,6 @@
 package rs.dusk.tools
 
 /**
- * @author Tyluur <contact@kiaira.tech>
+ * @author Tyluur <itstyluur@icloud.com>
  * @since March 26, 2020
  */

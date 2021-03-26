@@ -2,7 +2,7 @@ package rs.dusk.network.rs.codec
 
 /**
  * @author Greg Hibb
- * @author Tyluur <contact@kiaira.tech>
+ * @author Tyluur <itstyluur@icloud.com>
  * @since February 18, 2020
  */
 sealed class LoginResponseCode(val opcode: Int) {
