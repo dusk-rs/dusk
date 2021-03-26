@@ -95,13 +95,18 @@ class GameServer(
         bind()
 
         logger.info {
-            val name: String = getProperty("name")
-            val major: Int = getIntProperty("buildMajor")
-            val minor: Float = getFloatProperty("buildMinor")
 
             "$name v$major.$minor successfully booted world ${world.id} in ${stopwatch.elapsed(TimeUnit.MILLISECONDS)} ms"
         }
         running = true
+    }
+
+    companion object {
+
+        val name: String = getProperty("name")
+        val major: Int = getIntProperty("buildMajor")
+        val minor: Float = getFloatProperty("buildMinor")
+
     }
 
 }
