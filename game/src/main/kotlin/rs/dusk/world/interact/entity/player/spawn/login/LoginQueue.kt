@@ -11,7 +11,7 @@ import rs.dusk.engine.entity.character.player.Player
 import rs.dusk.engine.entity.character.player.PlayerSpawn
 import rs.dusk.engine.entity.list.MAX_PLAYERS
 import rs.dusk.engine.event.EventBus
-import rs.dusk.utility.getFloatProperty
+import rs.dusk.utility.getIntProperty
 import java.util.*
 
 /**
@@ -23,7 +23,7 @@ val loginQueueModule = module {
         LoginQueue(
             get(),
             get(),
-            (getFloatProperty("loginPerTickCap", 1F).toInt())
+            getIntProperty("loginPerTickCap", 1)
         )
     }
 }
