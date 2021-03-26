@@ -11,6 +11,7 @@ import rs.dusk.engine.entity.character.player.Player
 import rs.dusk.engine.entity.character.player.PlayerSpawn
 import rs.dusk.engine.entity.list.MAX_PLAYERS
 import rs.dusk.engine.event.EventBus
+import rs.dusk.utility.getFloatProperty
 import java.util.*
 
 /**
@@ -22,7 +23,7 @@ val loginQueueModule = module {
         LoginQueue(
             get(),
             get(),
-            getProperty("loginPerTickCap", 1)
+            (getFloatProperty("loginPerTickCap", 1F).toInt())
         )
     }
 }
@@ -84,7 +85,7 @@ class LoginQueue(
             val index = indexer.obtain()
             scope.async {
                 val response = load(index, login)
-                if(response !is LoginResponse.Success) {
+                if (response !is LoginResponse.Success) {
                     remove(login.name)
                     login.respond(response)
                 }
@@ -100,7 +101,7 @@ class LoginQueue(
      * Loads player save in the background.
      */
     suspend fun load(index: Int?, attempt: Login): LoginResponse {
-        if(index == null) {
+        if (index == null) {
             return LoginResponse.WorldFull
         }
         try {

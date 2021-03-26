@@ -12,7 +12,7 @@ plugins {
     kotlin("jvm") version "1.4.10"
 }
 
-val koinVersion = "2.1.5"
+val koinVersion = "2.2.1"
 val junitVersion = "5.6.2"
 val exposedVersion = "0.24.1"
 val jacksonVersion = "2.11.0"
@@ -25,7 +25,7 @@ allprojects {
     group = "rs.dusk"
     version = "0.0.2"
 
-    java.sourceCompatibility = JavaVersion.VERSION_14
+    java.sourceCompatibility = JavaVersion.VERSION_15
 
     repositories {
         mavenCentral()
