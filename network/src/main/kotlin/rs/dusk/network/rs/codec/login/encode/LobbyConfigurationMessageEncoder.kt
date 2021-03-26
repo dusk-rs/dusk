@@ -30,7 +30,6 @@ class LobbyConfigurationMessageEncoder : LoginMessageEncoder<LobbyConfigurationM
             writeByte(0)//5
 
             writeLong(lastLogin)//members subscription end
-            println("lastsLogin=$lastLogin")
             writeByte(0)//0 not member & no recovery, 1 member & no rec, 2 not member & rec, 3 member & recovery
             writeInt(0)//recovery questions set date
 
