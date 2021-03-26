@@ -50,7 +50,10 @@ PlayerRegistered then {
 }
 
 fun failedToRemoveOtherHand(player: Player, item: ItemDefinition): Boolean {
-    return isHandSlot(item["slot", EquipSlot.None]) && hasTwoHandedWeapon(player, item) && failedToMoveToInventory(player, item)
+    return isHandSlot(item["slot", EquipSlot.None]) && hasTwoHandedWeapon(player, item) && failedToMoveToInventory(
+        player,
+        item
+    )
 }
 
 fun failedToMoveToInventory(player: Player, item: ItemDefinition): Boolean {
@@ -72,7 +75,8 @@ fun isHandSlot(slot: EquipSlot) = slot == EquipSlot.Weapon || slot == EquipSlot.
 fun hasTwoHandedWeapon(player: Player, item: ItemDefinition) =
     isTwoHandedWeapon(item) || holdingTwoHandedWeapon(player)
 
-fun isTwoHandedWeapon(item: ItemDefinition) = item["slot", EquipSlot.None] == EquipSlot.Weapon && item["type", EquipType.None] == EquipType.TwoHanded
+fun isTwoHandedWeapon(item: ItemDefinition) =
+    item["slot", EquipSlot.None] == EquipSlot.Weapon && item["type", EquipType.None] == EquipType.TwoHanded
 
 fun holdingTwoHandedWeapon(player: Player): Boolean {
     val weapon = player.equipment.getItem(EquipSlot.Weapon.index)

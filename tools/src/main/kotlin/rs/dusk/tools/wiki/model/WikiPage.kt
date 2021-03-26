@@ -31,12 +31,13 @@ data class WikiPage(
 
     val templates: List<Pair<String, Any>> by lazy {
         content.filterIsInstance<WtTemplate>().mapNotNull { template ->
-            if(template.name.isResolved) {
+            if (template.name.isResolved) {
                 val name = template.name.asString.trim()
                 val arguments = template.args
 
                 name to if (arguments.any { it is WtTemplateArgument && it.hasName() }) {
-                    arguments.filterIsInstance<WtTemplateArgument>().map { arg -> unwrap(arg[0] as WtName) to unwrap(arg[1] as WtValue) }.toMap()
+                    arguments.filterIsInstance<WtTemplateArgument>()
+                        .map { arg -> unwrap(arg[0] as WtName) to unwrap(arg[1] as WtValue) }.toMap()
                 } else {
                     arguments.filterIsInstance<WtTemplateArgument>().map { arg -> unwrap(arg[1] as WtValue) }
                 }
@@ -48,7 +49,7 @@ data class WikiPage(
 
     val redirected: Boolean = revision.text.contains(redirectPattern)
 
-    fun getRedirect(wiki: Wiki) : WikiPage? {
+    fun getRedirect(wiki: Wiki): WikiPage? {
         val redirect = redirectPattern.find(revision.text)!!.groupValues[1]
         return try {
             wiki.getExactPageOrNull(redirect)
@@ -68,9 +69,9 @@ data class WikiPage(
 
     private fun unwrap(node: WtNode): String {
         val first = node.firstOrNull() ?: return ""
-        if(first is WtText) {
+        if (first is WtText) {
             return first.content.trim()
-        } else if(first is WtTagExtension) {
+        } else if (first is WtTagExtension) {
             first.body.content.trim()
         }
         return ""
@@ -108,9 +109,11 @@ data class WikiPage(
             val children = node.getChildren()
             return WikiPage(
                 title = children.first { it.nodeName == "title" }.textContent,
-                namespace = children.first { it.nodeName == "ns" }.textContent.toInt().let { id -> namespaces.firstOrNull { it.key == id } ?: namespaces.first { it.key == 0 } },
+                namespace = children.first { it.nodeName == "ns" }.textContent.toInt()
+                    .let { id -> namespaces.firstOrNull { it.key == id } ?: namespaces.first { it.key == 0 } },
                 id = children.first { it.nodeName == "id" }.textContent.toInt(),
-                redirect = children.firstOrNull { it.nodeName == "redirect" }?.attributes?.getNamedItem("title")?.textContent ?: "",
+                redirect = children.firstOrNull { it.nodeName == "redirect" }?.attributes?.getNamedItem("title")?.textContent
+                    ?: "",
                 revision = WikiPageRevision(children.first { it.nodeName == "revision" })
             )
         }

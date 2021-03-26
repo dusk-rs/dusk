@@ -4,7 +4,8 @@ import rs.dusk.cache.definition.data.ItemDefinition
 
 fun ItemDefinition.getInt(key: Long, default: Int): Int = params?.getOrDefault(key, default) as? Int ?: default
 
-fun ItemDefinition.getString(key: Long, default: String): String = params?.getOrDefault(key, default) as? String ?: default
+fun ItemDefinition.getString(key: Long, default: String): String =
+    params?.getOrDefault(key, default) as? String ?: default
 
 fun ItemDefinition.attackSpeed(): Int = getInt(14, 4)
 

@@ -90,7 +90,7 @@ internal class LoginQueueTest : KoinMock() {
         every { indexer.obtain() } returns 1
         every {
             loader.loadPlayer(any())
-        } throws(IllegalStateException("Loading went wrong"))
+        } throws (IllegalStateException("Loading went wrong"))
         var result: LoginResponse? = null
         val callback = { response: LoginResponse ->
             result = response
@@ -110,11 +110,11 @@ internal class LoginQueueTest : KoinMock() {
         val player2: Player = mockk(relaxed = true)
         every { loader.loadPlayer(any()) } answers {
             val name: String = arg(0)
-            if(name == "Test1") player1 else player2
+            if (name == "Test1") player1 else player2
         }
         var first = true
         every { indexer.obtain() } answers {
-            if(first) {
+            if (first) {
                 first = false
                 1
             } else {

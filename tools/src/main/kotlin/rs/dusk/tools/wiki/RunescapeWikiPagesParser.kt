@@ -10,7 +10,8 @@ object RunescapeWikiPagesParser {
     @JvmStatic
     fun main(args: Array<String>) {
         try {
-            val wiki = Wiki.load("${System.getProperty("user.home")}\\Downloads\\runescapewiki-latest-pages-articles-2011-08-14.xml")
+            val wiki =
+                Wiki.load("${System.getProperty("user.home")}\\Downloads\\runescapewiki-latest-pages-articles-2011-08-14.xml")
 
             val page = wiki.page("Agility")
             page.tables.forEach { table ->
@@ -20,11 +21,11 @@ object RunescapeWikiPagesParser {
 
             page.templates.forEach { (name, obj) ->
                 println("Template: $name")
-                if(obj is List<*>) {
+                if (obj is List<*>) {
                     obj.forEach {
                         println(it)
                     }
-                } else if(obj is Map<*, *>) {
+                } else if (obj is Map<*, *>) {
                     obj.forEach { (key, value) ->
                         println("$key = $value")
                     }

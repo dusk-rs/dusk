@@ -38,14 +38,14 @@ internal object RunescapeWikiModifier {
             val ids = properties.getIds()
             val date = properties.getRelease()
 //            if(date == null || date.isBefore(revision)) {
-                for(id in ids) {
+            for (id in ids) {
 //                    if(id < maxItemId) {
-                        val props = HashMap(properties as MutableMap<String, Any>)
-                        props["Item ID"] = id
-                        props["String ID"] = item
-                        output[id] = props
+                val props = HashMap(properties as MutableMap<String, Any>)
+                props["Item ID"] = id
+                props["String ID"] = item
+                output[id] = props
 //                    }
-                }
+            }
 //            }
         }
 
@@ -72,12 +72,12 @@ internal object RunescapeWikiModifier {
             }
             properties.replaceBool("Stacks in bank", false)
             properties.remove("Stacks in bank")?.let {
-                if(it == false) {
+                if (it == false) {
                     properties["Individual"] = it
                 }
             }
             properties.remove("Weight")?.let {
-                if(it as Double > 0.0) {
+                if (it as Double > 0.0) {
                     properties["Weight"] = it
                 }
             }
@@ -116,7 +116,10 @@ internal object RunescapeWikiModifier {
                         found.add(id)
                     }
                 }
-                if ((item.contains("Rod of ivandis") || item.contains("(easy)") || item.contains("(medium)") || item.contains("(hard)") || item.contains("(elite)")) && found.isNotEmpty()) {
+                if ((item.contains("Rod of ivandis") || item.contains("(easy)") || item.contains("(medium)") || item.contains(
+                        "(hard)"
+                    ) || item.contains("(elite)")) && found.isNotEmpty()
+                ) {
                     found.forEach {
                         val props = HashMap(properties as MutableMap<String, Any>)
                         props["Item ID"] = it
@@ -132,32 +135,45 @@ internal object RunescapeWikiModifier {
 
     fun MutableMap<String, Any>.replaceMultilines(key: String) {
         val value = this[key] as? String ?: "?"
-        if(value.contains("•")) {
+        if (value.contains("•")) {
             val parts = value.split("•")
             this[key] = parts.first { it.isNotBlank() }.trim()
-        } else if(value.startsWith("*")) {
+        } else if (value.startsWith("*")) {
             val parts = value.split("*")
             this[key] = parts.first { it.isNotBlank() }.trim()
-        } else if(value.contains("Item bonus:")) {
+        } else if (value.contains("Item bonus:")) {
             this[key] = value.substring(0, value.indexOf("Item bonus:") - 1)
-        } else if(value.contains(":") && !value.startsWith("'") && !exceptions.any { value.contains(it, true) }) {
+        } else if (value.contains(":") && !value.startsWith("'") && !exceptions.any { value.contains(it, true) }) {
             this[key] = value.substring(value.lastIndexOf(":") + 1, value.length).trim()
         }
     }
 
-    val exceptions = setOf("incense", "warning", "size:", "village:", "clairvoyance:", "disclaimer:", "bonus:", "incubator:", "parts:", "says:", "pork:", "danger:")
+    val exceptions = setOf(
+        "incense",
+        "warning",
+        "size:",
+        "village:",
+        "clairvoyance:",
+        "disclaimer:",
+        "bonus:",
+        "incubator:",
+        "parts:",
+        "says:",
+        "pork:",
+        "danger:"
+    )
 
     fun MutableMap<String, Any>.replaceBool(key: String, default: Boolean) {
         val value = remove(key) as? String ?: "?"
-        if(value != "?") {
+        if (value != "?") {
             when (value) {
                 "Yes", "yes", "Restricted" -> {
-                    if(!default) {
+                    if (!default) {
                         this[key] = true
                     }
                 }
                 "No", "no" -> {
-                    if(default) {
+                    if (default) {
                         this[key] = false
                     }
                 }
@@ -170,9 +186,9 @@ internal object RunescapeWikiModifier {
 
     fun MutableMap<String, Any>.trimWeight() {
         val weight = this["Weight"] as? String ?: "?"
-        if(weight != "?") {
+        if (weight != "?") {
             val kg = weight.removeSuffix(" kg").toDoubleOrNull()
-            if(kg == null) {
+            if (kg == null) {
                 println("Unknown weight '$weight'")
                 remove("Weight")
             } else {
@@ -185,9 +201,9 @@ internal object RunescapeWikiModifier {
 
     fun MutableMap<String, Any>.formatInt(key: String) {
         val value = this[key] as? String ?: "?"
-        if(value != "?") {
+        if (value != "?") {
             val kg = value.replace(",", "").toIntOrNull()
-            if(kg == null) {
+            if (kg == null) {
                 println("Unknown $key '$value'")
                 remove(key)
             } else {
@@ -212,7 +228,10 @@ internal object RunescapeWikiModifier {
         value = value.replace("A right-hand fighting claw.", "A set of fighting claws.")
         value = value.replace(" Melee weapon, requires Attack (1).", "")
         value = value.replace("twin hammer.", "twin hammers.")
-        value = value.replace("Your successful attacks fill an additional 0.5% of your adrenaline bar", "Your successful attacks restore 0.2% of your special attack bar.")
+        value = value.replace(
+            "Your successful attacks fill an additional 0.5% of your adrenaline bar",
+            "Your successful attacks restore 0.2% of your special attack bar."
+        )
         value = value.replace("dose of adrenaline potion.", "dose of Recover special potion.")
         value = value.replace("[sic]", "")
         value = value.replace(regex, "")
@@ -222,57 +241,58 @@ internal object RunescapeWikiModifier {
         value = value.replace("RuneScape", "Dusk")
         value = value.replace("shieldbow; I", "longbow; I")
         value = value.replace("Ammunition for shieldbows", "Ammunition for longbows")
-        if(value.contains("(") && !examineExceptions.any { value.contains(it, true) }) {
+        if (value.contains("(") && !examineExceptions.any { value.contains(it, true) }) {
             value = value.replace(regex3, "")
         }
         this[key] = value.trim()
     }
+
     val examineExceptions = setOf(
-            "yes",
-            "normal",
-            "oak",
-            "willow",
-            "maple",
-            "incense",
-            "acadia",
-            "2x",
-            "trimmed",
-            "tier",
-            "ornamental",
-            "edition",
-            "minutes",
-            "coal",
-            "copper and tin",
-            "resources",
-            "mithril",
-            "adamantite",
-            "runite",
-            "baby",
-            "PvP",
-            "stackable",
-            "upgraded",
-            "orichalcite",
-            "1h",
-            "hopefully",
-            "%",
-            "zemouregal",
-            "additional",
-            "superheat",
-            "Fungi",
-            "Taken from a",
-            ",000",
-            "yet evil",
-            "animica",
-            "Place this to gather herbs",
-            "fashioned from crystal",
-            "Christmas jumper",
-            "dudette",
-            "and people",
-            "decorated",
-            "forlorn",
-            "stake-thrower",
-            "clairvoyance",
-            "overheat"
+        "yes",
+        "normal",
+        "oak",
+        "willow",
+        "maple",
+        "incense",
+        "acadia",
+        "2x",
+        "trimmed",
+        "tier",
+        "ornamental",
+        "edition",
+        "minutes",
+        "coal",
+        "copper and tin",
+        "resources",
+        "mithril",
+        "adamantite",
+        "runite",
+        "baby",
+        "PvP",
+        "stackable",
+        "upgraded",
+        "orichalcite",
+        "1h",
+        "hopefully",
+        "%",
+        "zemouregal",
+        "additional",
+        "superheat",
+        "Fungi",
+        "Taken from a",
+        ",000",
+        "yet evil",
+        "animica",
+        "Place this to gather herbs",
+        "fashioned from crystal",
+        "Christmas jumper",
+        "dudette",
+        "and people",
+        "decorated",
+        "forlorn",
+        "stake-thrower",
+        "clairvoyance",
+        "overheat"
     )
     val regex = "Used (in|with) (.*)\\([0-9,\\s&]+\\)".toRegex()
     val regex2 = "Requires (.*)\\([0-9,\\s&]+\\)".toRegex()
@@ -282,16 +302,16 @@ internal object RunescapeWikiModifier {
 
     fun MutableMap<String, Any>.updateNames(key: String) {
         var value = this[key] as? String ?: return
-        if(value == "Dragon claw") {
+        if (value == "Dragon claw") {
             value = "Dragon claws"
         }
         value = value.replace("Black claw", "Black claws")
         value = value.replace("White claw", "White claws")
         value = value.replace("Torag's hammer", "Torag's hammers")
-        if(value.contains("plate") || value.contains("kiteshield") || value.contains("full helm")) {
+        if (value.contains("plate") || value.contains("kiteshield") || value.contains("full helm")) {
             arrayOf("platebody", "platelegs", "plateskirt", "kiteshield", "full helm").forEach { type ->
                 gods.forEach { god ->
-                    value = if(god == "Zaros") {
+                    value = if (god == "Zaros") {
                         value.replace("Rune $type ($god)", "Ancient $type")
                     } else {
                         value.replace("Rune $type ($god)", "$god $type")
@@ -299,10 +319,10 @@ internal object RunescapeWikiModifier {
                 }
             }
         }
-        if(value.contains("Blessed dragonhide ")) {
+        if (value.contains("Blessed dragonhide ")) {
             arrayOf("vambraces", "coif", "chaps", "body").forEach { type ->
                 gods.forEach { god ->
-                    value = if(type == "body" && (god == "Saradomin" || god == "Zamorak" || god == "Guthix")) {
+                    value = if (type == "body" && (god == "Saradomin" || god == "Zamorak" || god == "Guthix")) {
                         value.replace("Blessed dragonhide $type ($god)", "$god dragonhide")
                     } else {
                         value.replace("Blessed dragonhide $type ($god)", "$god $type")
@@ -315,14 +335,14 @@ internal object RunescapeWikiModifier {
 
     fun MutableMap<String, Any>.dropTypes() {
         val value = this["Destroy"] as? String ?: return
-        if(value == "?" || value.startsWith("Drop", true) || value == "Destroy") {
+        if (value == "?" || value.startsWith("Drop", true) || value == "Destroy") {
             remove("Destroy")
         }
     }
 
     fun MutableMap<String, Any>.alch() {
         val value = remove("Alchemy") as? String ?: return
-        if(value == "Not alchemisable") {
+        if (value == "Not alchemisable") {
             this["Alchable"] = false
         }
     }
@@ -330,13 +350,13 @@ internal object RunescapeWikiModifier {
     fun MutableMap<String, Any>.onDeathTypes() {
         // Default is "Drop"
         val value = remove("On death") as? String ?: return
-        if(value.contains("Reclaimable")) {
+        if (value.contains("Reclaimable")) {
             val tradeable = this["Tradeable"] as? Boolean ?: true
-            if(!tradeable) {
+            if (!tradeable) {
                 this["Demise"] = "Reclaim"
             }
         } else {
-            if(value != "Dropped on death") {
+            if (value != "Dropped on death") {
                 this["Demise"] = when (value) {
                     "Always kept outside Wild" -> "Wilderness"
                     "Always a safe death" -> "Priority"
@@ -349,7 +369,7 @@ internal object RunescapeWikiModifier {
 
     fun releasedBefore(map: MutableMap<String, String>, revision: LocalDate): Boolean {
         val date = map.getRelease()
-        if(date != null && date.isBefore(revision)) {
+        if (date != null && date.isBefore(revision)) {
             return true
         }
         return false

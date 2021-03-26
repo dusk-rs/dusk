@@ -13,7 +13,7 @@ val eatGrassAnimation = 5854
 
 NPCRegistered where { npc.def.name == "Cow" } then {
     action(ActionType.Misc) {
-        while(isActive) {
+        while (isActive) {
             delay(ticks = Random.nextInt(50, 200))
             npc.movement.clear()
             npc.forceChat = "Moo"

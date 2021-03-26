@@ -49,10 +49,10 @@ PlayerRegistered then {
 
 fun String.toUnderscoreCase(): String {
     val builder = StringBuilder()
-    for(i in 0 until length) {
+    for (i in 0 until length) {
         val char = this[i]
-        if(char.isUpperCase()) {
-            if(i != 0) {
+        if (char.isUpperCase()) {
+            if (i != 0) {
                 builder.append('_')
             }
             builder.append(char.toLowerCase())

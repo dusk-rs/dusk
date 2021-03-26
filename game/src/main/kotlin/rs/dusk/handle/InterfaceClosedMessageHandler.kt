@@ -23,7 +23,7 @@ class InterfaceClosedMessageHandler : GameMessageHandler<InterfaceClosedMessage>
         val player = sessions.get(session) ?: return
         executor.sync {
             val id = player.interfaces.get("main_screen")
-            if(id != null) {
+            if (id != null) {
                 player.interfaces.close(id)
             }
         }

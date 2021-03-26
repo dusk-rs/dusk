@@ -47,7 +47,7 @@ class DialogueContinueMessageHandler : GameMessageHandler<DialogueContinueMessag
         }
 
         val type = player.dialogues.currentType()
-        if(type.isBlank()) {
+        if (type.isBlank()) {
             logger.debug { "Missing dialogue $id component $componentId option $componentId for player $player" }
             return
         }

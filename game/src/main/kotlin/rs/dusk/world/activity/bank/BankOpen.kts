@@ -28,8 +28,8 @@ IntVariable(4892, Variable.Type.VARBIT, persistent = true).register("bank_tab_8"
 
 Command where { prefix == "bank" } then {
     player.open("bank")
-    if(player.bank.isEmpty()) {
-        for(i in 1038 until 1048 step 2) {
+    if (player.bank.isEmpty()) {
+        for (i in 1038 until 1048 step 2) {
             player.bank.add(i, 1)
         }
         player.bank.add(995, 1000)
@@ -45,7 +45,7 @@ InterfaceOpened where { name == "bank" } then {
             player.open("bank_side")
             player.sendVar("open_bank_tab")
             player.sendVar("bank_item_mode")
-            for(tab in tabs) {
+            for (tab in tabs) {
                 player.sendVar("bank_tab_$tab")
             }
             player.sendVar("last_bank_amount")
@@ -65,6 +65,11 @@ InterfaceOption where { name == "bank" && component == "equipment" && option == 
     player.setVar("equipment_banking", true)
 }
 
-InterfaceOption where { name == "equipment_bonuses" && component == "bank" && option == "Show bank" && player.getVar("equipment_banking", false) } then {
+InterfaceOption where {
+    name == "equipment_bonuses" && component == "bank" && option == "Show bank" && player.getVar(
+        "equipment_banking",
+        false
+    )
+} then {
     player.open("bank")
 }

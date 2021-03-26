@@ -12,7 +12,7 @@ on(InterfaceOption) {
         name == "options" && component == "graphics" && option == "Graphics Settings"
     }
     then {
-        if(player.hasOpen("main_screen")) {
+        if (player.hasOpen("main_screen")) {
             player.message("Please close the interface you have open before setting your graphics options.")
             return@then
         }
@@ -25,7 +25,7 @@ on(InterfaceOption) {
         name == "options" && component == "audio" && option == "Audio Settings"
     }
     then {
-        if(player.hasOpen("main_screen")) {
+        if (player.hasOpen("main_screen")) {
             player.message("Please close the interface you have open before setting your audio options.")
             return@then
         }

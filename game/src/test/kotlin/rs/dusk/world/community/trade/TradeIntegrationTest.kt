@@ -4,25 +4,16 @@ import io.mockk.*
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.koin.core.module.Module
-import org.koin.test.mock.declare
 import rs.dusk.core.network.model.message.Message
-import rs.dusk.engine.client.*
-import rs.dusk.engine.client.variable.variablesModule
+import rs.dusk.engine.client.send
 import rs.dusk.engine.data.PlayerLoader
-import rs.dusk.engine.data.file.fileLoaderModule
 import rs.dusk.engine.entity.character.contain.inventory
 import rs.dusk.engine.entity.character.player.Player
 import rs.dusk.engine.entity.character.player.PlayerOption
-import rs.dusk.engine.entity.definition.detailsModule
 import rs.dusk.engine.event.EventBus
-import rs.dusk.engine.event.eventModule
 import rs.dusk.utility.get
 import rs.dusk.world.interact.entity.player.display.InterfaceOption
-import rs.dusk.world.script.ScriptMock
 import rs.dusk.world.script.WorldScript
-import java.io.File
-import kotlin.script.templates.standard.ScriptTemplateWithArgs
 
 internal class TradeIntegrationTest : WorldScript() {
 

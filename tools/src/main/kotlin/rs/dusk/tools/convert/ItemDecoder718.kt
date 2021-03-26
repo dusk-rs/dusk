@@ -174,11 +174,11 @@ class ItemDecoder718(cache: Cache) : DefinitionDecoder<ItemDefinition>(cache, IT
         options[4] = "Discard"
 
         val slot = equipSlots[item.id]
-        if(slot != null) {
+        if (slot != null) {
             equipSlots[id] = slot
         }
         val type = equipTypes[item.id]
-        if(type != null) {
+        if (type != null) {
             equipTypes[id] = type
         }
     }

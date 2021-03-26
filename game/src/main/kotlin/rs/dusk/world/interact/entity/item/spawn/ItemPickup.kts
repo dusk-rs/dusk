@@ -22,13 +22,13 @@ FloorItemOption where { option == "Take" } then {
     val item = floorItem
     item.disappear?.cancel("Floor item picked up.")
     val result = player.inventory.add(item.id, item.amount)
-    if(result) {
+    if (result) {
         item.state = FloorItemState.Removed
         batcher.update(item.tile.chunk, FloorItemRemoveMessage(item.tile.offset(), item.id))
         items.remove(item)
         bus.emit(Unregistered(item))
     } else {
-        when(player.inventory.result) {
+        when (player.inventory.result) {
             ContainerResult.Full, ContainerResult.Overflow -> {
                 player.message("Your inventory is full.")
             }

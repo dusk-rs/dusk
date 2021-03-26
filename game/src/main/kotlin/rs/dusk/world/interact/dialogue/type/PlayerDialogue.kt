@@ -9,7 +9,13 @@ import rs.dusk.engine.entity.character.update.visual.player.name
 
 private val logger = InlineLogger()
 
-suspend fun DialogueContext.player(text: String, expression: Expression = Expression.Talking, largeHead: Boolean = false, clickToContinue: Boolean = true, title: String? = null) {
+suspend fun DialogueContext.player(
+    text: String,
+    expression: Expression = Expression.Talking,
+    largeHead: Boolean = false,
+    clickToContinue: Boolean = true,
+    title: String? = null
+) {
     val lines = text.trimIndent().lines()
 
     if (lines.size > 4) {

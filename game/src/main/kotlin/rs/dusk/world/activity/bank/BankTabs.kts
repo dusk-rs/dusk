@@ -12,10 +12,12 @@ import rs.dusk.utility.inject
 import rs.dusk.world.interact.entity.player.display.InterfaceOption
 import rs.dusk.world.interact.entity.player.display.InterfaceSwitch
 
-ListVariable(304, Variable.Type.VARP, persistent = true, values = listOf(
-    "swap",
-    "insert"
-)).register("bank_item_mode")
+ListVariable(
+    304, Variable.Type.VARP, persistent = true, values = listOf(
+        "swap",
+        "insert"
+    )
+).register("bank_item_mode")
 IntVariable(1038, Variable.Type.VARC).register("bank_spaces_used_free")
 IntVariable(192, Variable.Type.VARC).register("bank_spaces_used_member")
 

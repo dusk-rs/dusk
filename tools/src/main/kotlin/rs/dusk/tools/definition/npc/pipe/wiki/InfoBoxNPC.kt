@@ -40,7 +40,11 @@ class InfoBoxNPC(val revision: LocalDate, val infoboxes: List<String>) : Pipelin
                         val text = (value as String).replace("dg", "dungeoneering")
                         val use = if (text == "removed") {
                             val removal = template["removal"] as? String
-                            if (removal == null || removal.isBlank() || LocalDate.parse(removeLinks(removal), InfoBoxItem.formatter).isBefore(revision)) {
+                            if (removal == null || removal.isBlank() || LocalDate.parse(
+                                    removeLinks(removal),
+                                    InfoBoxItem.formatter
+                                ).isBefore(revision)
+                            ) {
                                 ItemUse.Removed
                             } else {
                                 ItemUse.Surface
@@ -68,11 +72,15 @@ class InfoBoxNPC(val revision: LocalDate, val infoboxes: List<String>) : Pipelin
                                 } else if (line == "morvran" || line == "mandrith" || line == "laniakea") {
                                     return@lines
                                 }
-                                extras.putIfAbsent(indexSuffix(when (key.removeSuffix(suffix)) {
-                                    "slayercat" -> "category"
-                                    "assigned_by" -> "master"
-                                    else -> key.removeSuffix(suffix)
-                                }, index++), line)
+                                extras.putIfAbsent(
+                                    indexSuffix(
+                                        when (key.removeSuffix(suffix)) {
+                                            "slayercat" -> "category"
+                                            "assigned_by" -> "master"
+                                            else -> key.removeSuffix(suffix)
+                                        }, index++
+                                    ), line
+                                )
                             }
                         }
                     }
@@ -92,7 +100,10 @@ class InfoBoxNPC(val revision: LocalDate, val infoboxes: List<String>) : Pipelin
                     "aka", "attributes$suffix" -> extras.putIfAbsent(key, value as String)
                     "members", "aggressive$suffix", "immunepoison$suffix" -> {
                         val text = removeParentheses(value as String)
-                        extras.putIfAbsent(if (key == "immunepoison") key.replace("ep", "e_p") else key, text.startsWith("yes", true) || text.equals("immune", true))
+                        extras.putIfAbsent(
+                            if (key == "immunepoison") key.replace("ep", "e_p") else key,
+                            text.startsWith("yes", true) || text.equals("immune", true)
+                        )
                     }
                     "poisonous$suffix" -> {
                         val text = removeLinks(removeParentheses(value as String))

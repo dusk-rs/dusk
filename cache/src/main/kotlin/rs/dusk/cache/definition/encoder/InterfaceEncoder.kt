@@ -15,7 +15,7 @@ class InterfaceEncoder : DefinitionEncoder<InterfaceComponentDefinition> {
             return
         }
         writeByte(-1)
-        if(!definition.unknown.isNullOrEmpty()) {
+        if (!definition.unknown.isNullOrEmpty()) {
             writeByte(definition.type or 0x80)
             writeString(definition.unknown)
         } else {
@@ -129,25 +129,25 @@ class InterfaceEncoder : DefinitionEncoder<InterfaceComponentDefinition> {
         writeString(definition.name)
         var optionFlag = 0
         val options = definition.options
-        if(options != null) {
+        if (options != null) {
             optionFlag = options.size
         }
         val icons = definition.mouseIcon
-        if(icons != null) {
+        if (icons != null) {
             optionFlag = optionFlag or (icons.size shl 4)
         }
         writeByte(optionFlag)
         options?.forEach {
             writeString(it)
         }
-        if(icons != null) {
-            if(icons.isNotEmpty()) {
+        if (icons != null) {
+            if (icons.isNotEmpty()) {
                 writeByte(icons.lastIndex)
                 repeat(icons.size) { index ->
                     writeShort(icons[index])
                 }
             }
-            if(icons.size > 1) {
+            if (icons.size > 1) {
                 //TODO
             }
         }

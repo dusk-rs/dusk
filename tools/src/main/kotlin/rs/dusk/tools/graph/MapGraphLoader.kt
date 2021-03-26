@@ -21,15 +21,19 @@ object MapGraphLoader {
     @JvmStatic
     fun main(args: Array<String>) {
         val koin = startKoin {
-            properties(mapOf(
-                "cachePath" to "./cache/data/cache/",
-                "xteaPath" to "./cache/data/xteas.dat",
-                "fsRsaPrivate" to "1",
-                "fsRsaModulus" to "1"
-            ))
-            modules(eventModule, collisionModule, objectMapModule, tileModule, xteaModule,
+            properties(
+                mapOf(
+                    "cachePath" to "./cache/data/cache/",
+                    "xteaPath" to "./cache/data/xteas.dat",
+                    "fsRsaPrivate" to "1",
+                    "fsRsaModulus" to "1"
+                )
+            )
+            modules(
+                eventModule, collisionModule, objectMapModule, tileModule, xteaModule,
                 cacheModule,
-                cacheDefinitionModule, entityListModule, regionModule)
+                cacheDefinitionModule, entityListModule, regionModule
+            )
         }.koin
         val reader: RegionReader = koin.get()
         val collisions: Collisions = koin.get()

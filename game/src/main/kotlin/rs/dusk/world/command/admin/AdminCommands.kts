@@ -83,7 +83,7 @@ Command where { prefix == "item" } then {
     val parts = content.split(" ")
     val id = parts[0].toIntOrNull() ?: definitions.getId(parts[0].toLowerCase())
     var amount = parts.getOrNull(1) ?: "1"
-    if(amount == "max") {
+    if (amount == "max") {
         amount = Int.MAX_VALUE.toString()
     }
     player.inventory.add(id, amount.toInt())

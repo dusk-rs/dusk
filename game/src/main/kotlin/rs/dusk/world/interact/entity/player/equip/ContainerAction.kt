@@ -11,5 +11,5 @@ data class ContainerAction(
     val slot: Int,
     val option: String
 ) : PlayerEvent() {
-        companion object : EventCompanion<ContainerAction>
+    companion object : EventCompanion<ContainerAction>
 }

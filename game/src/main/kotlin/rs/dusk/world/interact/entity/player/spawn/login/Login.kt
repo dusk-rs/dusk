@@ -5,7 +5,12 @@ import rs.dusk.engine.event.Event
 import rs.dusk.engine.event.EventCompanion
 import rs.dusk.network.rs.codec.login.decode.message.GameLoginMessage
 
-data class Login(val name: String, val session: Session? = null, val callback: ((LoginResponse) -> Unit)? = null, val data: GameLoginMessage? = null) : Event<Unit>() {
+data class Login(
+    val name: String,
+    val session: Session? = null,
+    val callback: ((LoginResponse) -> Unit)? = null,
+    val data: GameLoginMessage? = null
+) : Event<Unit>() {
 
     fun respond(response: LoginResponse) {
         callback?.invoke(response)

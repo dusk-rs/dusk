@@ -9,7 +9,14 @@ import java.io.File
  */
 private object ContainerNames {
 
-    private data class Data(val name: String, val container: Int?, val sampleContainer: Int?, val skillcapeContainer: Int?, val trimmedContainer: Int?)
+    private data class Data(
+        val name: String,
+        val container: Int?,
+        val sampleContainer: Int?,
+        val skillcapeContainer: Int?,
+        val trimmedContainer: Int?
+    )
+
     private data class Ids(val id: Int)
 
     @JvmStatic
@@ -19,17 +26,18 @@ private object ContainerNames {
         val map = mutableMapOf<Int, String>()
 
         file.readLines().map { it.split(",") }.map {
-            Data(it[0], it[5].toIntOrNull(), it[6].toIntOrNull(), it[7].toIntOrNull(), it[8].toIntOrNull()) }.forEach {
-            if(it.container != null) {
+            Data(it[0], it[5].toIntOrNull(), it[6].toIntOrNull(), it[7].toIntOrNull(), it[8].toIntOrNull())
+        }.forEach {
+            if (it.container != null) {
                 map[it.container] = toIdentifier(it.name)
             }
-            if(it.sampleContainer != null) {
+            if (it.sampleContainer != null) {
                 map[it.sampleContainer] = "${toIdentifier(it.name)}_sample"
             }
-            if(it.skillcapeContainer != null) {
+            if (it.skillcapeContainer != null) {
                 map[it.skillcapeContainer] = "${toIdentifier(it.name)}_skillcape"
             }
-            if(it.trimmedContainer != null) {
+            if (it.trimmedContainer != null) {
                 map[it.trimmedContainer] = "${toIdentifier(it.name)}_trimmed"
             }
         }

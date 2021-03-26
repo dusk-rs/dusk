@@ -22,10 +22,10 @@ IntVariable(1269, Variable.Type.VARP).register("lent_item_amount")
 
 InterfaceOpened where { name == "collection_box" } then {
     val lentItem: Int? = player.getOrNull("lent_item")
-    if(lentItem != null) {
+    if (lentItem != null) {
         player.container("lent_collection_box").set(0, lentItem)
         val time = getTimeRemaining(player, "lend_timeout")
-        if(time < 0) {
+        if (time < 0) {
             player.setVar("lent_item", -1)
             player.setVar("lent_item_amount", 0)
         }
@@ -34,14 +34,14 @@ InterfaceOpened where { name == "collection_box" } then {
 
 InterfaceOption where { name == "collection_box" && component == "box_lent" && option == "*" } then {
 
-    if(!player.has("lend_timeout")) {
+    if (!player.has("lend_timeout")) {
         // Force reclaim
     } else {
         val remainder = getTimeRemaining(player, "lend_timeout")
-        if(remainder > 0) {
+        if (remainder > 0) {
             player.message("Loan expires ${Loan.getExpiry(player, "lend_timeout")}")
         } else {
-            if(!player.lent.moveAll(player.inventory)) {
+            if (!player.lent.moveAll(player.inventory)) {
                 player.inventory
             }
         }

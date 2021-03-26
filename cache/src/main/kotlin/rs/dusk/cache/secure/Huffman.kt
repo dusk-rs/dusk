@@ -61,7 +61,7 @@ class Huffman(cache: Cache) {
 
             var decryptIndex = 0
             val value: Long = Int.MAX_VALUE + 1L
-            for(count in 0 until size) {
+            for (count in 0 until size) {
                 if (currentFreq and value.ushr(count).toInt() == 0) {
                     decryptIndex++
                 } else {
@@ -98,7 +98,7 @@ class Huffman(cache: Cache) {
 
     private fun decompress(message: ByteArray, length: Int): String? {
         return try {
-            if(masks == null) {
+            if (masks == null) {
                 return null
             }
             var charsDecoded = 0
@@ -154,7 +154,7 @@ class Huffman(cache: Cache) {
      */
     private fun compress(message: ByteArray, builder: PacketWriter) {
         try {
-            if(masks == null) {
+            if (masks == null) {
                 return
             }
             var key = 0

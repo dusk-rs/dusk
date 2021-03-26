@@ -4,7 +4,7 @@ import rs.dusk.engine.event.where
 import rs.dusk.world.command.Command
 
 Command where { prefix == "effects" } then {
-    for(effect in player.effects.getAll().values) {
+    for (effect in player.effects.getAll().values) {
         player.message(effect.toString())
     }
 }

@@ -16,6 +16,7 @@ val koinVersion = "2.2.1"
 val junitVersion = "5.6.2"
 val exposedVersion = "0.24.1"
 val jacksonVersion = "2.11.0"
+val duskCoreVersion = "1.0.0"
 
 allprojects {
     apply(plugin = "kotlin")
@@ -23,7 +24,7 @@ allprojects {
     apply(plugin = "org.jetbrains.kotlin.jvm")
 
     group = "rs.dusk"
-    version = "0.0.2"
+    version = "0.0.3"
 
     java.sourceCompatibility = JavaVersion.VERSION_15
 
@@ -38,8 +39,8 @@ allprojects {
 
     dependencies {
         //Main
-        implementation(group = "rs.dusk.core", name = "network", version = "0.1.2")
-        implementation(group = "rs.dusk.core", name = "utility", version = "0.1.2")
+        implementation(group = "rs.dusk.core", name = "network", version = duskCoreVersion)
+        implementation(group = "rs.dusk.core", name = "utility", version = duskCoreVersion)
 
         implementation(kotlin("stdlib-jdk8"))
         implementation(kotlin("reflect"))

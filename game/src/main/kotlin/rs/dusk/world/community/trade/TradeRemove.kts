@@ -20,7 +20,7 @@ import rs.dusk.world.interact.entity.player.display.InterfaceOption
 val itemDecoder: ItemDefinitions by inject()
 
 InterfaceOption where { name == "trade_main" && component == "offer_options" } then {
-    val amount = when(option) {
+    val amount = when (option) {
         "Remove" -> 1
         "Remove-5" -> 5
         "Remove-10" -> 10

@@ -83,7 +83,10 @@ object Loan {
 
     fun returnLoan(player: Player, item: Int) {
         reset(player)
-        if (!player.inventory.remove(item) && !player.equipment.remove(item) && !player.bank.remove(item) && !player.beastOfBurden.remove(item)) {
+        if (!player.inventory.remove(item) && !player.equipment.remove(item) && !player.bank.remove(item) && !player.beastOfBurden.remove(
+                item
+            )
+        ) {
             logger.warn { "Player doesn't have lent item to remove $player $item" }
             return
         }

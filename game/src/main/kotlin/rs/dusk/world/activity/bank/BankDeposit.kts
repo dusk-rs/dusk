@@ -55,7 +55,7 @@ fun deposit(player: Player, container: Container, item: Int, slot: Int, amount: 
     var itemId = item
     val def = decoder.get(item)
     if (def.notedTemplateId != -1) {
-        if(def.noteId == -1) {
+        if (def.noteId == -1) {
             logger.warn { "Issue depositing noted item $item" }
             return true
         }
@@ -112,7 +112,14 @@ InterfaceOption where { name == "bank" && component == "burden" && option == "De
 
 fun bankAll(player: Player, container: Container) {
     for (index in container.getItems().indices.reversed()) {
-        if (!container.isIndexFree(index) && !deposit(player, container, container.getItem(index), index, container.getAmount(index))) {
+        if (!container.isIndexFree(index) && !deposit(
+                player,
+                container,
+                container.getItem(index),
+                index,
+                container.getAmount(index)
+            )
+        ) {
             break
         }
     }

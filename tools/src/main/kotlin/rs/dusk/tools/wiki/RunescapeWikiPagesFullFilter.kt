@@ -109,7 +109,10 @@ object RunescapeWikiPagesFullFilter {
                             val chars = event.asCharacters()
                             if (!chars.isWhiteSpace) {
                                 title = chars.toString()
-                                if (title.startsWith("Template:Signatures/") || title.startsWith("Template:Signature/") || title.startsWith("Template:Userbox/")) {
+                                if (title.startsWith("Template:Signatures/") || title.startsWith("Template:Signature/") || title.startsWith(
+                                        "Template:Userbox/"
+                                    )
+                                ) {
                                     skipPage = true
                                     reset()
                                     return
@@ -165,11 +168,13 @@ object RunescapeWikiPagesFullFilter {
                                         if (text.contains("#redirect", true)) {
                                             val result = redirectPattern.matchEntire(text)?.groupValues?.last()
                                             if (result != null && result != priorRedirect && !result.startsWith("$priorRedirect#")) {
-                                                event = eventFactory.createCharacters(text.replace(result, priorRedirect!!))
+                                                event =
+                                                    eventFactory.createCharacters(text.replace(result, priorRedirect!!))
                                             }
                                         }
                                     }
-                                    priorEventType = if (event.eventType == XMLStreamConstants.START_ELEMENT) event.asStartElement().name.localPart else null
+                                    priorEventType =
+                                        if (event.eventType == XMLStreamConstants.START_ELEMENT) event.asStartElement().name.localPart else null
 
                                     eventWriter.add(event)
                                 }

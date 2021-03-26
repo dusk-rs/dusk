@@ -12,7 +12,7 @@ import rs.dusk.engine.event.where
 import rs.dusk.utility.inject
 import rs.dusk.world.interact.entity.player.display.InterfaceOption
 
-InterfaceOption where {  name == "worn_equipment" && component == "bonuses" && option == "Show Equipment Stats" } then {
+InterfaceOption where { name == "worn_equipment" && component == "bonuses" && option == "Show Equipment Stats" } then {
     player.setVar("equipment_banking", false)
     player.open("equipment_bonuses")
 }
@@ -41,7 +41,7 @@ val logger = InlineLogger()
 
 InterfaceOption where { name == "worn_equipment" && option == "*" } then {
     val equipOption = getEquipmentOption(itemId, optionId)
-    if(equipOption == null) {
+    if (equipOption == null) {
         logger.info { "Unhandled equipment option $itemId - $optionId" }
         return@then
     }
@@ -52,10 +52,10 @@ InterfaceOption where { name == "worn_equipment" && option == "*" } then {
 fun getEquipmentOption(itemId: Int, optionId: Int): String? {
     val itemDef = decoder.get(itemId)
     val equipOption: String? = itemDef.getParam(527L + optionId)
-    if(equipOption != null) {
+    if (equipOption != null) {
         return equipOption
     }
-    return when(optionId) {
+    return when (optionId) {
         0 -> "Remove"
         9 -> "Examine"
         else -> null

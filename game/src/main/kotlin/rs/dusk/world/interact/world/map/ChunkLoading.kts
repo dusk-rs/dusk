@@ -35,7 +35,7 @@ PlayerMoved where { from.chunk != to.chunk } then {
 
 fun load(player: Player) {
     forEachChunk(player, player.tile) { chunk ->
-        if(batcher.subscribe(player, chunk)) {
+        if (batcher.subscribe(player, chunk)) {
             batcher.sendInitial(player, chunk)
         }
     }

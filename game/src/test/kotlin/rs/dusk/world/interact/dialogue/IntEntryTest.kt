@@ -26,7 +26,7 @@ internal class IntEntryTest : DialogueTest() {
     }
 
     @Test
-    fun `Int entry returns int`()  {
+    fun `Int entry returns int`() {
         coEvery { context.await<Int>("int") } returns 123
         manager.start(context) {
             assertEquals(123, intEntry("text"))

@@ -9,7 +9,8 @@ import rs.dusk.cache.Indices
  * @author Greg Hibberd <greg@greghibberd.com>
  * @since April 07, 2020
  */
-abstract class ConfigDecoder<T : Definition>(cache: Cache, internal val archive: Int) : DefinitionDecoder<T>(cache, Indices.CONFIGS) {
+abstract class ConfigDecoder<T : Definition>(cache: Cache, internal val archive: Int) :
+    DefinitionDecoder<T>(cache, Indices.CONFIGS) {
     override val size: Int
         get() = cache.lastFileId(Indices.CONFIGS, archive)
 

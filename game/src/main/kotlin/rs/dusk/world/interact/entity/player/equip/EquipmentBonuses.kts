@@ -124,7 +124,7 @@ fun updateStats(player: Player) {
         sendBonus(player, name, 0)
     }
     player.equipment.getItems().forEach {
-        if(it != -1) {
+        if (it != -1) {
             updateStats(player, it, true)
         }
     }
@@ -212,14 +212,16 @@ fun showStats(player: Player, item: ItemDefinition) {
     }
 
     if (item.has(14)) {
-        appendLine("attack rate", when (item.attackSpeed()) {
-            2 -> "Very fast"
-            3 -> "Fast"
-            4 -> "Standard"
-            5 -> "Slow"
-            6 -> "Very slow"
-            else -> item.attackSpeed().toString()
-        })
+        appendLine(
+            "attack rate", when (item.attackSpeed()) {
+                2 -> "Very fast"
+                3 -> "Fast"
+                4 -> "Standard"
+                5 -> "Slow"
+                6 -> "Very slow"
+                else -> item.attackSpeed().toString()
+            }
+        )
     }
     appendLine("weight", "${df.format(item["weight", 0.0])} kg")
 
@@ -245,6 +247,6 @@ fun format(name: String, value: Int, bonuses: Boolean): String? {
     return when (name) {
         "magic_damage", "absorb_melee", "absorb_magic", "absorb_ranged" -> "${if (value >= 0) "+" else "-"}${value}%"
         "strength", "ranged_strength" -> "${if (value > 0) "+" else if (value < 0) "-" else ""}${value / 10.0}"
-        else -> if(bonuses) "${if (value >= 0) "+" else "-"}${value}" else value.toString()
+        else -> if (bonuses) "${if (value >= 0) "+" else "-"}${value}" else value.toString()
     }
 }
