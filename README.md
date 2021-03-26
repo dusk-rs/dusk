@@ -1,4 +1,4 @@
-### Dusk
+# Dusk
 
 
 [![revision][rev-badge]][patch] [![license][license-badge]][isc] [![chat][discord-badge]][discord]
@@ -12,10 +12,4 @@
 [discord-badge]: https://img.shields.io/discord/238151952121331712?color=%237289da&logo=discord
 
 ---
-A highly functioning runescape private server using the #667 client build. 
-
-### Development
-
-#### Contributors
-
-This project was written by both Greg and Tyluur.
+A highly functioning runescape private server using the #667 client build.
