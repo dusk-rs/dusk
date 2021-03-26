@@ -1,5 +1,10 @@
 plugins {
     `java-library`
+    application
+}
+
+application {
+    mainClassName = "rs.dusk.Dusk"
 }
 
 dependencies {
