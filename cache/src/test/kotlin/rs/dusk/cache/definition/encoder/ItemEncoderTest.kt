@@ -90,7 +90,7 @@ internal class ItemEncoderTest {
 //        val file = File("item-definition.dat")
 //        file.writeBytes(data)
         val stream = ItemEncoderTest::class.java.getResourceAsStream("item-definition.dat")
-        val expected = stream.readAllBytes()
+        val expected = stream.readBytes()
         assertArrayEquals(expected, data)
     }
 }

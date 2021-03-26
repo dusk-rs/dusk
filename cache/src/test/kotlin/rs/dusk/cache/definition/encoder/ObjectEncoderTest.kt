@@ -104,7 +104,7 @@ internal class ObjectEncoderTest {
 //        val file = File("object-definition.dat")
 //        file.writeBytes(data)
         val stream = ObjectEncoderTest::class.java.getResourceAsStream("object-definition.dat")
-        val expected = stream.readAllBytes()
+        val expected = stream.readBytes()
         assertArrayEquals(expected, data)
     }
 
