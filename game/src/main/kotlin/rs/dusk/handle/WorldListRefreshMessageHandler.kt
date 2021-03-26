@@ -1,4 +1,4 @@
-package rs.dusk.network.rs.codec.game.handle
+package rs.dusk.handle
 
 import io.netty.channel.ChannelHandlerContext
 import rs.dusk.network.rs.codec.game.GameMessageHandler
