@@ -19,6 +19,7 @@ abstract class KoinMock : KoinTest {
     open val properties: Map<String, Any>? = null
     open val propertyPaths: List<String>? = null
 
+    @Suppress("UNCHECKED_CAST")
     @JvmField
     @RegisterExtension
     val koinTestExtension = KoinTestExtension.create {
@@ -30,7 +31,7 @@ abstract class KoinMock : KoinTest {
             fileProperties(path)
         }
         if (properties != null) {
-            properties(properties!!)
+            properties(properties!! as Map<String, String>)
         }
     }
 
@@ -44,6 +45,6 @@ abstract class KoinMock : KoinTest {
         koinTestExtension.koin.loadModules(modules.toList())
 
     fun setProperty(key: String, value: Any) =
-        koinTestExtension.koin.setProperty(key, value)
+        koinTestExtension.koin.setProperty(key, value.toString())
 
 }

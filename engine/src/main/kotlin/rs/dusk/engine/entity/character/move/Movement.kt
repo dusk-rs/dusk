@@ -57,41 +57,42 @@ data class Movement(
     }
 }
 
-fun Player.walkTo(target: Any, strategy: TargetStrategy = getStrategy(target), action: (PathResult) -> Unit) = get<TaskExecutor>().sync {
-    action(ActionType.Movement) {
-        try {
-            val player = this@walkTo
-            val path: PathFinder = get()
-            retry@ while (true) {
-                if (strategy.reached(player.tile, size)) {
-                    action(PathResult.Success.Complete(tile))
-                    break
-                } else {
-                    movement.clear()
-                    val result = path.find(player, strategy)
-                    if (result is PathResult.Failure) {
-                        action(result)
+fun Player.walkTo(target: Any, strategy: TargetStrategy = getStrategy(target), action: (PathResult) -> Unit) =
+    get<TaskExecutor>().sync {
+        action(ActionType.Movement) {
+            try {
+                val player = this@walkTo
+                val path: PathFinder = get()
+                retry@ while (true) {
+                    if (strategy.reached(player.tile, size)) {
+                        action(PathResult.Success.Complete(tile))
                         break
-                    }
-
-                    // Await until reached the end of the path
-                    while (delay(0) && awaitInterfaces()) {
-                        if (movement.steps.isEmpty()) {
+                    } else {
+                        movement.clear()
+                        val result = path.find(player, strategy)
+                        if (result is PathResult.Failure) {
+                            action(result)
                             break
                         }
-                        if ((target as? Character)?.action?.type == ActionType.Movement) {
-                            continue@retry
+
+                        // Await until reached the end of the path
+                        while (delay(1) && awaitInterfaces()) {
+                            if (movement.steps.isEmpty()) {
+                                break
+                            }
+                            if ((target as? Character)?.action?.type == ActionType.Movement) {
+                                continue@retry
+                            }
+                        }
+
+                        if (result is PathResult.Success.Partial) {
+                            action(result)
+                            break
                         }
                     }
-
-                    if (result is PathResult.Success.Partial) {
-                        action(result)
-                        break
-                    }
                 }
+            } finally {
+                movement.clear()
             }
-        } finally {
-            movement.clear()
         }
     }
-}
