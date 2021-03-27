@@ -76,7 +76,7 @@ fun Player.walkTo(target: Any, strategy: TargetStrategy = getStrategy(target), a
                         }
 
                         // Await until reached the end of the path
-                        while (delay(1) && awaitInterfaces()) {
+                        while (delay(0) && awaitInterfaces()) {
                             if (movement.steps.isEmpty()) {
                                 break
                             }

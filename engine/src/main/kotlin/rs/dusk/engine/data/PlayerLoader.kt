@@ -33,7 +33,6 @@ class PlayerLoader(
     private val plane = getIntProperty("homePlane", 0)
     private val tile = Tile(x, y, plane)
 
-
     fun loadPlayer(name: String): Player {
         val player = super.load(name) ?: Player(id = -1, tile = tile)
         val interfaceIO = PlayerInterfaceIO(player, bus)
